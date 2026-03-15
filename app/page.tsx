@@ -1,8 +1,6 @@
 import { GeneratePage } from "@/components/GeneratePage";
 import { Footer } from "@/components/Footer";
 
-export const runtime = "edge";
-
 export const metadata = {
   title: "Headcanon Generator | AI Character Headcanon Tool",
   description:
@@ -16,5 +14,3 @@ export default function Home() {
       <Footer />
     </>
   );
-}
- 

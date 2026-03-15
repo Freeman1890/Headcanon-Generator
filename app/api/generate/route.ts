@@ -18,9 +18,10 @@ export async function POST(request: NextRequest) {
     }
 
     // TODO: Integrate Gemini 2.0 Flash-Lite
-    // const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
-    // const result = await model.generateContent(prompt);
+     import { GoogleGenerativeAI } from "@google/generative-ai";
+     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+     const result = await model.generateContent(prompt);
 
     // Temporary mock response
     const mockContent = `Headcanon for ${characterName}:\n\n${characterName} has a hidden side ${workName ? `in ${workName}` : "in the story"}. They do small things in private that contrast with their usual image — these details make the character more dimensional and give fan creators room to explore.`;
