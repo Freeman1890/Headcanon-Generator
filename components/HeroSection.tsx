@@ -23,7 +23,6 @@ export function HeroSection({ onGenerate, isLoading = false }: HeroSectionProps)
       onGenerate(characterName, workName);
     }
 
-    // 平滑滚动到结果展示区
     document.getElementById("showcase")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -32,7 +31,6 @@ export function HeroSection({ onGenerate, isLoading = false }: HeroSectionProps)
 
   return (
     <section className="relative min-h-[85vh] overflow-hidden">
-      {/* 微弱渐变与网格背景 */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950" />
       <div
         className="absolute inset-0 opacity-[0.4] dark:opacity-[0.03]"
@@ -50,7 +48,7 @@ export function HeroSection({ onGenerate, isLoading = false }: HeroSectionProps)
               Headcanon Generator
             </h1>
             <p className="max-w-lg text-base text-slate-600 dark:text-slate-400">
-              Enter character and fandom names — AI generates unique headcanons for you
+              Enter a character and fandom. Get a short headcanon you can build from.
             </p>
           </div>
 

@@ -3,10 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-/**
- * Live API: Gemini 2.0 Flash-Lite for headcanon generation
- * TODO: Add Context Caching to reduce API cost
- */
 export async function POST(request: NextRequest) {
   try {
     const { characterName, workName } = await request.json();
@@ -25,18 +21,20 @@ export async function POST(request: NextRequest) {
     if (process.env.GEMINI_API_KEY) {
       try {
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
-        const prompt = `Generate a short, creative headcanon (fan interpretation) for the character "${charName}"${fandom ? ` from "${fandom}"` : ""}. Write 2-4 sentences in English. Focus on a quirky habit, hidden trait, or fun detail not in the official story.`;
+        const model = genAI.getGenerativeModel({
+          model: "gemini-2.0-flash-lite",
+        });
+        const prompt = `Write a short fan headcanon for "${charName}"${fandom ? ` from "${fandom}"` : ""}. Use 2 or 3 plain English sentences. Make it specific, grounded, and easy to imagine in a scene. Avoid sales language, big claims, em dashes, and phrases like "hidden side", "more dimensional", or "room to explore".`;
         const result = await model.generateContent(prompt);
         const text = result.response.text();
-        content = text?.trim() || "";
+        content = text?.trim().replace(/[\u2013\u2014]/g, ",") || "";
       } catch (apiError) {
         console.error("Gemini API error:", apiError);
       }
     }
 
     if (!content) {
-      content = `Headcanon for ${charName}:\n\n${charName} has a hidden side ${fandom ? `in ${fandom}` : "in the story"}. They do small things in private that contrast with their usual image — these details make the character more dimensional and give fan creators room to explore.`;
+      content = `Headcanon for ${charName}:\n\n${charName} keeps one small habit private${fandom ? ` in ${fandom}` : ""}. It is not dramatic. It is the kind of detail another character might notice once and remember later.`;
     }
 
     return NextResponse.json({

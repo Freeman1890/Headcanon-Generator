@@ -7,48 +7,50 @@ import {
 
 const FAQ_ITEMS = [
   {
-    q: "What is a Headcanon?",
-    a: "Headcanon is a fan's personal interpretation or extension of a character beyond official canon. It's not part of the official story but is adopted by creators or fans for fanfiction, roleplay, and creative work. Headcanons can cover a character's past, habits, relationships, or anything the source material leaves ambiguous.",
+    q: "What is a headcanon?",
+    a: "A headcanon is a fan's personal idea about a character or story. It is not official canon. It might be a habit, a memory, a relationship detail, or a small explanation for something the source material leaves open.",
   },
   {
     q: "How does Headcanon Generator work?",
-    a: "This tool uses Google Gemini 2.0 to analyze character traits and behavior from the source material, then generates headcanon suggestions that fit the character. Enter a character name and fandom — the AI will produce multiple headcanon options for your creative reference.",
+    a: "Enter a character name and, optionally, the fandom. The tool returns a short headcanon you can keep, rewrite, or use as a scene prompt.",
   },
   {
     q: "Can I use generated headcanons commercially?",
-    a: "AI-generated content is for personal creative reference and inspiration only. For commercial use, please assess copyright and compliance risks yourself. We recommend using AI output as a starting point and adding your own creative input.",
+    a: "Treat the output as a writing prompt, not legal advice. If you plan to publish or sell work based on existing characters, check the copyright rules for that fandom and add your own writing.",
   },
   {
     q: "What types of characters are supported?",
-    a: "We support characters from anime, games, movies, TV shows, and books. Enter the character name and fandom — the more specific the fandom, the more accurate the results.",
+    a: "You can try anime, games, movies, TV shows, books, original characters, and tabletop characters. Specific names usually work better than broad descriptions.",
   },
   {
     q: "How do I share my generated headcanons?",
-    a: "Results support \"Copy as Image\" to copy as card format and \"Share URL\" to generate shareable links for social media, forums, and more.",
+    a: "Use the copy or share controls on a result card. You can also rewrite the text before posting it elsewhere.",
   },
 ];
 
-const LONG_FORM_CONTENT = `
-Headcanon Generator is an AI tool designed for fanfiction writers and roleplay enthusiasts. Enter a character name and fandom — the AI generates headcanons that fit the character's personality.
-
-## What is Headcanon? Origin and Meaning
-
-The term "headcanon" combines "head" (mind) with "canon" (official story). It refers to a fan's personal interpretation or extension of a character beyond official canon — background details, personality traits, or hidden habits not covered in the source material. Unlike official canon, headcanon is not authoritative but is widely used in fandom to enrich characters and support creative work.
-
-Headcanons can cover anything: childhood experiences, secret habits, hidden relationships, or unique opinions. For example, if a character's preference for sweets is never mentioned, a fan might headcanon "they're secretly obsessed with sweets but never admit it" — that's a classic headcanon.
-
-## Headcanon Generator's Core Value
-
-Headcanon Generator uses Google Gemini 2.0 to analyze character behavior and traits, then generates headcanon suggestions that fit the character. Whether you write fanfiction, do character play, cosplay, or simply want to discuss character interpretations with fellow fans, this tool provides a creative starting point.
-
-The workflow is simple: enter a character name (e.g., "Raiden Shogun") and fandom (e.g., "Genshin Impact"), click Generate, and receive AI-generated headcanons. Results support one-click copy as image or shareable links for social media.
-
-## Headcanon and Fan Fiction
-
-In fan fiction, headcanon plays a key role. It helps authors expand beyond official material while keeping the character's core consistent, creating unique narrative angles. In AU (alternate universe) settings, headcanons may differ wildly, but if they align with the character's essence, readers can still connect.
-
-Headcanon Generator aims to lower the barrier of "starting from scratch" so more people can quickly enter a creative flow while maintaining quality. We encourage users to treat AI output as inspiration and add their own creative interpretation rather than copying directly.
-`;
+const LONG_FORM_CONTENT = [
+  {
+    title: "What makes a useful headcanon",
+    body: [
+      "A useful headcanon is small enough to fit into a scene. It does not need to explain a character's whole life. A habit, a fear, a private preference, or a repeated reaction is usually enough.",
+      "The best ones feel like they could have been missed in canon. They add a little pressure to a character without forcing them into a new personality.",
+    ],
+  },
+  {
+    title: "Using the generator for fanfiction",
+    body: [
+      "Start with the generated idea, then make it more specific. If the result says a character keeps something private, decide what the object is, who notices it, and what changes after that.",
+      "You can also use a headcanon as a quiet scene between larger plot moments. Those small scenes often make action or romance feel less generic.",
+    ],
+  },
+  {
+    title: "How to make the result sound like you",
+    body: [
+      "Rewrite any sentence that sounds too clean. Add one concrete object, one awkward reaction, or one line of dialogue. That is usually enough to make the idea feel less machine written.",
+      "If a result feels too dramatic, make it more ordinary. Characters are often easier to write when the detail is simple: bad handwriting, a snack they hide, a song they pretend not to like.",
+    ],
+  },
+];
 
 export function SeoSection() {
   return (
@@ -76,23 +78,20 @@ export function SeoSection() {
           ))}
         </Accordion>
 
-        {/* 深度长文本 SEO 内容 */}
         <article className="prose prose-slate dark:prose-invert mx-auto max-w-3xl">
-          <div className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-            {LONG_FORM_CONTENT.split("\n").map((para, i) =>
-              para.startsWith("##") ? (
-                <h3
-                  key={i}
-                  className="mt-8 mb-4 text-lg font-semibold text-slate-900 dark:text-slate-50"
-                >
-                  {para.replace(/^##\s*/, "")}
+          <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            {LONG_FORM_CONTENT.map((section) => (
+              <section key={section.title} className="mb-8">
+                <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-slate-50">
+                  {section.title}
                 </h3>
-              ) : para.trim() ? (
-                <p key={i} className="mb-4">
-                  {para}
-                </p>
-              ) : null
-            )}
+                {section.body.map((para) => (
+                  <p key={para} className="mb-4">
+                    {para}
+                  </p>
+                ))}
+              </section>
+            ))}
           </div>
         </article>
       </div>

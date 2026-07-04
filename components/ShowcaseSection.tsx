@@ -51,13 +51,12 @@ export function ShowcaseSection({
   const handleCopyAsImage = async (cardRef: HTMLDivElement | null) => {
     if (!cardRef) return;
     try {
-      // 使用 html2canvas 或 dom-to-image 可转为图片，此处简化用复制文本
       const text = cardRef.innerText;
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback
+      // Clipboard access can fail in some browser contexts.
     }
   };
 
@@ -91,7 +90,6 @@ export function ShowcaseSection({
           </p>
         </div>
 
-        {/* Bento Box 布局 */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {displayResults.length > 0 ? (
             displayResults.map((item, i) => (
@@ -113,10 +111,9 @@ export function ShowcaseSection({
           )}
         </div>
 
-        {/* 猜你喜欢 / 热门角色标签云 */}
         <div className="mt-16">
           <h3 className="mb-4 text-center text-sm font-medium text-slate-600 dark:text-slate-400">
-            Popular fandoms · You might like
+            Popular fandoms you might like
           </h3>
           <div className="flex flex-wrap justify-center gap-2">
             {POPULAR_TAGS.map((tag) => (
@@ -163,9 +160,12 @@ function ShowcaseCard({
         <CardTitle>
           {item.characterName}
           {item.workName && (
-            <span className="ml-2 text-sm font-normal text-slate-500">
-              · {item.workName}
-            </span>
+            <>
+              &nbsp;
+              <span className="ml-2 text-sm font-normal text-slate-500">
+                in {item.workName}
+              </span>
+            </>
           )}
         </CardTitle>
         <CardDescription>AI-generated Headcanon</CardDescription>

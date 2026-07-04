@@ -2,7 +2,6 @@ import { Activity, Github } from "lucide-react";
 import Link from "next/link";
 
 async function getServerStatus(): Promise<{ status: string; latency?: number }> {
-  // Mock server status check — replace with actual health check API
   try {
     const start = Date.now();
     const latency = Date.now() - start;
@@ -27,7 +26,7 @@ export async function Footer() {
               Headcanon Generator
             </Link>
             <p className="max-w-sm text-sm text-slate-600 dark:text-slate-400">
-              AI-powered headcanon generator for fanfiction, roleplay, and creative inspiration.
+              A small headcanon generator for fanfiction, roleplay, and character notes.
             </p>
           </div>
 
@@ -70,7 +69,7 @@ export async function Footer() {
 
         <div className="mt-8 border-t border-slate-200 pt-8 dark:border-slate-800">
           <p className="text-center text-xs text-slate-500 dark:text-slate-400">
-            © {new Date().getFullYear()} Headcanon Generator. For creative reference only.
+            &copy; {new Date().getFullYear()} Headcanon Generator. For creative reference only.
           </p>
         </div>
       </div>

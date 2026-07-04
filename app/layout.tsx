@@ -1,11 +1,24 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Headcanon Generator | AI Character Headcanon Tool",
   description:
     "Enter character and fandom names to generate unique headcanons. Perfect for fanfiction, roleplay, and social sharing.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Headcanon Generator | AI Character Headcanon Tool",
+    description:
+      "Enter character and fandom names to generate unique headcanons. Perfect for fanfiction, roleplay, and social sharing.",
+    url: SITE_URL,
+    siteName: "Headcanon Generator",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
