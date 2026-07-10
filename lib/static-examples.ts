@@ -5,7 +5,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Genshin Impact",
     metaTitle: "Raiden Shogun headcanon ideas for Genshin Impact fans",
     metaDescription:
-      "Read Raiden Shogun headcanon ideas for Genshin Impact, with writing prompts, quiet scene setups, small character details, and soft fanfiction ideas.",
+      "Read Raiden Shogun headcanon ideas for Genshin Impact, with writing prompts, quiet scene setups, small character details, and soft fanfiction ideas for writers.",
     summary:
       "Raiden Shogun is usually written as distant, exact, and hard to read. This page gives her private habits and quiet contradictions that still fit her public image.",
     content:
@@ -68,7 +68,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Jujutsu Kaisen",
     metaTitle: "Gojo Satoru headcanon ideas for Jujutsu Kaisen fans",
     metaDescription:
-      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, fanfiction notes, and fic hooks.",
+      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, fanfiction notes, and fic hooks for writers.",
     summary:
       "Gojo jokes first and lets very few people see what is underneath. These headcanons use that contrast without flattening him into a sad version of himself.",
     content:
