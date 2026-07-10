@@ -8,7 +8,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 
 export const runtime = "edge";
@@ -87,7 +86,9 @@ export default async function FandomCharacterPage({ params }: PageProps) {
 
         <Card className="mt-6">
           <CardHeader>
-            <CardTitle>Why it fits</CardTitle>
+            <h2 className="font-semibold leading-none tracking-tight">
+              Why it fits
+            </h2>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
@@ -100,7 +101,54 @@ export default async function FandomCharacterPage({ params }: PageProps) {
 
         <Card className="mt-6">
           <CardHeader>
-            <CardTitle>Writing prompts</CardTitle>
+            <h2 className="font-semibold leading-none tracking-tight">
+              More headcanon ideas
+            </h2>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              {match.moreIdeas.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6">
+          <CardHeader>
+            <h2 className="font-semibold leading-none tracking-tight">
+              Scene ideas
+            </h2>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              {match.sceneIdeas.map((item) => (
+                <p key={item}>{item}</p>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6">
+          <CardHeader>
+            <h2 className="font-semibold leading-none tracking-tight">
+              Writer notes
+            </h2>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              {match.writerNotes.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6">
+          <CardHeader>
+            <h2 className="font-semibold leading-none tracking-tight">
+              Writing prompts
+            </h2>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
@@ -108,6 +156,26 @@ export default async function FandomCharacterPage({ params }: PageProps) {
                 <li key={item}>{item}</li>
               ))}
             </ul>
+          </CardContent>
+        </Card>
+
+        <Card className="mt-6">
+          <CardHeader>
+            <h2 className="font-semibold leading-none tracking-tight">
+              FAQ
+            </h2>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-5 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              {match.faqs.map((item) => (
+                <section key={item.q}>
+                  <h3 className="font-semibold text-slate-900 dark:text-slate-50">
+                    {item.q}
+                  </h3>
+                  <p className="mt-1">{item.a}</p>
+                </section>
+              ))}
+            </div>
           </CardContent>
         </Card>
 

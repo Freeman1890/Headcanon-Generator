@@ -1,6 +1,7 @@
 "use client";
 
 import { Copy, Share2 } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -146,6 +147,22 @@ function ShowcaseCard({
   copied: boolean;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const staticExampleUrl = item.shareUrl?.startsWith("/fandom/")
+    ? item.shareUrl
+    : undefined;
+  const titleContent = (
+    <>
+      {item.characterName}
+      {item.workName && (
+        <>
+          &nbsp;
+          <span className="ml-2 text-sm font-normal text-slate-500">
+            in {item.workName}
+          </span>
+        </>
+      )}
+    </>
+  );
 
   return (
     <Card
@@ -158,14 +175,12 @@ function ShowcaseCard({
     >
       <CardHeader>
         <CardTitle>
-          {item.characterName}
-          {item.workName && (
-            <>
-              &nbsp;
-              <span className="ml-2 text-sm font-normal text-slate-500">
-                in {item.workName}
-              </span>
-            </>
+          {staticExampleUrl ? (
+            <Link href={staticExampleUrl} className="hover:underline">
+              {titleContent}
+            </Link>
+          ) : (
+            titleContent
           )}
         </CardTitle>
         <CardDescription>AI-generated Headcanon</CardDescription>

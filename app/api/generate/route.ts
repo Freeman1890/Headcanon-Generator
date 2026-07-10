@@ -37,12 +37,20 @@ export async function POST(request: NextRequest) {
       content = `Headcanon for ${charName}:\n\n${charName} keeps one small habit private${fandom ? ` in ${fandom}` : ""}. It is not dramatic. It is the kind of detail another character might notice once and remember later.`;
     }
 
+    const shareParams = new URLSearchParams({
+      headcanon: content,
+    });
+
+    if (fandom) {
+      shareParams.set("work", fandom);
+    }
+
     return NextResponse.json({
       id: `gen-${Date.now()}`,
       characterName: charName,
       workName: fandom || undefined,
       content,
-      shareUrl: `/share/${encodeURIComponent(charName)}`,
+      shareUrl: `/share/${encodeURIComponent(charName)}?${shareParams.toString()}`,
     });
   } catch (error) {
     console.error("Generate error:", error);

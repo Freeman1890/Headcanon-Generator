@@ -5,16 +5,16 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Headcanon Generator | AI Character Headcanon Tool",
+  title: "Headcanon Generator for Fanfiction and Roleplay Ideas",
   description:
-    "Enter character and fandom names to generate unique headcanons. Perfect for fanfiction, roleplay, and social sharing.",
+    "Use this headcanon generator to turn a character and fandom into a short fan idea for fanfiction, roleplay, writing prompts, or scene notes.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Headcanon Generator | AI Character Headcanon Tool",
+    title: "Headcanon Generator for Fanfiction and Roleplay Ideas",
     description:
-      "Enter character and fandom names to generate unique headcanons. Perfect for fanfiction, roleplay, and social sharing.",
+      "Use this headcanon generator to turn a character and fandom into a short fan idea for fanfiction, roleplay, writing prompts, or scene notes.",
     url: SITE_URL,
     siteName: "Headcanon Generator",
     type: "website",
