@@ -5,7 +5,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Genshin Impact",
     metaTitle: "Raiden Shogun headcanon ideas for Genshin Impact fans",
     metaDescription:
-      "Read Raiden Shogun headcanon ideas for Genshin Impact, with writing prompts, quiet scene setups, small character details, and soft fanfiction hooks.",
+      "Read Raiden Shogun headcanon ideas for Genshin Impact, with writing prompts, quiet scene setups, small character details, and soft fanfiction ideas.",
     summary:
       "Raiden Shogun is usually written as distant, exact, and hard to read. This page gives her private habits and quiet contradictions that still fit her public image.",
     content:
@@ -68,7 +68,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Jujutsu Kaisen",
     metaTitle: "Gojo Satoru headcanon ideas for Jujutsu Kaisen fans",
     metaDescription:
-      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, and fanfiction notes for writers.",
+      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, fanfiction notes, and fic hooks.",
     summary:
       "Gojo jokes first and lets very few people see what is underneath. These headcanons use that contrast without flattening him into a sad version of himself.",
     content:
@@ -131,7 +131,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Spy x Family",
     metaTitle: "Anya Forger headcanon ideas for Spy x Family writers",
     metaDescription:
-      "Read Anya Forger headcanon ideas for Spy x Family, with peanut jokes, family secrets, playful prompts, household chaos, and light fanfiction scenes.",
+      "Read Anya Forger headcanon ideas for Spy x Family, with peanut jokes, family secrets, playful prompts, household chaos, and light fanfiction scenes for writers.",
     summary:
       "Anya turns family tension into kid logic. These headcanons keep the joke small, physical, and easy to picture in the Forger household.",
     content:
@@ -160,6 +160,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "A fun version lets Yor discover the stash and assume Anya is practicing emergency preparedness. That misunderstanding can carry the whole scene.",
       "For a warmer family moment, let Loid realize the habit comes from Anya trying to copy the people she loves.",
       "The idea also works as a running gag across a longer fic. Each chapter can reveal one worse hiding place.",
+      "This Anya Forger headcanon can also sit inside a school scene, where she treats a hidden peanut like backup for a serious mission.",
     ],
     writerNotes: [
       "Keep Anya's logic simple. The joke should make sense from a child's point of view.",
@@ -194,7 +195,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Honkai: Star Rail",
     metaTitle: "Stelle headcanon ideas for Honkai Star Rail writers",
     metaDescription:
-      "Read Stelle headcanon ideas for Honkai Star Rail, with odd souvenirs, Trailblazer habits, Astral Express scenes, crew reactions, and writing prompts.",
+      "Read Stelle headcanon ideas for Honkai Star Rail, with odd souvenirs, Trailblazer habits, Astral Express scenes, crew reactions, and prompts for fics.",
     summary:
       "Stelle works well when she is curious in a slightly inconvenient way. These headcanons lean into her scavenger energy and the chaos it brings onto the Express.",
     content:
@@ -234,6 +235,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "Let the crew find a souvenir that is less harmless than she thought.",
       "Write March 7th making a photo archive of objects she still calls trash.",
       "Write a Stelle headcanon scene where a useless souvenir becomes the only thing that explains a memory.",
+      "Write a Stelle headcanon where the crew finally admits one strange object belongs on the Express.",
     ],
     faqs: [
       {
@@ -257,7 +259,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Demon Slayer",
     metaTitle: "Tanjiro headcanon ideas for Demon Slayer fan writers",
     metaDescription:
-      "Read Tanjiro headcanon ideas for Demon Slayer, with quiet hopes, village life, writing prompts, recovery scenes, and gentle fanfiction details.",
+      "Read Tanjiro headcanon ideas for Demon Slayer, with quiet hopes, village life, writing prompts, recovery scenes, and gentle fanfiction details for writers.",
     summary:
       "Tanjiro's kindness works best when it has ordinary roots. These headcanons give him small future plans that survive even when his life becomes brutal.",
     content:
@@ -286,6 +288,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "A gentle scene can have another character mock the habit lightly, then realize Tanjiro is practicing for a future he still believes in.",
       "For a sadder version, let him write lesson notes after a difficult fight. The ordinary dream should feel stubborn, not naive.",
       "The idea also works in a post-canon setting where he finally teaches someone to read and finds the moment harder than he expected.",
+      "This Tanjiro headcanon can fit a travel chapter too, with him collecting small teaching ideas from each town he passes.",
     ],
     writerNotes: [
       "Keep the dream practical. Tanjiro feels most believable when kindness becomes work he is willing to do.",

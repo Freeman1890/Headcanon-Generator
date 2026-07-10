@@ -7,14 +7,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Headcanon Generator for Fanfiction and Roleplay Ideas",
   description:
-    "Use this headcanon generator to turn a character and fandom into a short fan idea for fanfiction, roleplay, writing prompts, scene notes, and quick story starts.",
+    "Use this headcanon generator to turn a character and fandom into a fan idea for fanfiction, roleplay, writing prompts, scene notes, and quick story starts.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Headcanon Generator for Fanfiction and Roleplay Ideas",
     description:
-      "Use this headcanon generator to turn a character and fandom into a short fan idea for fanfiction, roleplay, writing prompts, scene notes, and quick story starts.",
+      "Use this headcanon generator to turn a character and fandom into a fan idea for fanfiction, roleplay, writing prompts, scene notes, and quick story starts.",
     url: SITE_URL,
     siteName: "Headcanon Generator",
     type: "website",
