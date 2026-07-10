@@ -5,7 +5,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Genshin Impact",
     metaTitle: "Raiden Shogun headcanon ideas for Genshin Impact fans",
     metaDescription:
-      "Read Raiden Shogun headcanon ideas for Genshin Impact, with writing prompts, quiet scene setups, and small character details for fanfiction.",
+      "Read Raiden Shogun headcanon ideas for Genshin Impact, with writing prompts, quiet scene setups, small character details, and soft fanfiction hooks.",
     summary:
       "Raiden Shogun is usually written as distant, exact, and hard to read. This page gives her private habits and quiet contradictions that still fit her public image.",
     content:
@@ -24,6 +24,10 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "She pretends not to enjoy festival games, then quietly returns at night to try them without an audience.",
       "She is more comfortable receiving criticism about combat than criticism about cooking.",
       "She reads recipe books as if they are legal documents, which makes every instruction take twice as long.",
+      "A Raiden Shogun headcanon can focus on how she treats ordinary chores with the seriousness of state business.",
+      "Another Raiden Shogun headcanon is that she remembers every failed recipe but calls each one useful research.",
+      "For a softer Raiden Shogun headcanon, let her save one dessert for someone who will not make a ceremony out of it.",
+      "A quiet Raiden Shogun headcanon can show her learning that small pleasures do not always need a purpose.",
     ],
     sceneIdeas: [
       "Use this Raiden Shogun headcanon in a quiet kitchen scene after a formal event. The contrast works best when she is still dressed like a ruler but trying to solve a very ordinary problem.",
@@ -40,6 +44,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "Write a scene where Raiden ruins a dessert but refuses to call it a failure.",
       "Let another character discover the habit and decide whether to tease her or protect the secret.",
       "Write a festival scene where she wins at every serious contest and loses at the dessert stall.",
+      "Write a Raiden Shogun headcanon scene where a recipe teaches her more patience than a duel.",
     ],
     faqs: [
       {
@@ -63,7 +68,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     workName: "Jujutsu Kaisen",
     metaTitle: "Gojo Satoru headcanon ideas for Jujutsu Kaisen fans",
     metaDescription:
-      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, and fanfiction notes.",
+      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, and fanfiction notes for writers.",
     summary:
       "Gojo jokes first and lets very few people see what is underneath. These headcanons use that contrast without flattening him into a sad version of himself.",
     content:
@@ -82,6 +87,10 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "He makes jokes during tense pauses because silence gives everyone too much room to think.",
       "He can handle physical danger easily but avoids conversations where someone asks if he is okay.",
       "He sometimes removes the blindfold only when he is alone, then puts it back on before anyone can knock.",
+      "A Gojo Satoru headcanon can make his loud entrance feel like a way of checking whether anyone waited for him.",
+      "Another Gojo Satoru headcanon is that he saves casual messages longer than he admits because they prove someone reached out first.",
+      "For a quiet Gojo Satoru headcanon, let him remember the exact seat someone used to take and still avoid looking at it.",
+      "A lighter Gojo Satoru headcanon can turn his snack habit into a clumsy attempt to make a room feel occupied.",
     ],
     sceneIdeas: [
       "Use this Gojo Satoru headcanon in a late classroom scene. Let him act casual while the empty desks make the room feel louder than it should.",
@@ -98,6 +107,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "Write Gojo staying late after class because the empty room feels wrong.",
       "Use the blindfold as a small tell in a scene where he almost drops the act.",
       "Write a scene where someone notices he bought a snack for a person who is no longer there.",
+      "Write a Gojo Satoru headcanon scene where one joke lands too late and the silence says more than he planned.",
     ],
     faqs: [
       {
@@ -119,9 +129,9 @@ export const STATIC_HEADCANON_EXAMPLES = [
     id: "anya-spy",
     characterName: "Anya Forger",
     workName: "Spy x Family",
-    metaTitle: "Anya Forger headcanon ideas for Spy x Family fans",
+    metaTitle: "Anya Forger headcanon ideas for Spy x Family writers",
     metaDescription:
-      "Read Anya Forger headcanon ideas for Spy x Family, with peanut jokes, family secrets, playful prompts, and light fanfiction scenes.",
+      "Read Anya Forger headcanon ideas for Spy x Family, with peanut jokes, family secrets, playful prompts, household chaos, and light fanfiction scenes.",
     summary:
       "Anya turns family tension into kid logic. These headcanons keep the joke small, physical, and easy to picture in the Forger household.",
     content:
@@ -140,6 +150,10 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "She hides one peanut in a very obvious place so Loid can feel smart for finding it.",
       "She believes Yor's shoes are safe storage because nobody brave would check them.",
       "She calls the habit family teamwork, which makes Loid too tired to argue immediately.",
+      "An Anya Forger headcanon can make her snack stash feel like a child's version of spy equipment.",
+      "Another Anya Forger headcanon is that she thinks every family needs emergency peanuts for dramatic reveals.",
+      "For a sweeter Anya Forger headcanon, let her hide peanuts where each parent will find them on a hard day.",
+      "A silly Anya Forger headcanon can have her write mission names for each hiding place in crooked handwriting.",
     ],
     sceneIdeas: [
       "Use this Anya Forger headcanon in a morning scene where Loid is already late and finds peanuts in the one place he cannot ignore.",
@@ -156,6 +170,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "Write Loid finding peanuts during a serious mission briefing.",
       "Let Yor discover the stash and assume it is part of a spy lesson.",
       "Write Anya explaining her family tradition with complete confidence.",
+      "Write an Anya Forger headcanon scene where the peanut stash accidentally solves a tiny family problem.",
     ],
     faqs: [
       {
@@ -177,9 +192,9 @@ export const STATIC_HEADCANON_EXAMPLES = [
     id: "stelle-hsr",
     characterName: "Stelle",
     workName: "Honkai: Star Rail",
-    metaTitle: "Stelle headcanon ideas for Honkai Star Rail fans",
+    metaTitle: "Stelle headcanon ideas for Honkai Star Rail writers",
     metaDescription:
-      "Read Stelle headcanon ideas for Honkai Star Rail, with odd souvenirs, Trailblazer habits, Astral Express scenes, and writing prompts.",
+      "Read Stelle headcanon ideas for Honkai Star Rail, with odd souvenirs, Trailblazer habits, Astral Express scenes, crew reactions, and writing prompts.",
     summary:
       "Stelle works well when she is curious in a slightly inconvenient way. These headcanons lean into her scavenger energy and the chaos it brings onto the Express.",
     content:
@@ -198,6 +213,10 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "She brings back local snacks and forgets which ones are safe for humans.",
       "She claims the collection helps preserve memories, then adds a rock because it looked funny.",
       "She sometimes gives souvenirs as gifts, which forces everyone to decide whether the gesture is sweet or alarming.",
+      "A Stelle headcanon can treat every strange object as proof that one more place mattered enough to remember.",
+      "Another Stelle headcanon is that she gives the worst souvenirs the most official museum labels.",
+      "For a calmer Stelle headcanon, let her keep one ugly object because it reminds the crew of a quiet victory.",
+      "A funny Stelle headcanon can have the Express crew voting on whether something is a relic, trash, or both.",
     ],
     sceneIdeas: [
       "Use this Stelle headcanon in a storage-room scene on the Astral Express. The crew opens one box and realizes the problem has been growing for months.",
@@ -214,6 +233,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "Write Stelle defending one strange object as historically important.",
       "Let the crew find a souvenir that is less harmless than she thought.",
       "Write March 7th making a photo archive of objects she still calls trash.",
+      "Write a Stelle headcanon scene where a useless souvenir becomes the only thing that explains a memory.",
     ],
     faqs: [
       {
@@ -235,9 +255,9 @@ export const STATIC_HEADCANON_EXAMPLES = [
     id: "tanjiro-demon",
     characterName: "Tanjiro",
     workName: "Demon Slayer",
-    metaTitle: "Tanjiro headcanon ideas for Demon Slayer fans",
+    metaTitle: "Tanjiro headcanon ideas for Demon Slayer fan writers",
     metaDescription:
-      "Read Tanjiro headcanon ideas for Demon Slayer, with quiet hopes, village life, writing prompts, and gentle fanfiction scenes.",
+      "Read Tanjiro headcanon ideas for Demon Slayer, with quiet hopes, village life, writing prompts, recovery scenes, and gentle fanfiction details.",
     summary:
       "Tanjiro's kindness works best when it has ordinary roots. These headcanons give him small future plans that survive even when his life becomes brutal.",
     content:
@@ -256,6 +276,10 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "He makes simple reading games for Nezuko even when he is not sure how much she understands.",
       "He notices when other slayers pretend not to need help reading signs or letters.",
       "He believes a peaceful future should include boring things like ledgers, lessons, and warm tea.",
+      "A Tanjiro headcanon can show kindness as a skill he practices, not just a feeling he has.",
+      "Another Tanjiro headcanon is that he remembers teaching ideas during battles because the future still feels real to him.",
+      "For a tender Tanjiro headcanon, let him write one child's name perfectly before he can sleep.",
+      "A post-canon Tanjiro headcanon can make the first reading lesson feel more frightening than a fight.",
     ],
     sceneIdeas: [
       "Use this Tanjiro headcanon during a rest stop. While everyone repairs gear, he repairs his handwriting on a scrap of paper.",
@@ -272,6 +296,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
       "Write Tanjiro saving paper scraps because he does not want practice to go to waste.",
       "Let another character notice the handwriting and ask who taught him.",
       "Write a post-battle scene where Tanjiro writes a lesson plan instead of sleeping.",
+      "Write a Tanjiro headcanon scene where a messy lesson plan helps him believe in an ordinary tomorrow.",
     ],
     faqs: [
       {

@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "cf:build": "npx --yes --legacy-peer-deps @cloudflare/next-on-pages@1",
+    "cf:deploy": "npx wrangler pages deploy .vercel/output/static --project-name=headcanon-generator",
     "start": "next start",
     "lint": "eslint"
   },
