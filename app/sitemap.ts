@@ -12,6 +12,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const trustPages: MetadataRoute.Sitemap = [
+    "/about",
+    "/contact",
+    "/privacy",
+    "/terms",
+  ].map((path) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.3,
+  }));
+
   const fandomPages: MetadataRoute.Sitemap = STATIC_HEADCANON_EXAMPLES.map(
     (item) => ({
       url: `${SITE_URL}${item.shareUrl}`,
@@ -21,5 +33,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticPages, ...fandomPages];
+  return [...staticPages, ...trustPages, ...fandomPages];
 }

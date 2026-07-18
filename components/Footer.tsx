@@ -53,9 +53,33 @@ export async function Footer() {
               </span>
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
               <Link
-                href="https://github.com"
+                href="/about"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/privacy"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                Privacy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                Terms
+              </Link>
+              <Link
+                href="https://github.com/Freeman1890/Headcanon-Generator"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
