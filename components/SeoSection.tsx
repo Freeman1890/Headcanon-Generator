@@ -4,6 +4,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 const FAQ_ITEMS = [
   {
@@ -94,6 +96,28 @@ export function SeoSection() {
             ))}
           </div>
         </article>
+
+        <div className="mt-12 border-t border-slate-200 pt-8 dark:border-slate-800">
+          <p className="text-sm font-medium text-slate-900 dark:text-slate-50">
+            More ways to start
+          </p>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            <Link
+              href="/random-character-generator"
+              className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+            >
+              Random Character Generator
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/writing-prompt-generator"
+              className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+            >
+              Writing Prompt Generator
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

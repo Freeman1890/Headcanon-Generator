@@ -8,19 +8,25 @@ import { Input } from "@/components/ui/input";
 interface HeroSectionProps {
   onGenerate?: (characterName: string, workName: string) => void;
   isLoading?: boolean;
+  workName: string;
+  onWorkNameChange: (value: string) => void;
 }
 
-export function HeroSection({ onGenerate, isLoading = false }: HeroSectionProps) {
+export function HeroSection({
+  onGenerate,
+  isLoading = false,
+  workName,
+  onWorkNameChange,
+}: HeroSectionProps) {
   const characterRef = useRef<HTMLInputElement>(null);
-  const workRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const characterName = characterRef.current?.value?.trim() ?? "";
-    const workName = workRef.current?.value?.trim() ?? "";
+    const fandomName = workName.trim();
 
     if (onGenerate) {
-      onGenerate(characterName, workName);
+      onGenerate(characterName, fandomName);
     }
 
     document.getElementById("showcase")?.scrollIntoView({
@@ -53,6 +59,7 @@ export function HeroSection({ onGenerate, isLoading = false }: HeroSectionProps)
           </div>
 
           <form
+            id="generator"
             onSubmit={handleSubmit}
             className="flex w-full flex-col gap-4 sm:gap-6"
           >
@@ -64,9 +71,10 @@ export function HeroSection({ onGenerate, isLoading = false }: HeroSectionProps)
                 className="h-14 rounded-xl border-2 border-slate-200 bg-white/80 px-5 text-base backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80 sm:flex-1"
               />
               <Input
-                ref={workRef}
                 type="text"
                 placeholder="Fandom (optional)"
+                value={workName}
+                onChange={(event) => onWorkNameChange(event.target.value)}
                 className="h-14 rounded-xl border-2 border-slate-200 bg-white/80 px-5 text-base backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80 sm:flex-1"
               />
             </div>

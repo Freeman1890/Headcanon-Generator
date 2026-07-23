@@ -37,11 +37,13 @@ interface HeadcanonResult {
 interface ShowcaseSectionProps {
   result?: HeadcanonResult | null;
   staticExamples?: HeadcanonResult[];
+  onFandomSelect?: (tag: string) => void;
 }
 
 export function ShowcaseSection({
   result,
   staticExamples = [],
+  onFandomSelect,
 }: ShowcaseSectionProps) {
   const [copied, setCopied] = useState(false);
 
@@ -118,13 +120,14 @@ export function ShowcaseSection({
           </h3>
           <div className="flex flex-wrap justify-center gap-2">
             {POPULAR_TAGS.map((tag) => (
-              <a
+              <Link
                 key={tag}
-                href={`/?q=${encodeURIComponent(tag)}`}
+                href="/#generator"
+                onClick={() => onFandomSelect?.(tag)}
                 className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 transition-colors hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-indigo-600 dark:hover:bg-indigo-950/50 dark:hover:text-indigo-300"
               >
                 {tag}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

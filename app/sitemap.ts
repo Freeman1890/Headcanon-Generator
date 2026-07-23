@@ -24,6 +24,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }));
 
+  const keywordPages: MetadataRoute.Sitemap = [
+    "/random-character-generator",
+    "/writing-prompt-generator",
+  ].map((path) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
   const fandomPages: MetadataRoute.Sitemap = STATIC_HEADCANON_EXAMPLES.map(
     (item) => ({
       url: `${SITE_URL}${item.shareUrl}`,
@@ -33,5 +43,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  return [...staticPages, ...trustPages, ...fandomPages];
+  return [...staticPages, ...keywordPages, ...trustPages, ...fandomPages];
 }

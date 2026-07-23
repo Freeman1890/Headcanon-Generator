@@ -19,6 +19,7 @@ interface HeadcanonResult {
 export function GeneratePage() {
   const [result, setResult] = useState<HeadcanonResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [workName, setWorkName] = useState("");
 
   const handleGenerate = async (characterName: string, workName: string) => {
     if (!characterName.trim()) return;
@@ -59,10 +60,16 @@ export function GeneratePage() {
   return (
     <>
       <Navigation />
-      <HeroSection onGenerate={handleGenerate} isLoading={isLoading} />
+      <HeroSection
+        onGenerate={handleGenerate}
+        isLoading={isLoading}
+        workName={workName}
+        onWorkNameChange={setWorkName}
+      />
       <ShowcaseSection
         result={result}
         staticExamples={STATIC_HEADCANON_EXAMPLES}
+        onFandomSelect={setWorkName}
       />
       <FeatureSection />
       <SeoSection />
