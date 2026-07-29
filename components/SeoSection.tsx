@@ -116,6 +116,27 @@ export function SeoSection() {
               Writing Prompt Generator
               <ArrowRight className="h-4 w-4" />
             </Link>
+            <Link
+              href="/multiple-character-headcanon-generator"
+              className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+            >
+              Multiple Character Headcanon Generator
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/relationship-headcanon-generator"
+              className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+            >
+              Relationship Headcanon Generator
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/oc-headcanon-generator"
+              className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+            >
+              OC Headcanon Generator
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </div>

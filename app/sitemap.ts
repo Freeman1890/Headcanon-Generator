@@ -27,6 +27,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const keywordPages: MetadataRoute.Sitemap = [
     "/random-character-generator",
     "/writing-prompt-generator",
+    "/multiple-character-headcanon-generator",
+    "/relationship-headcanon-generator",
+    "/oc-headcanon-generator",
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),

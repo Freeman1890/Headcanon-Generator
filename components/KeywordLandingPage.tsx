@@ -27,6 +27,7 @@ export interface KeywordLandingPageConfig {
   eyebrow: string;
   intro: string;
   note: string;
+  inputHint?: string;
   purpose: string[];
   steps: string[];
   useCases: LandingUseCase[];
@@ -106,7 +107,8 @@ export function KeywordLandingPage({
               </CardHeader>
               <CardContent>
                 <p className="border-l-2 border-indigo-300 pl-4 text-sm leading-relaxed text-slate-700 dark:border-indigo-700 dark:text-slate-300">
-                  Enter a character name, add a fandom if it helps, and use the result as a place to begin.
+                  {config.inputHint ??
+                    "Enter a character name, add a fandom if it helps, and use the result as a place to begin."}
                 </p>
               </CardContent>
             </Card>
@@ -183,7 +185,7 @@ export function KeywordLandingPage({
                   href={config.example.href}
                   className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400"
                 >
-                  Read the example
+                  {config.example.linkLabel}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </CardContent>
