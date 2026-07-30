@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 const navLinks = [
   { href: "/#features", label: "Features" },
   { href: "/#showcase", label: "Examples" },
+  { href: "/#fandoms", label: "Fandoms" },
+  { href: "/guides", label: "Guides" },
   { href: "/#faq", label: "FAQ" },
 ];
 
@@ -52,7 +54,7 @@ export function Navigation() {
       <div
         className={cn(
           "overflow-hidden transition-all duration-200 md:hidden",
-          mobileOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+          mobileOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         )}
       >
         <div className="flex flex-col gap-1 border-t border-slate-200 px-4 py-4 dark:border-slate-800">

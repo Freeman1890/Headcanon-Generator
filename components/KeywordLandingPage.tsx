@@ -10,7 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import { Navigation } from "@/components/Navigation";
+import { SITE_URL } from "@/lib/site";
 
 interface LandingFaq {
   q: string;
@@ -23,6 +25,7 @@ interface LandingUseCase {
 }
 
 export interface KeywordLandingPageConfig {
+  path: string;
   title: string;
   eyebrow: string;
   intro: string;
@@ -58,15 +61,25 @@ export function KeywordLandingPage({
       },
     })),
   };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: config.title,
+        item: `${SITE_URL}${config.path}`,
+      },
+    ],
+  };
 
   return (
     <>
       <Navigation />
       <main className="min-h-screen bg-slate-50 dark:bg-slate-950">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
+        <JsonLd data={[faqSchema, breadcrumbSchema]} />
 
         <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
           <div className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-24">

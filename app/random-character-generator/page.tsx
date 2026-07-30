@@ -27,6 +27,7 @@ export default function RandomCharacterGeneratorPage() {
   return (
     <KeywordLandingPage
       config={{
+        path: PAGE_PATH,
         title: "Random Character Generator",
         eyebrow: "Random character ideas for OCs, fanfiction, and roleplay",
         intro:

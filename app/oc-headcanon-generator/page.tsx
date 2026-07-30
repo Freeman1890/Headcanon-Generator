@@ -27,6 +27,7 @@ export default function OcHeadcanonGeneratorPage() {
   return (
     <KeywordLandingPage
       config={{
+        path: PAGE_PATH,
         title: "OC Headcanon Generator",
         eyebrow: "Original character details for stories and roleplay",
         intro:

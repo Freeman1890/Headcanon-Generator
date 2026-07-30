@@ -27,6 +27,7 @@ export default function MultipleCharacterHeadcanonGeneratorPage() {
   return (
     <KeywordLandingPage
       config={{
+        path: PAGE_PATH,
         title: "Multiple Character Headcanon Generator",
         eyebrow: "Pair and group ideas for fanfiction and roleplay",
         intro:

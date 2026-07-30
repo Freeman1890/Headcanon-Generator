@@ -55,6 +55,18 @@ export async function Footer() {
 
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
               <Link
+                href="/guides"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                Guides
+              </Link>
+              <Link
+                href="/#fandoms"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                Fandoms
+              </Link>
+              <Link
                 href="/about"
                 className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
               >

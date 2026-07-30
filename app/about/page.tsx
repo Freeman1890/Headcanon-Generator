@@ -16,7 +16,7 @@ export default function AboutPage() {
     <InfoPage
       title="About Headcanon Generator"
       intro="Headcanon Generator is a writing tool for small character details, scene starters, and fanfiction notes."
-      updated="July 19, 2026"
+      updated="July 30, 2026"
       sections={[
         {
           title: "What you can do here",
@@ -29,6 +29,22 @@ export default function AboutPage() {
           title: "About the content",
           paragraphs: [
             "A headcanon is a fan idea, not official canon. The examples and generated results are creative reference material. They should not be presented as statements from the original creators or rights holders.",
+          ],
+        },
+        {
+          title: "How content is written and reviewed",
+          paragraphs: [
+            "Some generator output and early copy drafts are AI-assisted. Fixed character examples, fandom pages, and writing guides are edited before publication. The review checks whether the writing is clear, specific, useful in a scene, and honest about the difference between fan interpretation and canon.",
+            "Generated results are not checked against every episode, chapter, game update, or translation in real time. When a canon detail matters, use the original work or an official source and revise the prompt to fit your version of the character.",
+          ],
+        },
+        {
+          title: "What the review changes",
+          items: [
+            "Removes generic filler and claims the page cannot support",
+            "Replaces broad personality labels with concrete actions or objects",
+            "Checks that a page gives the reader a practical next step",
+            "Keeps copyrighted characters and fandom names attributed to their owners",
           ],
         },
         {

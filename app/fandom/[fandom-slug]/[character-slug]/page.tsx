@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
 import { STATIC_HEADCANON_EXAMPLES } from "@/lib/static-examples";
 import { SITE_URL } from "@/lib/site";
 import {
@@ -62,9 +64,51 @@ export default async function FandomCharacterPage({ params }: PageProps) {
     notFound();
   }
 
+  const pageUrl = `${SITE_URL}${match.shareUrl}`;
+  const fandomUrl = `${SITE_URL}/fandom/${fandomSlug}`;
+  const generatorHref = `/?character=${encodeURIComponent(match.characterName)}&fandom=${encodeURIComponent(match.workName ?? "")}#generator`;
+  const schemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: match.metaTitle,
+      description: match.metaDescription,
+      url: pageUrl,
+      author: { "@type": "Organization", name: "Headcanon Generator", url: SITE_URL },
+      publisher: { "@type": "Organization", name: "Headcanon Generator", url: SITE_URL },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: match.workName, item: fandomUrl },
+        { "@type": "ListItem", position: 3, name: match.characterName, item: pageUrl },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: match.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-      <div className="mx-auto max-w-2xl px-4 py-16">
+    <>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
+        <JsonLd data={schemas} />
+        <div className="mx-auto max-w-2xl px-4 py-16">
+          <nav className="mb-6 text-sm text-slate-500" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-indigo-600 hover:underline">Home</Link>
+            <span aria-hidden="true"> / </span>
+            <Link href={`/fandom/${fandomSlug}`} className="hover:text-indigo-600 hover:underline">{match.workName}</Link>
+            <span aria-hidden="true"> / </span>
+            <span>{match.characterName}</span>
+          </nav>
         <Card>
           <CardHeader>
             <h1 className="text-2xl font-semibold leading-tight tracking-tight">
@@ -179,12 +223,20 @@ export default async function FandomCharacterPage({ params }: PageProps) {
           </CardContent>
         </Card>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
-          <Link href="/" className="hover:underline">
-            Back to homepage to generate more
-          </Link>
-        </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm">
+            <Link href={generatorHref} className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+              Generate another idea for {match.characterName}
+            </Link>
+            <Link href={`/fandom/${fandomSlug}`} className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+              Browse {match.workName} ideas
+            </Link>
+            <Link href="/guides/how-to-write-a-character-headcanon" className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">
+              Read the character writing guide
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

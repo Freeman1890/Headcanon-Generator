@@ -122,7 +122,7 @@ export function ShowcaseSection({
             {POPULAR_TAGS.map((tag) => (
               <Link
                 key={tag}
-                href="/#generator"
+                href={`/?fandom=${encodeURIComponent(tag)}#generator`}
                 onClick={() => onFandomSelect?.(tag)}
                 className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600 transition-colors hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:border-indigo-600 dark:hover:bg-indigo-950/50 dark:hover:text-indigo-300"
               >

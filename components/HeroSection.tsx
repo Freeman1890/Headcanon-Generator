@@ -1,13 +1,14 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
-import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface HeroSectionProps {
   onGenerate?: (characterName: string, workName: string) => void;
   isLoading?: boolean;
+  characterName: string;
+  onCharacterNameChange: (value: string) => void;
   workName: string;
   onWorkNameChange: (value: string) => void;
 }
@@ -15,18 +16,18 @@ interface HeroSectionProps {
 export function HeroSection({
   onGenerate,
   isLoading = false,
+  characterName,
+  onCharacterNameChange,
   workName,
   onWorkNameChange,
 }: HeroSectionProps) {
-  const characterRef = useRef<HTMLInputElement>(null);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const characterName = characterRef.current?.value?.trim() ?? "";
+    const trimmedCharacterName = characterName.trim();
     const fandomName = workName.trim();
 
     if (onGenerate) {
-      onGenerate(characterName, fandomName);
+      onGenerate(trimmedCharacterName, fandomName);
     }
 
     document.getElementById("showcase")?.scrollIntoView({
@@ -65,9 +66,10 @@ export function HeroSection({
           >
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
               <Input
-                ref={characterRef}
                 type="text"
                 placeholder="Character name"
+                value={characterName}
+                onChange={(event) => onCharacterNameChange(event.target.value)}
                 className="h-14 rounded-xl border-2 border-slate-200 bg-white/80 px-5 text-base backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80 sm:flex-1"
               />
               <Input

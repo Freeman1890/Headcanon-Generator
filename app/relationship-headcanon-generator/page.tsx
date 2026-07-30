@@ -27,6 +27,7 @@ export default function RelationshipHeadcanonGeneratorPage() {
   return (
     <KeywordLandingPage
       config={{
+        path: PAGE_PATH,
         title: "Relationship Headcanon Generator",
         eyebrow: "Character dynamics for couples, ships, and friendships",
         intro:

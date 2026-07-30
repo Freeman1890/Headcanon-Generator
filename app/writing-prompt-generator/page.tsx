@@ -27,6 +27,7 @@ export default function WritingPromptGeneratorPage() {
   return (
     <KeywordLandingPage
       config={{
+        path: PAGE_PATH,
         title: "Writing Prompt Generator",
         eyebrow: "Writing prompts for fanfiction, roleplay, and original stories",
         intro:

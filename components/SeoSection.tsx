@@ -6,6 +6,8 @@ import {
 } from "@/components/ui/accordion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { FANDOM_HUBS } from "@/lib/fandom-hubs";
+import { WRITING_GUIDES } from "@/lib/guides";
 
 const FAQ_ITEMS = [
   {
@@ -96,6 +98,52 @@ export function SeoSection() {
             ))}
           </div>
         </article>
+
+        <div id="fandoms" className="scroll-mt-24 border-t border-slate-200 pt-12 dark:border-slate-800">
+          <div className="grid gap-10 md:grid-cols-2">
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
+                Browse by fandom
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                Start with a setting, then open a character example or prefill the generator.
+              </p>
+              <div className="mt-5 flex flex-col gap-3 text-sm">
+                {FANDOM_HUBS.map((hub) => (
+                  <Link
+                    key={hub.slug}
+                    href={`/fandom/${hub.slug}`}
+                    className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+                  >
+                    {hub.name} headcanons
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
+                Headcanon writing guides
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                Check the basics, shape a character detail, or turn a relationship idea into a scene.
+              </p>
+              <div className="mt-5 flex flex-col gap-3 text-sm">
+                {WRITING_GUIDES.map((guide) => (
+                  <Link
+                    key={guide.slug}
+                    href={`/guides/${guide.slug}`}
+                    className="inline-flex items-center gap-2 text-indigo-600 hover:underline dark:text-indigo-400"
+                  >
+                    {guide.title}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ))}
+              </div>
+            </section>
+          </div>
+        </div>
 
         <div className="mt-12 border-t border-slate-200 pt-8 dark:border-slate-800">
           <p className="text-sm font-medium text-slate-900 dark:text-slate-50">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FeatureSection } from "@/components/FeatureSection";
 import { HeroSection } from "@/components/HeroSection";
 import { Navigation } from "@/components/Navigation";
@@ -20,6 +20,13 @@ export function GeneratePage() {
   const [result, setResult] = useState<HeadcanonResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [workName, setWorkName] = useState("");
+  const [characterName, setCharacterName] = useState("");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setCharacterName(params.get("character") ?? "");
+    setWorkName(params.get("fandom") ?? "");
+  }, []);
 
   const handleGenerate = async (characterName: string, workName: string) => {
     if (!characterName.trim()) return;
@@ -63,6 +70,8 @@ export function GeneratePage() {
       <HeroSection
         onGenerate={handleGenerate}
         isLoading={isLoading}
+        characterName={characterName}
+        onCharacterNameChange={setCharacterName}
         workName={workName}
         onWorkNameChange={setWorkName}
       />
