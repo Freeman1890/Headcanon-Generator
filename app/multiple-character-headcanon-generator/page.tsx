@@ -7,7 +7,7 @@ const PAGE_PATH = "/multiple-character-headcanon-generator";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Multiple Character Headcanon Generator for Pair Ideas | Headcanon Generator",
+  title: "Multiple Character Headcanon Generator for Pair Ideas",
   description:
     "Use a multiple character headcanon generator for two characters, a couple, or a group. Enter their names and a fandom, then shape the result into a scene idea.",
   alternates: {

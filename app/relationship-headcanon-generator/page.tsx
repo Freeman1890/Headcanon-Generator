@@ -7,7 +7,7 @@ const PAGE_PATH = "/relationship-headcanon-generator";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Relationship Headcanon Generator for Couples and Ships | Headcanon Generator",
+  title: "Relationship Headcanon Generator | Ships and Couples",
   description:
     "Use a relationship headcanon generator for couples, ships, friendships, or rivalries. Enter both characters and turn one short detail into a scene idea.",
   alternates: {

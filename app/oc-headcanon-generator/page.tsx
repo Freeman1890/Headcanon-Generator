@@ -7,7 +7,7 @@ const PAGE_PATH = "/oc-headcanon-generator";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "OC Headcanon Generator for Original Character Ideas | Headcanon Generator",
+  title: "OC Headcanon Generator for Original Character Ideas",
   description:
     "Use an OC headcanon generator to find a habit, preference, or scene detail for an original character. Add a fandom or leave it blank for your own world.",
   alternates: {

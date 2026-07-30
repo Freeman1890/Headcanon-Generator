@@ -3,9 +3,9 @@ import { InfoPage } from "@/components/InfoPage";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Terms of Use | Headcanon Generator",
+  title: "Terms of Use for Headcanon Generator | Usage Rules",
   description:
-    "The rules for using Headcanon Generator and the limits of its generated writing prompts.",
+    "Read the rules for using Headcanon Generator, including generated writing, copyright limits, acceptable use, service changes, and your responsibilities.",
   alternates: {
     canonical: `${SITE_URL}/terms`,
   },

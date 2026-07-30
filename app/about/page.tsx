@@ -3,9 +3,9 @@ import { InfoPage } from "@/components/InfoPage";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About | Headcanon Generator",
+  title: "About Headcanon Generator | Site and Writing Tools",
   description:
-    "Learn what Headcanon Generator does, how its examples work, and how it relates to existing fandoms.",
+    "Learn how Headcanon Generator creates character details, how its examples work, and how the site handles fandom names, ownership, site feedback, and requests.",
   alternates: {
     canonical: `${SITE_URL}/about`,
   },

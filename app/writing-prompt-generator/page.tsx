@@ -7,9 +7,9 @@ const PAGE_PATH = "/writing-prompt-generator";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Writing Prompt Generator for Fanfiction and Roleplay | Headcanon Generator",
+  title: "Writing Prompt Generator for Stories | Headcanon Generator",
   description:
-    "Use a writing prompt generator to find a scene idea for fanfiction, roleplay, or an original story. Enter a character and optional fandom, then shape the result into your own prompt.",
+    "Use the writing prompt generator to turn a character and optional fandom into a scene idea. Shape the result for fanfiction, roleplay, or an original story.",
   alternates: {
     canonical: `${SITE_URL}${PAGE_PATH}`,
   },

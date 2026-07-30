@@ -3,9 +3,9 @@ import { InfoPage } from "@/components/InfoPage";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact | Headcanon Generator",
+  title: "Contact Headcanon Generator | Questions and Feedback",
   description:
-    "Contact Headcanon Generator about bugs, privacy questions, content removal, and site feedback.",
+    "Contact Headcanon Generator to report bugs, ask questions, request content removal, or raise a privacy concern. Include the page URL and a short issue summary.",
   alternates: {
     canonical: `${SITE_URL}/contact`,
   },

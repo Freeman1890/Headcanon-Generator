@@ -4,9 +4,9 @@ import { InfoPage } from "@/components/InfoPage";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Headcanon Generator",
+  title: "Privacy Policy | Headcanon Generator Data Practices",
   description:
-    "How Headcanon Generator handles analytics, generated prompts, share links, cookies, and third-party services.",
+    "Read how Headcanon Generator handles analytics, generated prompts, share links, cookies, browser data, and third-party services, plus your privacy choices.",
   alternates: {
     canonical: `${SITE_URL}/privacy`,
   },

@@ -7,9 +7,9 @@ const PAGE_PATH = "/random-character-generator";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Random Character Generator for OCs and Fandom Ideas | Headcanon Generator",
+  title: "Random Character Generator for OCs | Headcanon Generator",
   description:
-    "Use a random character generator to find a small detail for an OC, fictional character, or fandom scene. Enter a name and optional fandom to get a headcanon idea.",
+    "Use the random character generator to find a detail for an OC or fandom scene. Add a name and optional fandom, then use the result as a scene or writing prompt.",
   alternates: {
     canonical: `${SITE_URL}${PAGE_PATH}`,
   },

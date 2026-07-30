@@ -100,7 +100,9 @@ export function KeywordLandingPage({
 
             <Card className="self-center border-indigo-100 bg-indigo-50/60 dark:border-indigo-950 dark:bg-indigo-950/20">
               <CardHeader>
-                <CardTitle className="text-xl">Start with a small idea</CardTitle>
+                <h2 className="text-xl font-semibold leading-none tracking-tight">
+                  Start with a small idea
+                </h2>
                 <CardDescription className="leading-relaxed">
                   {config.note}
                 </CardDescription>
