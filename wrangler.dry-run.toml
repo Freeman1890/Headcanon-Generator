@@ -4,10 +4,6 @@ compatibility_date = "2026-07-10"
 compatibility_flags = ["nodejs_compat"]
 no_bundle = true
 
-[assets]
-directory = ".vercel/output/static"
-binding = "ASSETS"
-
 [[rules]]
 type = "ESModule"
 globs = ["**/*.js"]
