@@ -21,7 +21,7 @@ export const WRITING_GUIDES: WritingGuide[] = [
       "Learn what a headcanon is, how it differs from official canon, and how fans use small character ideas in fiction, roleplay, discussion, and scene writing.",
     intro:
       "A headcanon is a personal idea a fan accepts about a character or fictional world even though the source never confirms it. It might explain a habit, fill a quiet gap in the story, or suggest how two characters behave when the plot is not watching.",
-    reviewed: "July 30, 2026",
+    reviewed: "October 24, 2026",
     sections: [
       {
         title: "Headcanon in plain language",
@@ -52,6 +52,9 @@ export const WRITING_GUIDES: WritingGuide[] = [
       },
     ],
     faqs: [
+      { q: "What does headcanon mean in anime?", a: "It means the same thing as in other fiction: a fan's own interpretation that the source does not establish. Imagining a character's private routine can be a headcanon; an event shown in an episode is part of the source record." },
+      { q: "Is it headcanon, head canon, or headcannon?", a: "Headcanon is the usual spelling of this fandom term. Head canon is also used as a search phrase; headcannon adds an extra n. These spellings do not describe different kinds of character-writing tools." },
+      { q: "What kinds of headcanons can I write?", a: "You can explore daily habits, relationships, motivations, or life between established events. Choose one detail and make clear which part is your interpretation. A complete invented biography or a changed major event may be better described as an AU." },
       {
         q: "Can a headcanon contradict canon?",
         a: "It can, but fans often call that an alternate universe or canon-divergent idea when the contradiction changes an established event or relationship.",
@@ -62,6 +65,8 @@ export const WRITING_GUIDES: WritingGuide[] = [
       },
     ],
     relatedLinks: [
+      { href: "/headcanon-template", label: "Separate facts and interpretation in a worksheet" },
+      { href: "/writing-prompt-generator", label: "Free headcanon writing prompts" },
       { href: "/guides/headcanon-vs-canon", label: "Headcanon vs. canon" },
       { href: "/guides/how-to-write-a-character-headcanon", label: "How to write a character headcanon" },
       { href: "/#generator", label: "Try the headcanon generator" },
@@ -180,7 +185,7 @@ export const WRITING_GUIDES: WritingGuide[] = [
       "Develop relationship headcanon ideas with shared routines, uneven knowledge, small conflicts, and scene prompts for ships, friendships, and rivalries.",
     intro:
       "A relationship headcanon becomes useful when it shows what two people do to each other. Give the pair a routine, a disagreement, or a piece of knowledge that belongs only to them.",
-    reviewed: "July 30, 2026",
+    reviewed: "October 24, 2026",
     sections: [
       {
         title: "Give the relationship a repeated action",
@@ -217,7 +222,7 @@ export const WRITING_GUIDES: WritingGuide[] = [
       },
       {
         q: "How do I enter a pair in the generator?",
-        a: "Put both names in the character field, such as “Mara and Jo,” then add the fandom if it helps establish the setting.",
+        a: "Choose Relationship, put one name in First character and the other in Second character, then add the fandom if useful. More options lets you choose Friendship, Romance / ship, or Rivals and add a scene.",
       },
     ],
     relatedLinks: [

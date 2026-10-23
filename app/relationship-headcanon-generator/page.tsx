@@ -33,26 +33,26 @@ export default function RelationshipHeadcanonGeneratorPage() {
         intro:
           "Need a small detail for a couple, ship, or complicated dynamic? Choose Relationship, enter both names in their own fields, and add the fandom if it helps. One credit gives you five ideas to write from.",
         note:
-          "A ship can be romantic, friendly, tense, or hard to name. Enter the two characters and let the result suggest one moment between them.",
-        inputHint: "Enter both characters or a ship",
+          "For a ship or OTP, choose Romance / ship in More options. For friends, choose Friendship so the request stays platonic. Add a scene if you already know where they meet.",
+        inputHint: "One name in First character, one in Second character",
         purpose: [
           "A relationship headcanon gives two characters something to share. It could be a routine they never discuss, a point they keep arguing about, or a way one of them shows care without saying it directly.",
           "Enter each name in its own field and use the fandom field for context. The generator writes five small interactions involving both characters.",
           "Use the idea to test the dynamic in a scene. You can make it romantic, platonic, competitive, awkward, or something that changes from chapter to chapter.",
         ],
         steps: [
-          "Enter both character names in Character name. A format such as \"Mara and Jo\" makes the relationship clear.",
-          "Add the fandom in the optional field when the source world matters. Leave it blank for an original relationship.",
-          "Read the result as a scene prompt. Decide what each character wants from the moment and what they avoid saying.",
+          "Choose Relationship and enter one name in First character and the other in Second character.",
+          "Add the fandom if useful. In More options, choose Friendship, Romance / ship, or Rivals; add a short scene to focus the request.",
+          "Generate five ideas for one purchased credit. Keep the interaction that fits, then decide what each character notices or avoids saying.",
         ],
         useCases: [
           {
             title: "Couples and romance",
-            body: "Give a couple a recurring habit or a quiet point of friction that can carry a scene without turning into a full plot summary.",
+            body: "Choose Romance / ship for a couple or OTP. A remembered order, an awkward invitation, or a borrowed jacket can carry the scene. Use Fluff for warm, low-stakes moments rather than a dramatic reveal.",
           },
           {
             title: "Friendships and rivals",
-            body: "Use the same format for a friendship, rivalry, or uneasy partnership. The relationship does not have to be romantic.",
+            body: "Choose Friendship for a strictly platonic request, or Rivals for competition without romance. A favor can matter without becoming a confession. Neither choice is a claim about the official relationship.",
           },
           {
             title: "Roleplay scenes",
@@ -63,17 +63,17 @@ export default function RelationshipHeadcanonGeneratorPage() {
           heading: "Example: a relationship detail that creates a scene",
           body:
             "One character always remembers the other person's order but pretends it is accidental. That detail can stay sweet, become annoying, or turn into an argument when the order changes.",
-          href: "/#generator",
+          href: "/?mode=relationship#generator",
           linkLabel: "Try a relationship idea",
         },
         faqs: [
           {
-            q: "Does ship always mean romance?",
-            a: "No. You can use the page for romance, friendship, rivalry, family dynamics, or a relationship that does not have a clear label yet.",
+            q: "Is a ship headcanon the same as a relationship headcanon?",
+            a: "A ship usually means a romantic pairing; OTP means a favorite pairing. Relationship headcanons are broader and can cover friends or rivals too. This page keeps those requests together, with a relationship choice in the generator rather than separate near-identical tools.",
           },
           {
             q: "Can I enter two characters in the generator?",
-            a: "Yes. Enter both names in the Character name field, then use the fandom field for their setting. The result is a short relationship detail, not a complete profile.",
+            a: "Yes. Choose Relationship and enter the names in First character and Second character. Two people, a duo, or a couple all use this two-name form. One credit gives five ideas involving both characters, not a complete profile.",
           },
           {
             q: "Can I use the result for roleplay?",
@@ -81,8 +81,12 @@ export default function RelationshipHeadcanonGeneratorPage() {
           },
         ],
         relatedLinks: [
+          { href: "/scenario-headcanon-generator", label: "Couple and Pair Scenarios" },
+          { href: "/incorrect-quotes-generator", label: "Fictional Dialogue for Two Characters" },
           { href: "/multiple-character-headcanon-generator", label: "Multiple Character Headcanon Generator" },
           { href: "/writing-prompt-generator", label: "Writing Prompt Generator" },
+          { href: "/?mode=relationship&relationshipKind=friendship#generator", label: "Try a friendship (no romance)" },
+          { href: "/?mode=relationship&relationshipKind=romance&tone=fluff#generator", label: "Try a warm ship idea" },
           { href: "/", label: "Open Headcanon Generator" },
         ],
       }}

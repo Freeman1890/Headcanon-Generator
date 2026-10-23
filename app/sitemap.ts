@@ -3,6 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import { FANDOM_HUBS } from "@/lib/fandom-hubs";
 import { WRITING_GUIDES } from "@/lib/guides";
 import { STATIC_HEADCANON_EXAMPLES } from "@/lib/static-examples";
+import { WRITING_TOOLS } from "@/lib/writing-tools";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
@@ -76,6 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...fandomHubs,
     ...fandomPages,
     ...guidePages,
+    ...WRITING_TOOLS.map(tool => ({ url: `${SITE_URL}${tool.path}`, changeFrequency: 'monthly' as const, priority: 0.7 })),
     ...trustPages,
   ];
 }

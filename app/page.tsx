@@ -4,7 +4,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata = {
-  title: process.env.PAID_REVIEW === "1" ? "付费接入预览1 | Headcanon Generator" : "Headcanon Generator for Fanfiction and Roleplay Ideas",
+  title: process.env.CONTENT_REVIEW === "1" ? "关键词内页预览2 | Headcanon Generator" : process.env.KEYWORD_REVIEW === "1" ? "关键词内页预览1 | Headcanon Generator" : process.env.PAID_REVIEW === "1" ? "付费接入预览1 | Headcanon Generator" : "Headcanon Generator for Fanfiction and Roleplay Ideas",
   description:
     "Generate five character, relationship, or OC headcanons for fanfiction and roleplay. One credit per batch, with 100 credits for $9.90 and no subscription.",
   alternates: {

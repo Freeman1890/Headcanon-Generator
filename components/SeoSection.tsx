@@ -8,8 +8,21 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { FANDOM_HUBS } from "@/lib/fandom-hubs";
 import { WRITING_GUIDES } from "@/lib/guides";
+import { WRITING_TOOLS } from "@/lib/writing-tools";
 
 const FAQ_ITEMS = [
+  {
+    q: "Is a headcanon maker the same as a character generator?",
+    a: "A headcanon maker adds an invented detail to a character or relationship. It does not necessarily create a whole person, appearance, name, or biography. This tool returns five short ideas; a complete profile is a different task.",
+  },
+  {
+    q: "Is this a random headcanon generator or an AI writing tool?",
+    a: "It uses AI to write five new suggestions from the character and context you enter, rather than drawing a sentence from a fixed list. Results can be wrong or out of character. The public examples are free to read; new generations use purchased credits.",
+  },
+  {
+    q: "Can I request friendship or fluff headcanons?",
+    a: "Yes. Choose Relationship and use More options to select Friendship for a platonic request or Romance / ship for a pairing. Fluff asks for warm, low-stakes moments. You can also add a scene in Character or Original character mode.",
+  },
   {
     q: "What is a headcanon?",
     a: "A headcanon is a fan's personal idea about a character or story. It is not official canon. It might be a habit, a memory, a relationship detail, or a small explanation for something the source material leaves open.",
@@ -81,6 +94,11 @@ export function SeoSection() {
             </AccordionItem>
           ))}
         </Accordion>
+
+        <section id="writing-tools" className="mb-16 scroll-mt-24 border-y border-slate-200 py-10 dark:border-slate-800">
+          <h2 className="text-2xl font-semibold">Writing tools and templates</h2>
+          <div className="mt-5 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">{WRITING_TOOLS.map(tool => <div key={tool.id} className="min-w-0 border-b border-slate-200 py-4 dark:border-slate-800"><Link href={tool.path} className="inline-flex min-h-11 items-center gap-2 font-medium text-indigo-600 hover:underline dark:text-indigo-400">{tool.title}<ArrowRight className="h-4 w-4 shrink-0" /></Link><p className="mt-1 text-sm text-slate-500">{tool.free ? 'Free, no account needed' : '1 credit for 5 results'}</p></div>)}</div>
+        </section>
 
         <article className="prose prose-slate dark:prose-invert mx-auto max-w-3xl">
           <div className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">

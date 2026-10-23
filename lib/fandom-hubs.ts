@@ -7,9 +7,110 @@ export interface FandomHub {
   angles: { title: string; body: string }[];
   sceneStarts: string[];
   faqs: { q: string; a: string }[];
+  writingExamples?: { character: string; body: string; scenario: string }[];
+  sources?: { label: string; href: string }[];
 }
 
 export const FANDOM_HUBS: FandomHub[] = [
+  {
+    slug: "naruto-headcanon-generator",
+    name: "Naruto",
+    title: "Naruto Headcanon Generator",
+    description: "Use the Naruto headcanon generator for training breaks and quiet village moments. Read original fan-made examples, then start with a character and scene.",
+    intro: [
+      "A mission has an end, but the walk home still needs writing. Start a Naruto headcanon with the person who checks the supplies twice, saves a seat, or stays behind after practice. Those little choices give a scene something to hold onto.",
+      "Choose a character below or enter another name in the generator. The examples are invented fan interpretations, not facts from the manga or anime. Keep the era in mind: a young Team Seven scene and an adult village scene should not sound the same.",
+    ],
+    angles: [
+      { title: "After training", body: "Leave the fight off the page for a moment. Who puts the equipment away? Who claims not to be tired? A small chore can make pride, worry, or a friendship visible without a speech." },
+      { title: "Life in the village", body: "Try a missed meal, a noisy errand, or an appointment somebody forgot. Let the character solve an ordinary problem in a recognizable way instead of giving everyone the same secret hobby." },
+      { title: "A pair, not a whole team", body: "For two characters, use Relationship and enter a name in each field. Choose Friendship to keep the result platonic, or Romance / ship for a gentle fan pairing. Neither setting makes the relationship official." },
+    ],
+    writingExamples: [
+      { character: "Naruto Uzumaki", body: "Naruto starts saving the paper wrappers from meals he shares after training. He insists they are a record of his progress, although most have sauce on them and no dates.", scenario: "After training, a small keepsake from a shared meal" },
+      { character: "Sakura Haruno", body: "Sakura keeps a spare hair tie tucked into the back of her training notebook. She lends it out with a warning to return it, then quietly replaces it before the next practice.", scenario: "A training notebook and a small item lent to a teammate" },
+      { character: "Kakashi Hatake", body: "Kakashi notices when a teammate has stopped replacing a worn strap. A new one turns up beside their gear the next morning, with a note complaining about the noise the old buckle made.", scenario: "A teammate finds an anonymously repaired piece of equipment" },
+    ],
+    sceneStarts: [
+      "Rain cancels training, and two teammates disagree about whether that counts as a day off.",
+      "A borrowed item comes back repaired, but its owner liked the old scratch.",
+      "Someone remembers an order from months ago and gives a very unconvincing explanation for it.",
+    ],
+    faqs: [
+      { q: "Are these Naruto headcanons canon?", a: "No. The habits and scenes on this page are original fan-made examples. Use the manga, anime, or official character material to check an established event or relationship." },
+      { q: "Can I generate a Naruto ship or friendship?", a: "Yes. Open Relationship, enter the two names separately, and keep Naruto in Fandom. In More options, choose Friendship for no romance or Romance / ship for a non-explicit pairing. One credit returns five short ideas." },
+      { q: "How can I keep the idea in the right era?", a: "Add a brief setting in Scene, such as a training break during the early Team Seven period. Check the result for timeline mistakes yourself; the generator is a writing aid, not a canon reference." },
+    ],
+    sources: [{ label: "Official Naruto character context: Sakura and Team Seven", href: "https://naruto-official.com/en/news/01_1743" }],
+  },
+  {
+    slug: "danganronpa-headcanon-generator",
+    name: "Danganronpa",
+    title: "Danganronpa Headcanon Generator",
+    description: "Try the Danganronpa headcanon generator for school routines, awkward conversations, and talent-related habits. Read fan-made examples and choose a character.",
+    intro: [
+      "A Danganronpa character can be interesting before anyone finds a clue. Think about what happens when a talent meets a dull afternoon: a shared table, a borrowed notebook, or a conversation that nobody knows how to end.",
+      "These examples use the Trigger Happy Havoc cast and avoid revealing case outcomes. Every habit below is invented for this page. For a different game or an alternate universe, name it in Scene so your starting point is clear. Generated text can still make mistakes or introduce spoilers.",
+    ],
+    angles: [
+      { title: "Talent versus ordinary life", body: "A talent need not explain every choice. Give a character an easy task they find unexpectedly annoying, or let them be helpful without making a performance of it. The contrast is often enough for a short scene." },
+      { title: "Trust in small amounts", body: "Start with a favor that costs almost nothing: watching a seat, returning a book, or remembering a preference. Decide whether the character accepts it, questions it, or finds a way to repay it immediately." },
+      { title: "Choose the version of the story", body: "A school-life AU has different stakes from a scene during the game. Put that distinction in Scene. Avoid mixing casts, timelines, and major reveals unless the crossover or spoiler is part of your own plan." },
+    ],
+    writingExamples: [
+      { character: "Makoto Naegi", body: "Makoto labels a communal umbrella with a scrap of tape so it stops disappearing. When it comes back with three more names written on it, he decides that is close enough to success.", scenario: "School-life AU: returning a communal umbrella, with no case outcomes" },
+      { character: "Kyoko Kirigiri", body: "Kyoko leaves a folded bookmark in a book she lends out. It marks the page she thinks the borrower will like, not the page where she stopped reading.", scenario: "School-life AU: lending a book, with no case outcomes" },
+      { character: "Byakuya Togami", body: "Byakuya moves a wobbly chair away from a shared table and says the noise was distracting. The next day it is repaired, and he looks irritated when anyone thanks him.", scenario: "School-life AU: a repaired chair in a shared study room, with no case outcomes" },
+    ],
+    sceneStarts: [
+      "Two classmates both want the quiet table and refuse to admit they could share it.",
+      "A note meant as practical advice sounds much kinder than its author intended.",
+      "A routine favor becomes awkward because neither person knows when to stop returning it.",
+    ],
+    faqs: [
+      { q: "Does this page contain Danganronpa spoilers?", a: "The starter examples do not reveal victims, culprits, trial solutions, or endings. Model-generated results are not guaranteed to be spoiler-free. Add your game and spoiler boundary in Scene, then review the output before sharing it." },
+      { q: "Can I use characters from Danganronpa 2 or V3?", a: "You can enter another character and specify the game in Scene. The examples here focus on Trigger Happy Havoc; the tool does not verify continuity, so check any details that matter to your story." },
+      { q: "Can I write a non-despair school AU?", a: "Yes. Put that setting in Scene and choose Fluff for warm, low-stakes moments. For a pair, use Relationship and select Friendship or Romance / ship. You get five short ideas for one purchased credit, not a full chapter." },
+    ],
+    sources: [
+      { label: "Official Danganronpa: Trigger Happy Havoc overview", href: "https://www.danganronpa.com/pages/sp/en/" },
+      { label: "Official Reload character roster", href: "https://www.danganronpa.com/reload/character/dangan01.html" },
+    ],
+  },
+  {
+    slug: "phighting-headcanon-generator",
+    name: "PHIGHTING!",
+    title: "PHIGHTING! Headcanon Generator",
+    description: "Use the PHIGHTING headcanon generator for practice, team downtime, and small rivalries. Read original fan-made examples, then start with a Phighter and scene.",
+    intro: [
+      "The match is over. Someone still has to find the missing bag, settle an argument about the playlist, or wait for a teammate who said they would only be a minute. That is a useful place to start a PHIGHTING! headcanon.",
+      "Pick a Phighter below or enter another name with PHIGHTING! as the fandom. The examples are made-up writing prompts, not game dialogue or confirmed lore. No character artwork, official dialogue, or player account is needed to use the generator.",
+    ],
+    angles: [
+      { title: "Between matches", body: "Write the part that a scoreboard cannot show. A repeated habit before practice or a tiny disagreement afterward can give a character something to do without turning an ability into their entire personality." },
+      { title: "Equipment with a history", body: "Choose one ordinary object: a bag strap, a spare cable, a scuffed wheel. Decide who notices it and why the owner will not replace it. Label any invented explanation as your interpretation." },
+      { title: "Teamwork without a confession", body: "A shared routine can be friendly, competitive, or romantic. Use the relationship choice to make your intention explicit. For a friendship, a remembered preference does not need to become a secret crush." },
+    ],
+    writingExamples: [
+      { character: "Sword", body: "Sword counts the practice gear before leaving, then counts it again when someone talks over him. He says it saves time, even though everyone else has already reached the door.", scenario: "Packing practice equipment after a match" },
+      { character: "Boombox", body: "Boombox keeps a short playlist for cleaning up after practice. He notices when someone starts humming along but leaves the same track on rather than calling attention to it.", scenario: "A quiet cleanup after practice, with a shared playlist" },
+      { character: "Skateboard", body: "Skateboard remembers which stretch of pavement makes a loose wheel rattle. When a friend borrows the board, he gives directions around that patch instead of admitting the wheel needs fixing.", scenario: "Lending a board with one loose wheel between practice sessions" },
+    ],
+    sceneStarts: [
+      "A teammate brings a spare item for someone who insists they never forget anything.",
+      "The usual playlist is missing, and the silence is more distracting than the music ever was.",
+      "Two rivals end up waiting for the same late teammate and run out of complaints.",
+    ],
+    faqs: [
+      { q: "Are these official PHIGHTING! character facts?", a: "No. These are original fan interpretations. The wiki links below are for checking character context; they do not verify the habits or scenes invented on this page." },
+      { q: "Can I generate a PHIGHTING! duo or ship?", a: "Yes. Choose Relationship and enter a different name in each field. Use Friendship, Romance / ship, or Rivals to choose the dynamic. Keep PHIGHTING! in Fandom so the names have context." },
+      { q: "Does this connect to my Roblox account?", a: "No. The generator only uses the character, fandom, and optional scene you type. It does not access your Roblox profile, inventory, match history, or game account." },
+    ],
+    sources: [
+      { label: "PHIGHTING! Wiki: Sword", href: "https://phighting.wiki/Sword" },
+      { label: "PHIGHTING! Wiki: character dialogue index", href: "https://phighting.wiki/Boombox/Dialogue" },
+    ],
+  },
   {
     slug: "genshin-impact",
     name: "Genshin Impact",

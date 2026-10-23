@@ -26,6 +26,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
   let generationCalls = 0;
   let checkoutCalls = 0;
   let providerFailure = false;
+  let lastGenerationPrompt = '';
   const egressErrors: string[] = [];
   const five = Array.from({ length: 5 }, (_, index) => `Mira keeps notebook number ${index + 1} by the door. She writes down one small thing before leaving each morning.`);
   const outboundService = async (request: Request) => {
@@ -39,10 +40,19 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
       }
       if (url.origin === 'https://api.kie.ai') {
         generationCalls++;
+        lastGenerationPrompt = JSON.parse(raw).messages[0].content[0].text;
+        assert.equal(JSON.parse(raw).max_tokens, 1400, 'New tools keep the existing output budget.');
         assert.equal(url.pathname, '/gemini-3-8-flash-openai/v1/chat/completions');
         assert.equal(request.headers.get('authorization'), 'Bearer synthetic-kie-secret-only');
         if (providerFailure) return Response.json({ code: 500, msg: 'Local simulated provider failure' });
-        const event = { choices: [{ delta: { content: JSON.stringify({ headcanons: five }) }, finish_reason: 'stop' }], usage: { prompt_tokens: 200, completion_tokens: 300 }, credits_consumed: 0.08 };
+        const fixture = lastGenerationPrompt.includes('ORIGINAL fictional dialogue snippets')
+          ? Array.from({ length: 5 }, (_, index) => `Mira: Where is notebook ${index + 1}?\nJo: Somewhere safe.\nMira: The fridge is not a filing cabinet.`)
+          : lastGenerationPrompt.includes('compact fanfiction plot outlines')
+          ? Array.from({ length: 5 }, (_, index) => `Mira wants to return parcel ${index + 1}. A closed road prevents the delivery. Jo finds a different route that requires admitting a mistake. They return the parcel together and tell the owner what happened.`)
+          : lastGenerationPrompt.includes('scene premises in English')
+          ? Array.from({ length: 5 }, (_, index) => `Mira and Jo reach platform ${index + 1} after the final train. Mira has one working phone but calling for help means admitting where they went. Jo must decide whether to ask about the missed calls.`)
+          : five;
+        const event = { choices: [{ delta: { content: JSON.stringify({ headcanons: fixture }) }, finish_reason: 'stop' }], usage: { prompt_tokens: 200, completion_tokens: 300 }, credits_consumed: 0.08 };
         return new Response(`data: ${JSON.stringify(event)}\n\ndata: [DONE]\n\n`, { headers: { 'Content-Type': 'text/event-stream' } });
       }
       assert.equal(url.origin, 'https://waffo.test', 'All test egress must be locally handled.');
@@ -107,12 +117,19 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     assert.equal((await paid.json() as { status: string }).status, 'processed');
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 100);
     assert.equal((await (await webhook()).json() as { status: string }).status, 'duplicate');
-    const input = { characterName: 'Mira', mode: 'oc' };
+    const invalidOptions = await request('/api/generate', { characterName: 'Mira', tone: 'unsupported' }, { ...auth, 'idempotency-key': 'invalid_options_key_001' });
+    assert.equal(invalidOptions.status, 400);
+    assert.equal(generationCalls, 0, 'Invalid choices must not call the provider.');
+    assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 100);
+    const input = { characterName: 'Mira', secondCharacter: 'Jo', mode: 'relationship', relationshipKind: 'friendship', tone: 'fluff', scenario: 'Waiting out the rain after training' };
     const generated = await request('/api/generate', input, { ...auth, 'idempotency-key': firstKey });
     assert.equal(generated.status, 200, await generated.clone().text());
     assert.equal((await generated.json() as { headcanons: string[] }).headcanons.length, 5);
     assert.equal((await request('/api/generate', input, { ...auth, 'idempotency-key': firstKey })).status, 200);
     assert.equal(generationCalls, 1);
+    assert.match(lastGenerationPrompt, /strictly platonic/);
+    assert.match(lastGenerationPrompt, /warm, low-stakes fluff tone/);
+    assert.match(lastGenerationPrompt, /Waiting out the rain after training/);
     assert.equal((await request('/api/generate', { ...input, characterName: 'Different' }, { ...auth, 'idempotency-key': firstKey })).status, 409);
     providerFailure = true;
     assert.equal((await request('/api/generate', input, { ...auth, 'idempotency-key': 'failed_generation_key_01' })).status, 502);
@@ -150,6 +167,23 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     assert.ok(responses.every(response => [200, 202].includes(response.status)));
     assert.equal(generationCalls, 3, 'Concurrent replay must call the model once.');
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 98, 'Failed refund must not block paid credits.');
+    for (const [index, kind] of ['scenario', 'dialogue', 'plot'].entries()) {
+      const key = `writing_tool_${kind}_000001`;
+      const body = { ...input, kind };
+      const response = await request('/api/generate', body, { ...auth, 'idempotency-key': key });
+      assert.equal(response.status, 200, await response.clone().text());
+      const data = await response.json() as { kind: string; headcanons: string[]; shareUrl?: string };
+      assert.equal(data.kind, kind); assert.equal(data.headcanons.length, 5);
+      assert.match(data.headcanons[0], kind === 'dialogue' ? /Mira:.*\nJo:/ : kind === 'plot' ? /Mira wants to return/ : /reach platform/);
+      assert.equal(data.shareUrl, undefined, 'Do not mislabel dialogue or plots as headcanon share pages.');
+      assert.match(lastGenerationPrompt, new RegExp(kind === 'scenario' ? 'scene premises' : kind === 'dialogue' ? 'fictional dialogue snippets' : 'plot outlines'));
+      assert.equal((await request('/api/generate', body, { ...auth, 'idempotency-key': key })).status, 200);
+      assert.equal(generationCalls, 4 + index, 'Each tool replays without a second provider call.');
+      assert.equal((await request('/api/generate', { ...body, kind: kind === 'plot' ? 'scenario' : 'plot' }, { ...auth, 'idempotency-key': key })).status, 409);
+      assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 97 - index);
+    }
+    assert.equal((await request('/api/generate', { ...input, kind: 'bad' }, { ...auth, 'idempotency-key': 'invalid_writing_tool_0001' })).status, 400);
+    assert.equal(generationCalls, 6);
     const refunded = await signedEvent('refund.succeeded', 'refund-succeeded', { refundStatus: 'succeeded', refundedAmount: '9.90' });
     assert.equal(refunded.status, 200, await refunded.clone().text());
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 0);

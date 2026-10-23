@@ -13,6 +13,7 @@ import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { Navigation } from "@/components/Navigation";
 import { SITE_URL } from "@/lib/site";
+import { WritingActions } from "@/components/WritingActions";
 
 interface LandingFaq {
   q: string;
@@ -42,6 +43,7 @@ export interface KeywordLandingPageConfig {
   };
   faqs: LandingFaq[];
   relatedLinks: { href: string; label: string }[];
+  prompts?: { title: string; body: string }[];
 }
 
 export function KeywordLandingPage({
@@ -208,6 +210,8 @@ export function KeywordLandingPage({
             </Card>
           </div>
         </section>
+
+        {config.prompts && <section className="border-b border-slate-200 py-14 dark:border-slate-800"><div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8"><h2 className="text-2xl font-semibold">Headcanon prompts to write from</h2><p className="mt-3 text-slate-600 dark:text-slate-400">Original prompts, free to read and adapt. These are writing questions, not official character facts.</p><div className="mt-6 divide-y divide-slate-200 dark:divide-slate-800">{config.prompts.map(prompt => <article key={prompt.title} className="flex min-w-0 items-start gap-4 py-5"><div className="min-w-0 flex-1"><h3 className="font-semibold">{prompt.title}</h3><p className="mt-2 leading-relaxed text-slate-600 dark:text-slate-400">{prompt.body}</p></div><WritingActions text={prompt.body} /></article>)}</div></div></section>}
 
         <section id="faq" className="scroll-mt-24 py-16 lg:py-20">
           <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">

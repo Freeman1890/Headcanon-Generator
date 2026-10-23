@@ -31,9 +31,9 @@ export default function OcHeadcanonGeneratorPage() {
         title: "OC Headcanon Generator",
         eyebrow: "Original character details for stories and roleplay",
         intro:
-          "An OC does not need a full history before you write the first scene. Enter a name or working nickname, leave the fandom blank if the character is yours, and use the result as one detail to build around.",
+          "An OC does not need a full history before you write the first scene. Choose Original character, enter a name or working nickname, and add your setting if you have one. One credit returns five small details to build around.",
         note:
-          "Use a real name, a placeholder, or a short character label. The fandom field is optional, so it works for both fan characters and original settings.",
+          "Use a name or a short working label. Setting is optional. In More options, add an everyday scene or choose Fluff when you want warm, low-stakes details.",
         inputHint: "Enter an original character name",
         purpose: [
           "A new character often becomes easier to write after one ordinary detail appears. A habit, preference, or private worry can tell you more than a long list of traits.",
@@ -42,8 +42,8 @@ export default function OcHeadcanonGeneratorPage() {
         ],
         steps: [
           "Enter your OC's name, nickname, or a temporary label. A placeholder is fine while the character is still taking shape.",
-          "Add a fandom only when the character belongs to an existing world. Leave it blank for an original setting.",
-          "Use the result to add one concrete detail to the profile or test the character in a scene.",
+          "Use Setting for your own world or an existing fandom. Leave it blank if you have not decided yet.",
+          "Add a scene in More options if useful, then generate five details. Keep the one that fits the character instead of treating every suggestion as part of their biography.",
         ],
         useCases: [
           {
@@ -63,13 +63,14 @@ export default function OcHeadcanonGeneratorPage() {
           heading: "Example: an OC detail that can grow into a scene",
           body:
             "An OC who checks the locks twice before leaving might be cautious, superstitious, or covering for someone else. The first detail does not decide the character. It gives you a question to answer while writing.",
-          href: "/#generator",
+          href: "/?mode=oc#generator",
           linkLabel: "Try it for an OC",
         },
         faqs: [
+          { q: "What do OC and HC mean?", a: "OC means original character. HC is often used as shorthand for headcanon in fan-writing discussions. Generating an HC for your OC means trying an invented detail, not handing ownership of the character to the tool or making every suggestion part of their story." },
           {
             q: "Can I use this without a fandom?",
-            a: "Yes. Enter the OC's name and leave the fandom field blank. The result can fit an original setting or a character you are still designing.",
+            a: "Yes. Choose Original character, enter your OC's name, and leave Setting blank. You can also name your own world there. The tool should not attach an established franchise to an original character without your context.",
           },
           {
             q: "Does it create a full OC profile?",
@@ -81,6 +82,9 @@ export default function OcHeadcanonGeneratorPage() {
           },
         ],
         relatedLinks: [
+          { href: "/headcanon-template", label: "Free Headcanon and OC Worksheet" },
+          { href: "/oc-questions-generator", label: "OC Questions Generator" },
+          { href: "/scenario-headcanon-generator", label: "OC Scene Premises" },
           { href: "/random-character-generator", label: "Random Character Generator" },
           { href: "/writing-prompt-generator", label: "Writing Prompt Generator" },
           { href: "/", label: "Open Headcanon Generator" },

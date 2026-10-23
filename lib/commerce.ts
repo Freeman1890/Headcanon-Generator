@@ -3,7 +3,7 @@ export type AccountState = {
   balance: number; reserved: number; csrfToken?: string;
   capabilities: { email: boolean; generation: boolean; payments: boolean };
 };
-export type GenerationMode = "character" | "relationship" | "oc";
+export type { GenerationMode } from "../commerce/src/config/generation-options";
 export type HeadcanonResult = {
   id: string; characterName: string; workName?: string; content: string;
   headcanons?: string[]; shareUrl?: string; status?: string; error?: string;

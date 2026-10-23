@@ -1,3 +1,7 @@
 {
-  "versions": [{ "name": "付费接入预览1", "url": "http://localhost:3002", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-paid", "changes": "现有UI上的登录、余额、单一积分包与付费生成；不包含未审核的内容优化。" }]
+  "versions": [
+    { "name": "付费接入预览1", "url": "http://localhost:3002", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-paid", "changes": "现有UI上的登录、余额、单一积分包与付费生成；不包含未审核的内容优化。" },
+    { "name": "关键词内页预览1", "url": "http://127.0.0.1:3010", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-keyword-pages", "changes": "三组作品专题、已有关键词页与内链优化、可选友情/恋爱/温馨及情境约束；仅本地审核。" },
+    { "name": "关键词内页预览2", "url": "http://127.0.0.1:3012", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-content-pages", "changes": "保留预览1的三个作品专题；优化第一类既有页面，新增第二类六个可用写作资源与工具；第三四类排除。" }
+  ]
 }

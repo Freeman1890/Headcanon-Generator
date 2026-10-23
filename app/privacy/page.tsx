@@ -22,14 +22,21 @@ export default function PrivacyPage() {
         {
           title: "What the site does",
           paragraphs: [
-            "Headcanon Generator is a creative writing tool. Public guides and examples can be read without an account. Generating new ideas requires email sign-in and purchased credits.",
+            "Headcanon Generator is a creative writing tool. Public guides, examples, the worksheet, the curated OC question bank, and the trope randomizer can be used without an account. AI generation requires email sign-in and purchased credits.",
           ],
         },
         {
           title: "Information you provide",
           paragraphs: [
-            "When generation is enabled, the character name and fandom name you submit are sent to the service that produces the result. Please do not enter your name, email address, private messages, or other personal information into the generator.",
+            "When AI generation is enabled, the character names, fandom or setting, brief, and selected writing options you submit are sent to Kie to produce the result. This applies to headcanons, scene premises, fictional dialogue, and plot outlines. Please do not enter your name, email address, private messages, or other personal information into these fields.",
             "We store your email address, account sessions, orders, credit transactions, and generation requests and results so we can deliver purchases and recover interrupted requests. Results are private unless you choose to share a link. Please keep a copy of results you want to retain; this service does not include a personal results library.",
+          ],
+        },
+        {
+          title: "Free tools and browser worksheets",
+          paragraphs: [
+            "The free worksheet keeps separate existing-character and OC notes in local storage in this browser. These notes are not synced to your account or sent to an AI provider. They remain until you clear the worksheet or site data. If browser storage is blocked, you can still use the sheet for the current visit and download a text copy.",
+            "The OC question bank and trope randomizer select from curated content in your browser without an AI request. Copy and download controls export the text you choose. Optional analytics and ordinary hosting request data remain subject to the practices described below.",
           ],
         },
         {

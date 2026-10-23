@@ -36,7 +36,7 @@ export default function RandomCharacterGeneratorPage() {
           "This is a text tool for character details, not an image generator or a full profile builder. Use it when you want one idea with room to make it your own.",
         purpose: [
           "Sometimes a character needs one small fact before a scene starts to feel possible. A private habit or a strange preference can give you a place to begin.",
-          "The generator keeps that first step small. It gives you one character detail to keep, change, or turn into a writing prompt. That is enough to start a scene without fixing the whole plot.",
+          "The generator keeps that first step small. One purchased credit gives five short character details to keep, change, or turn into a writing prompt. It does not select a random character name for you or build a full character sheet.",
           "You can use the form for a cartoon character, anime character, game character, or OC. Enter the name first and add the fandom only when it helps. This page stays focused on text you can write around.",
         ],
         steps: [
@@ -71,8 +71,8 @@ export default function RandomCharacterGeneratorPage() {
             a: "It creates a short, text-based headcanon detail for the character name you enter. Use it as one part of a profile, roleplay setup, or scene plan. It is not a full character sheet or an image generator.",
           },
           {
-            q: "Can I generate random cartoon characters or anime characters?",
-            a: "Yes, as a writing starting point. Enter the name of a cartoon character, anime character, game character, or your own OC. The tool creates a detail for that character instead of selecting an image from a catalog.",
+            q: "Does it choose a random cartoon or anime character for me?",
+            a: "No. Enter a character name yourself; the generator writes new details for that character. It does not randomly pick an existing character, display a character image, or generate a name. For your own character, choose Original character.",
           },
           {
             q: "Can I use this as a writing prompt generator for roleplay?",

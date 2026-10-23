@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/#features", label: "Features" },
   { href: "/#showcase", label: "Examples" },
   { href: "/#fandoms", label: "Fandoms" },
+  { href: "/#writing-tools", label: "Tools" },
   { href: "/guides", label: "Guides" },
   { href: "/#faq", label: "FAQ" },
 ];
@@ -48,6 +49,8 @@ export function Navigation() {
           className="flex h-11 w-11 items-center justify-center rounded-lg lg:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -56,6 +59,8 @@ export function Navigation() {
 
       {/* Mobile menu */}
       <div
+        id="mobile-navigation"
+        inert={!mobileOpen}
         className={cn(
           "overflow-hidden transition-all duration-200 lg:hidden",
           mobileOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"

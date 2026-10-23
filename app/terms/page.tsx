@@ -22,7 +22,7 @@ export default function TermsPage() {
           title: "Credits and purchases",
           paragraphs: [
             "A one-time US$9.90 purchase provides 100 credits. Applicable taxes, if any, are shown at checkout. There is no subscription or automatic renewal. Purchased credits do not expire and cannot be transferred or redeemed for cash.",
-            "One credit pays for one successful batch of five headcanon ideas. Failed or interrupted requests do not consume a credit. Checking or copying a completed result does not consume another credit. Requesting a new batch does.",
+            "One credit pays for one successful batch of five results from the selected AI tool: headcanon ideas, scene premises, fictional dialogue snippets, or compact plot outlines. Failed or interrupted requests do not consume a credit. Checking or copying a completed result does not consume another credit. Requesting a new batch does. The browser worksheet, curated OC questions, and trope randomizer are free and do not use credits.",
             "For a payment problem, duplicate purchase, or refund request, contact ljt463015573@gmail.com with your order reference and account email. Do not send card details. Requests are reviewed against the payment record and credit usage; applicable consumer rights are not excluded. A confirmed refund removes the associated unused credits.",
           ],
         },

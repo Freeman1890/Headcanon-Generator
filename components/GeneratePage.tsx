@@ -9,6 +9,8 @@ import { ShowcaseSection } from "@/components/ShowcaseSection";
 import { STATIC_HEADCANON_EXAMPLES } from "@/lib/static-examples";
 import { useAccount } from "@/components/AccountProvider";
 import { CommerceError, commerceRequest, type HeadcanonResult, type GenerationMode } from "@/lib/commerce";
+import { DEFAULT_GENERATION_OPTIONS, type GenerationOptions } from "@/commerce/src/config/generation-options";
+import { readGeneratorDraft } from "@/lib/generator-draft";
 
 export function GeneratePage() {
   const [result, setResult] = useState<HeadcanonResult | null>(null);
@@ -17,36 +19,32 @@ export function GeneratePage() {
   const [characterName, setCharacterName] = useState("");
   const [secondCharacter, setSecondCharacter] = useState("");
   const [mode, setMode] = useState<GenerationMode>("character");
+  const [options, setOptions] = useState<GenerationOptions>(DEFAULT_GENERATION_OPTIONS);
   const [error, setError] = useState("");
   const [draftReady, setDraftReady] = useState(false);
   const { account, refresh, openLogin, buy } = useAccount();
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
     const timer = window.setTimeout(() => {
-      setCharacterName(params.get("character") ?? "");
-      setWorkName(params.get("fandom") ?? "");
-      if (['character', 'relationship', 'oc'].includes(params.get('mode') || '')) setMode(params.get('mode') as GenerationMode);
+      let saved: unknown = null;
       try {
-        const draft = JSON.parse(window.sessionStorage.getItem('headcanon-input-draft') || 'null');
-        if (draft && !params.has('character') && !params.has('mode')) {
-          if (typeof draft.characterName === 'string') setCharacterName(draft.characterName.slice(0, 80));
-          if (typeof draft.workName === 'string') setWorkName(draft.workName.slice(0, 80));
-          if (typeof draft.secondCharacter === 'string') setSecondCharacter(draft.secondCharacter.slice(0, 80));
-          if (['character', 'relationship', 'oc'].includes(draft.mode)) setMode(draft.mode);
-        }
+        saved = JSON.parse(window.sessionStorage.getItem('headcanon-input-draft') || 'null');
       } catch { window.sessionStorage.removeItem('headcanon-input-draft'); }
+      const draft = readGeneratorDraft(window.location.search, saved);
+      setCharacterName(draft.characterName); setWorkName(draft.workName);
+      setSecondCharacter(draft.secondCharacter); setMode(draft.mode);
+      setOptions({ relationshipKind: draft.relationshipKind, tone: draft.tone, scenario: draft.scenario });
       setDraftReady(true);
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (draftReady) window.sessionStorage.setItem('headcanon-input-draft', JSON.stringify({ characterName, workName, secondCharacter, mode }));
-  }, [draftReady, characterName, workName, secondCharacter, mode]);
+    if (draftReady) window.sessionStorage.setItem('headcanon-input-draft', JSON.stringify({ characterName, workName, secondCharacter, mode, ...options }));
+  }, [draftReady, characterName, workName, secondCharacter, mode, options]);
 
   const saveDraft = () => {
-    window.sessionStorage.setItem('headcanon-input-draft', JSON.stringify({ characterName, workName, secondCharacter, mode }));
+    window.sessionStorage.setItem('headcanon-input-draft', JSON.stringify({ characterName, workName, secondCharacter, mode, ...options }));
   };
 
   const waitForResult = async (key: string): Promise<HeadcanonResult> => {
@@ -97,7 +95,7 @@ export function GeneratePage() {
         body: JSON.stringify({
           characterName: characterName.trim(),
           workName: workName.trim() || undefined,
-          mode, secondCharacter,
+          mode, secondCharacter, ...options, relationshipKind: mode === 'relationship' ? options.relationshipKind : 'any',
         }),
       });
 
@@ -137,6 +135,7 @@ export function GeneratePage() {
         workName={workName}
         onWorkNameChange={setWorkName}
         mode={mode} onModeChange={setMode} secondCharacter={secondCharacter} onSecondCharacterChange={setSecondCharacter}
+        options={options} onOptionsChange={setOptions}
         error={error} balance={account?.user ? account.balance : undefined}
         needsCredits={Boolean(account?.user && account.balance < 1)}
         onBuy={() => { saveDraft(); void buy().catch(cause => setError(cause instanceof Error ? cause.message : 'Checkout is unavailable.')); }}

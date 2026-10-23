@@ -103,15 +103,34 @@ export default async function FandomHubPage({ params }: PageProps) {
             <div className="mt-6 max-w-3xl space-y-4 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
               {hub.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-            <Button asChild size="lg" variant="primary" className="mt-8">
+            <Button asChild size="lg" variant="primary" className={hub.writingExamples ? "mt-8 h-auto min-h-11 max-w-full whitespace-normal py-3 text-center" : "mt-8"}>
               <Link href={generatorHref}>
                 Generate a {hub.name} headcanon
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
+            {hub.writingExamples && <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">Examples are free to read. Generation requires sign-in and purchased credits: 1 credit for 5 ideas, $9.90 for 100 credits.</p>}
           </div>
         </section>
 
+        {hub.writingExamples && <section className="border-b border-slate-200 py-16 dark:border-slate-800">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Start with a character</h2>
+            <p className="mt-3 max-w-3xl leading-relaxed text-slate-600 dark:text-slate-400">Original fan-made examples, not canon. Each link prefills the character, fandom, and scene; it does not start a paid generation.</p>
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {hub.writingExamples.map(example => {
+                const query = new URLSearchParams({ character: example.character, fandom: hub.name, scenario: example.scenario });
+                return <article key={example.character} className="flex min-w-0 flex-col rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{example.character}</h3>
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{example.body}</p>
+                  <Link href={`/?${query}#generator`} className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">Try {example.character}<ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>
+                </article>;
+              })}
+            </div>
+          </div>
+        </section>}
+
+        {examples.length > 0 &&
         <section className="border-b border-slate-200 py-16 dark:border-slate-800">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
@@ -141,7 +160,7 @@ export default async function FandomHubPage({ params }: PageProps) {
               ))}
             </div>
           </div>
-        </section>
+        </section>}
 
         <section className="border-b border-slate-200 py-16 dark:border-slate-800">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -196,9 +215,19 @@ export default async function FandomHubPage({ params }: PageProps) {
             <div className="flex flex-wrap gap-4 text-sm">
               <Link href={generatorHref} className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">Open the generator</Link>
               <Link href="/guides/how-to-write-a-character-headcanon" className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">Read the character guide</Link>
+              {hub.writingExamples && <Link href={`/?${new URLSearchParams({ mode: 'relationship', fandom: hub.name })}#generator`} className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">Write a pair or ship</Link>}
+              {hub.writingExamples && <Link href="/relationship-headcanon-generator" className="font-medium text-indigo-600 hover:underline dark:text-indigo-400">Relationship writing ideas</Link>}
             </div>
           </div>
         </section>
+        {hub.sources && <section className="border-t border-slate-200 py-10 dark:border-slate-800">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50">Check the source, keep your interpretation</h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">These references provide character and setting context. The invented examples above are not quotations, confirmed lore, or an official collaboration.</p>
+            <ul className="mt-4 space-y-3 text-sm">{hub.sources.map(source => <li key={source.href}><a href={source.href} className="text-indigo-600 hover:underline dark:text-indigo-400">{source.label}</a></li>)}</ul>
+            <Link href="/#fandoms" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-indigo-600 hover:underline dark:text-indigo-400">Browse other fandoms<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+          </div>
+        </section>}
       </main>
       <Footer />
     </>
