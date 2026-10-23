@@ -14,7 +14,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
   const bindings = {
     APP_MODE: 'live', APP_ORIGIN: 'https://site.test', AUTH_ENABLED: 'true', GENERATION_ENABLED: 'true', PAYMENTS_ENABLED: 'true',
     SESSION_SECRET: 'synthetic-session-secret-only', ACCOUNT_ROUTING_SECRET: 'synthetic-routing-secret-only',
-    KIE_API_KEY: 'synthetic-kie-secret-only', RESEND_API_KEY: 'synthetic-mail-secret-only', EMAIL_FROM: 'Headcanon <test@site.test>',
+    KIE_API_KEY: 'synthetic-kie-secret-only', KIE_MODEL: 'deepseek-v4-1-flash', RESEND_API_KEY: 'synthetic-mail-secret-only', EMAIL_FROM: 'Headcanon <test@site.test>',
     ADMIN_EMAIL: 'owner@site.test', ADMIN_BACKFILL_IDS: '[]',
     WAFFO_ENVIRONMENT: 'test', WAFFO_ENDPOINT: 'https://waffo.test', WAFFO_STORE_ID: store,
     WAFFO_MERCHANT_ID: 'MER_0000000000000000000000', WAFFO_PRICE_PACK: '990', WAFFO_PRODUCT_PACK: product,
@@ -41,9 +41,11 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
       }
       if (url.origin === 'https://api.kie.ai') {
         generationCalls++;
-        lastGenerationPrompt = JSON.parse(raw).messages[0].content[0].text;
-        assert.equal(JSON.parse(raw).max_tokens, 1400, 'New tools keep the existing output budget.');
-        assert.equal(url.pathname, '/gemini-3-8-flash-openai/v1/chat/completions');
+        lastGenerationPrompt = JSON.parse(raw).input;
+        assert.equal(JSON.parse(raw).text.format.schema.properties.headcanons.items.maxLength, 800);
+        assert.equal(url.pathname, '/openai/v1/responses');
+        assert.equal(JSON.parse(raw).model, 'deepseek-v4-1-flash');
+        assert.equal(JSON.parse(raw).reasoning.effort, 'none');
         assert.equal(request.headers.get('authorization'), 'Bearer synthetic-kie-secret-only');
         if (providerFailure) return Response.json({ code: 500, msg: 'Local simulated provider failure' });
         if (providerBusyResponses > 0) { providerBusyResponses--; return Response.json({ code: 503, msg: 'Service Unavailable' }); }
@@ -54,8 +56,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
           : lastGenerationPrompt.includes('scene premises in English')
           ? Array.from({ length: 5 }, (_, index) => `Mira and Jo reach platform ${index + 1} after the final train. Mira has one working phone but calling for help means admitting where they went. Jo must decide whether to ask about the missed calls.`)
           : five;
-        const event = { choices: [{ delta: { content: JSON.stringify({ headcanons: fixture }) }, finish_reason: 'stop' }], usage: { prompt_tokens: 200, completion_tokens: 300 }, credits_consumed: 0.08 };
-        return new Response(`data: ${JSON.stringify(event)}\n\ndata: [DONE]\n\n`, { headers: { 'Content-Type': 'text/event-stream' } });
+        return Response.json({ output: [{ type: 'message', content: [{ type: 'output_text', text: JSON.stringify({ headcanons: fixture }) }] }], status: 'completed', usage: { input_tokens: 200, output_tokens: 300 }, credits_consumed: 0.08 });
       }
       assert.equal(url.origin, 'https://waffo.test', 'All test egress must be locally handled.');
       const verifier = createVerify('RSA-SHA256');

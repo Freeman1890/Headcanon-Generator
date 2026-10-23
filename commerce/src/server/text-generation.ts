@@ -96,11 +96,17 @@ class KieBusyError extends Error {
 
 async function callKieAttempt(input: Input, signal: AbortSignal) {
   if (!process.env.KIE_API_KEY) throw new HttpError(503, 'Generation is temporarily unavailable. No credits were charged.');
-  const response = await fetch('https://api.kie.ai/gemini-3-8-flash-openai/v1/chat/completions', {
+  const model = process.env.KIE_MODEL || 'gemini-3-8-flash';
+  if (!['gemini-3-8-flash', 'deepseek-v4-1-flash'].includes(model)) throw new HttpError(503, 'The configured model is unavailable. No credits were charged.');
+  const deepseek = model === 'deepseek-v4-1-flash';
+  const prompt = generationPrompt(input);
+  const body = deepseek
+    ? { model, stream: false, input: prompt, reasoning: { effort: 'none' }, text: { format: { type: 'json_schema', name: 'headcanon_batch', strict: true, schema: { type: 'object', properties: { headcanons: { type: 'array', minItems: 5, maxItems: 5, items: { type: 'string', minLength: 30, maxLength: 800 } } }, required: ['headcanons'], additionalProperties: false } } } }
+    : { stream: true, messages: [{ role: 'user', content: [{ type: 'text', text: prompt }] }], max_tokens: 1400, include_thoughts: false, reasoning_effort: 'low' };
+  const response = await fetch(deepseek ? 'https://api.kie.ai/openai/v1/responses' : 'https://api.kie.ai/gemini-3-8-flash-openai/v1/chat/completions', {
     method: 'POST', signal,
     headers: { Authorization: `Bearer ${process.env.KIE_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ stream: true, messages: [{ role: 'user', content: [{ type: 'text', text: generationPrompt(input) }] }],
-      max_tokens: 1400, include_thoughts: false, reasoning_effort: 'low' }),
+    body: JSON.stringify(body),
   });
   if (!response.ok) {
     await response.body?.cancel();
@@ -119,12 +125,19 @@ async function callKieAttempt(input: Input, signal: AbortSignal) {
     if (data.code !== undefined && data.code !== 200) {
       const payload = data.data ?? data;
       const billed = providerCredits > 0 || Number(payload.credits_consumed ?? data.credits_consumed ?? 0) > 0;
-      const generated = Number(payload.usage?.completion_tokens ?? payload.usageMetadata?.candidatesTokenCount ?? 0) > 0;
+      const generated = Number(payload.usage?.output_tokens ?? payload.usage?.completion_tokens ?? payload.usageMetadata?.candidatesTokenCount ?? 0) > 0;
       if (data.code === 503 && !output && !billed && !generated) throw new KieBusyError();
       const message = typeof data.msg === 'string' ? data.msg.slice(0, 300).replaceAll(process.env.KIE_API_KEY || '__missing_key__', '[hidden]') : 'No provider message';
       throw new Error(`Kie rejected the request (code ${data.code}): ${message}`);
     }
     const payload = data.data ?? data;
+    if (payload.error) throw new Error('The generation provider could not complete this request.');
+    if (deepseek) {
+      if (payload.status !== 'completed') throw new Error('The model could not complete this request.');
+      for (const message of payload.output ?? []) {
+        if (message.type === 'message') for (const part of message.content ?? []) if (part.type === 'output_text' && typeof part.text === 'string') output += part.text;
+      }
+    }
     const choice = payload.choices?.[0];
     if (choice?.finish_reason && choice.finish_reason !== 'stop') throw new Error('The model could not complete this request.');
     if (typeof choice?.delta?.content === 'string') output += choice.delta.content;
@@ -132,7 +145,7 @@ async function callKieAttempt(input: Input, signal: AbortSignal) {
     const candidate = payload.candidates?.[0];
     if (candidate?.finishReason && candidate.finishReason !== 'STOP') throw new Error('The model could not complete this request.');
     for (const part of candidate?.content?.parts ?? []) if (typeof part.text === 'string' && !part.thought) output += part.text;
-    usage = payload.usageMetadata ?? (payload.usage ? { promptTokenCount: payload.usage.prompt_tokens, candidatesTokenCount: payload.usage.completion_tokens, thinkingTokenCount: payload.usage.completion_tokens_details?.reasoning_tokens || 0 } : usage);
+    usage = payload.usageMetadata ?? (payload.usage ? { promptTokenCount: payload.usage.input_tokens ?? payload.usage.prompt_tokens, candidatesTokenCount: payload.usage.output_tokens ?? payload.usage.completion_tokens, thinkingTokenCount: payload.usage.completion_tokens_details?.reasoning_tokens || 0 } : usage);
     providerCredits = Number(payload.credits_consumed ?? data.credits_consumed ?? providerCredits);
   }
   return { headcanons: parseHeadcanons(output), inputTokens: Number(usage.promptTokenCount || 0), outputTokens: Number(usage.candidatesTokenCount || 0) + Number(usage.thinkingTokenCount || 0), providerCredits };

@@ -88,6 +88,34 @@ test('a pre-output 503 retries once with the same input; billed or partial outpu
     await assert.rejects(callKie(input), /temporarily busy/); assert.equal(calls, 2);
   } finally {
     globalThis.fetch = originalFetch;
-    if (previousKey === undefined) delete process.env.KIE_API_KEY; else process.env.KIE_API_KEY = previousKey;
+    if (previousKey === undefined) Reflect.deleteProperty(process.env, 'KIE_API_KEY'); else process.env.KIE_API_KEY = previousKey;
+  }
+});
+
+test('the configured DeepSeek model uses its documented protocol and bounded JSON output', async () => {
+  const originalFetch = globalThis.fetch;
+  const previousKey = process.env.KIE_API_KEY;
+  const previousModel = process.env.KIE_MODEL;
+  process.env.KIE_API_KEY = 'synthetic-deepseek-test-key';
+  process.env.KIE_MODEL = 'deepseek-v4-1-flash';
+  const ideas = Array.from({ length: 5 }, (_, index) => `Mara returns parcel ${index + 1} before the rain. Jo helps her find the right address.`);
+  try {
+    globalThis.fetch = async (url, init) => {
+      assert.equal(url, 'https://api.kie.ai/openai/v1/responses');
+      const body = JSON.parse(String(init?.body));
+      assert.equal(body.model, 'deepseek-v4-1-flash'); assert.equal(body.text.format.schema.properties.headcanons.items.maxLength, 800);
+      assert.equal(body.stream, false); assert.equal(body.reasoning.effort, 'none');
+      assert.equal(typeof body.input, 'string'); assert.equal(body.max_output_tokens, undefined);
+      return Response.json({ output: [{ type: 'reasoning', summary: [{ type: 'summary_text', text: 'not user output' }] }, { type: 'message', content: [{ type: 'output_text', text: JSON.stringify({ headcanons: ideas }) }] }], status: 'completed', usage: { input_tokens: 250, output_tokens: 450 }, credits_consumed: 0.02 });
+    };
+    const result = await callKie(normalizeInput({ characterName: 'Mara' }));
+    assert.deepEqual(result.headcanons, ideas); assert.equal(result.inputTokens, 250); assert.equal(result.outputTokens, 450);
+    assert.equal(result.providerCredits, 0.02);
+    process.env.KIE_MODEL = 'not-allowed';
+    await assert.rejects(callKie(normalizeInput({ characterName: 'Mara' })), /configured model/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (previousKey === undefined) Reflect.deleteProperty(process.env, 'KIE_API_KEY'); else process.env.KIE_API_KEY = previousKey;
+    if (previousModel === undefined) Reflect.deleteProperty(process.env, 'KIE_MODEL'); else process.env.KIE_MODEL = previousModel;
   }
 });
