@@ -135,3 +135,50 @@ test("about page exposes the byline destination without claiming outside credent
   assert.ok(html.includes('id="content-review"'));
   assert.ok(html.includes("not an outside expert"));
 });
+
+const renderHomeArticle = () => {
+  const { SeoSection } = load("components/SeoSection.tsx");
+  const html = renderToStaticMarkup(React.createElement(SeoSection));
+  const article = html.match(/<article id="headcanon-basics"[^>]*>(.*?)<\/article>/s)?.[1];
+  assert.ok(article, "Homepage overview must be rendered without opening an accordion");
+  return article;
+};
+
+test("homepage overview has a visible direct definition and attributed source quotation", () => {
+  const article = renderHomeArticle();
+  assert.match(article, /<h2[^>]*>What is a headcanon\?<\/h2><p[^>]*>A headcanon is/);
+  const source = "https://www.merriam-webster.com/wordplay/words-were-watching-headcanon-fanon";
+  assert.ok(article.includes(`<blockquote cite="${source}"`));
+  assert.ok(article.includes(`<a href="${source}"`));
+  assert.ok(article.includes("<q>something that a fan imagines to be true about a character</q>"));
+  assert.ok(article.includes("not facts about official canon"));
+});
+
+test("homepage mode comparison uses accessible table headers and describes real inputs", () => {
+  const article = renderHomeArticle();
+  assert.match(article, /<caption[^>]*>Three generation modes and when to use them<\/caption>/);
+  assert.equal((article.match(/scope="col"/g) ?? []).length, 3);
+  assert.equal((article.match(/scope="row"/g) ?? []).length, 3);
+  assert.ok(article.includes("[overflow-wrap:anywhere]"));
+  for (const mode of ["Character", "Relationship", "Original character"]) {
+    assert.ok(article.includes(`font-medium">${mode}</th>`));
+  }
+  assert.ok(article.includes("Both names"));
+  assert.ok(article.includes("optional context"));
+});
+
+test("homepage cost facts agree with visible product and successful batch rules", () => {
+  const article = renderHomeArticle();
+  const form = fs.readFileSync(path.join(root, "components/HeroSection.tsx"), "utf8");
+  const generation = fs.readFileSync(path.join(root, "commerce/src/server/text-generation.ts"), "utf8");
+  const pack = JSON.parse(fs.readFileSync(path.join(root, "commerce/src/config/plans.json"), "utf8")).products.pack;
+  assert.equal(pack.price, 990);
+  assert.equal(pack.credits, 100);
+  assert.ok(form.includes("1 credit for 5 ideas. 100 credits for $9.90, no subscription."));
+  assert.ok(generation.includes("items.length !== 5"));
+  assert.ok(generation.includes("No credit was charged."));
+  assert.match(article, /<ul[^>]*>.*?<li>.*?100 credits:.*?<\/li>.*?500 ideas:/s);
+  assert.ok(article.includes("One successful batch costs 1 credit and returns 5 ideas."));
+  assert.ok(article.includes("not a promise of 500 publish-ready passages"));
+  assert.ok(!/[\u2013\u2014]/.test(article));
+});
