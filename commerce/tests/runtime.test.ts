@@ -26,6 +26,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
   let generationCalls = 0;
   let checkoutCalls = 0;
   let providerFailure = false;
+  let providerBusyResponses = 0;
   let lastGenerationPrompt = '';
   const egressErrors: string[] = [];
   const five = Array.from({ length: 5 }, (_, index) => `Mira keeps notebook number ${index + 1} by the door. She writes down one small thing before leaving each morning.`);
@@ -45,6 +46,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
         assert.equal(url.pathname, '/gemini-3-8-flash-openai/v1/chat/completions');
         assert.equal(request.headers.get('authorization'), 'Bearer synthetic-kie-secret-only');
         if (providerFailure) return Response.json({ code: 500, msg: 'Local simulated provider failure' });
+        if (providerBusyResponses > 0) { providerBusyResponses--; return Response.json({ code: 503, msg: 'Service Unavailable' }); }
         const fixture = lastGenerationPrompt.includes('ORIGINAL fictional dialogue snippets')
           ? Array.from({ length: 5 }, (_, index) => `Mira: Where is notebook ${index + 1}?\nJo: Somewhere safe.\nMira: The fridge is not a filing cabinet.`)
           : lastGenerationPrompt.includes('compact fanfiction plot outlines')
@@ -184,6 +186,21 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     }
     assert.equal((await request('/api/generate', { ...input, kind: 'bad' }, { ...auth, 'idempotency-key': 'invalid_writing_tool_0001' })).status, 400);
     assert.equal(generationCalls, 6);
+    providerBusyResponses = 1;
+    const retryHeaders = { ...auth, 'idempotency-key': 'busy_then_success_000001' };
+    const retryInput = { ...input, kind: 'scenario' };
+    assert.equal((await request('/api/generate', retryInput, retryHeaders)).status, 200);
+    assert.equal(generationCalls, 8, 'One automatic retry remains inside one paid generation.');
+    assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 94);
+    assert.equal((await request('/api/generate', retryInput, retryHeaders)).status, 200);
+    assert.equal(generationCalls, 8, 'Replaying the successful generation cannot retry the provider again.');
+    providerBusyResponses = 2;
+    const busyHeaders = { ...auth, 'idempotency-key': 'busy_twice_failure_000001' };
+    assert.equal((await request('/api/generate', retryInput, busyHeaders)).status, 502);
+    assert.equal(generationCalls, 10);
+    assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 94, 'Repeated provider failure returns the reserved credit.');
+    assert.equal((await request('/api/generate', retryInput, busyHeaders)).status, 502);
+    assert.equal(generationCalls, 10, 'A failed generation replay must not spend more provider requests.');
     const refunded = await signedEvent('refund.succeeded', 'refund-succeeded', { refundStatus: 'succeeded', refundedAmount: '9.90' });
     assert.equal(refunded.status, 200, await refunded.clone().text());
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 0);

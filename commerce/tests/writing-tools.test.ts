@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { WRITING_TOOLS } from '../../lib/writing-tools';
 import { QUESTIONS, TROPES, drawItems, restoreWorksheet, worksheetText } from '../../lib/writing-collections';
-import { generationPrompt, normalizeInput } from '../src/server/text-generation';
+import { callKie, generationPrompt, normalizeInput } from '../src/server/text-generation';
 
 test('six distinct writing pages have complete original copy and valid related routes', () => {
   assert.equal(WRITING_TOOLS.length, 6);
@@ -53,4 +53,41 @@ test('AI tools have distinct prompts and keep existing default request hashes in
   assert.match(generationPrompt(normalizeInput({ ...pair, kind: 'dialogue' })), /ORIGINAL fictional dialogue snippets/);
   assert.match(generationPrompt(normalizeInput({ ...pair, kind: 'plot' })), /goal, an obstacle, a turning point, and a possible ending/);
   for (const bad of [{ ...pair, kind: 'unsupported' }, { ...pair, kind: ['plot'] }, { characterName: 'Mira', kind: 'dialogue' }, { characterName: 'Mira', mode: ['oc'] }]) assert.throws(() => normalizeInput(bad));
+});
+
+test('a pre-output 503 retries once with the same input; billed or partial output never retries', async () => {
+  const originalFetch = globalThis.fetch;
+  const previousKey = process.env.KIE_API_KEY;
+  process.env.KIE_API_KEY = 'synthetic-retry-test-key';
+  const input = normalizeInput({ characterName: 'Mara', kind: 'plot' });
+  const ideas = Array.from({ length: 5 }, (_, index) => `Mara returns parcel ${index + 1} before the rain. Jo helps her find the right address.`);
+  const bodies: string[] = [];
+  try {
+    globalThis.fetch = async (_url, init) => {
+      bodies.push(String(init?.body));
+      return bodies.length === 1 ? Response.json({ code: 503, msg: 'Service Unavailable' }) : Response.json({ choices: [{ message: { content: JSON.stringify({ headcanons: ideas }) }, finish_reason: 'stop' }], credits_consumed: 0.1 });
+    };
+    assert.deepEqual((await callKie(input)).headcanons, ideas);
+    assert.equal(bodies.length, 2); assert.equal(bodies[0], bodies[1]);
+    for (const data of [
+      { code: 503, msg: 'Busy', credits_consumed: 0.1 },
+      { code: 503, msg: 'Busy', usage: { completion_tokens: 10 } },
+    ]) {
+      let calls = 0;
+      globalThis.fetch = async () => { calls++; return Response.json(data); };
+      await assert.rejects(callKie(input)); assert.equal(calls, 1);
+    }
+    let calls = 0;
+    globalThis.fetch = async () => {
+      calls++;
+      return new Response('data: {"choices":[{"delta":{"content":"partial"}}]}\n\ndata: {"code":503,"msg":"Busy"}\n\n', { headers: { 'Content-Type': 'text/event-stream' } });
+    };
+    await assert.rejects(callKie(input)); assert.equal(calls, 1);
+    calls = 0;
+    globalThis.fetch = async () => { calls++; return Response.json({ code: 503, msg: 'Busy' }); };
+    await assert.rejects(callKie(input), /temporarily busy/); assert.equal(calls, 2);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (previousKey === undefined) delete process.env.KIE_API_KEY; else process.env.KIE_API_KEY = previousKey;
+  }
 });

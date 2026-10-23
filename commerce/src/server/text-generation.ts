@@ -90,15 +90,23 @@ async function boundedText(response: Response, maximum = 160_000) {
   } finally { reader.releaseLock(); }
 }
 
-export async function callKie(input: Input) {
+class KieBusyError extends Error {
+  constructor() { super('The AI service is temporarily busy. Please try again shortly. No credits were charged.'); }
+}
+
+async function callKieAttempt(input: Input, signal: AbortSignal) {
   if (!process.env.KIE_API_KEY) throw new HttpError(503, 'Generation is temporarily unavailable. No credits were charged.');
   const response = await fetch('https://api.kie.ai/gemini-3-8-flash-openai/v1/chat/completions', {
-    method: 'POST', signal: AbortSignal.timeout(45_000),
+    method: 'POST', signal,
     headers: { Authorization: `Bearer ${process.env.KIE_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ stream: true, messages: [{ role: 'user', content: [{ type: 'text', text: generationPrompt(input) }] }],
       max_tokens: 1400, include_thoughts: false, reasoning_effort: 'low' }),
   });
-  if (!response.ok) throw new Error('The generation provider is unavailable.');
+  if (!response.ok) {
+    await response.body?.cancel();
+    if (response.status === 503) throw new KieBusyError();
+    throw new Error('The generation provider is unavailable.');
+  }
   const raw = await boundedText(response);
   let output = '';
   let usage: Record<string, number> = {};
@@ -109,6 +117,10 @@ export async function callKie(input: Input) {
   for (const chunk of chunks) {
     const data = JSON.parse(chunk);
     if (data.code !== undefined && data.code !== 200) {
+      const payload = data.data ?? data;
+      const billed = providerCredits > 0 || Number(payload.credits_consumed ?? data.credits_consumed ?? 0) > 0;
+      const generated = Number(payload.usage?.completion_tokens ?? payload.usageMetadata?.candidatesTokenCount ?? 0) > 0;
+      if (data.code === 503 && !output && !billed && !generated) throw new KieBusyError();
       const message = typeof data.msg === 'string' ? data.msg.slice(0, 300).replaceAll(process.env.KIE_API_KEY || '__missing_key__', '[hidden]') : 'No provider message';
       throw new Error(`Kie rejected the request (code ${data.code}): ${message}`);
     }
@@ -124,6 +136,18 @@ export async function callKie(input: Input) {
     providerCredits = Number(payload.credits_consumed ?? data.credits_consumed ?? providerCredits);
   }
   return { headcanons: parseHeadcanons(output), inputTokens: Number(usage.promptTokenCount || 0), outputTokens: Number(usage.candidatesTokenCount || 0) + Number(usage.thinkingTokenCount || 0), providerCredits };
+}
+
+export async function callKie(input: Input) {
+  const signal = AbortSignal.timeout(45_000);
+  try { return await callKieAttempt(input, signal); }
+  catch (error) {
+    // Only a definite pre-output 503 is retryable, within the original time budget.
+    if (!(error instanceof KieBusyError) || signal.aborted) throw error;
+    await new Promise(resolve => setTimeout(resolve, 750));
+    signal.throwIfAborted();
+    return callKieAttempt(input, signal);
+  }
 }
 
 function publicResult(row: Row) {
