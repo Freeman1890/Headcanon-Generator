@@ -7,8 +7,14 @@
     "build": "next build",
     "cf:build": "npx --yes --legacy-peer-deps @cloudflare/next-on-pages@1",
     "cf:deploy": "npx wrangler pages deploy .vercel/output/static --project-name=headcanon-generator",
+    "cf:dry-run": "npm run cf:build && npx wrangler deploy --config wrangler.dry-run.toml --dry-run --outdir .wrangler/dry-run",
+    "prelaunch": "npm run test && npm run lint && npm run typecheck",
+    "predeploy": "npm run prelaunch && npm run cf:dry-run",
+    "deploy": "npm run cf:deploy",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
