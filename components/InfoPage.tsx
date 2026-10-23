@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
 
 interface InfoSection {
+  id?: string;
   title: string;
   paragraphs?: ReactNode[];
   items?: ReactNode[];
@@ -36,7 +37,7 @@ export function InfoPage({ title, intro, updated, sections }: InfoPageProps) {
 
           <div className="mt-12 space-y-10 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
             {sections.map((section) => (
-              <section key={section.title}>
+              <section key={section.title} id={section.id} className="scroll-mt-24">
                 <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50">
                   {section.title}
                 </h2>

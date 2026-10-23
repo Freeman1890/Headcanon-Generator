@@ -42,9 +42,9 @@ export function FeatureSection() {
           <h2 className="mb-12 text-center text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
             How It Works
           </h2>
-          <div className="grid gap-8 md:grid-cols-3">
+          <ol className="grid list-none gap-8 md:grid-cols-3">
             {STEPS.map((step, i) => (
-              <div
+              <li
                 key={step.title}
                 className="flex flex-col items-center rounded-xl border border-slate-200 bg-white p-8 text-center dark:border-slate-800 dark:bg-slate-950"
               >
@@ -60,9 +60,9 @@ export function FeatureSection() {
                 <p className="text-sm text-slate-600 dark:text-slate-400">
                   {step.description}
                 </p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
 
         <div className="mb-20">

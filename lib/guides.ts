@@ -3,11 +3,15 @@ export interface WritingGuide {
   title: string;
   description: string;
   intro: string;
-  reviewed: string;
+  published: string;
+  updated: string;
   sections: {
     title: string;
     paragraphs: string[];
     items?: string[];
+    steps?: string[];
+    comparison?: { term: string; meaning: string; example: string }[];
+    reference?: { label: string; href: string; note: string };
   }[];
   faqs: { q: string; a: string }[];
   relatedLinks: { href: string; label: string }[];
@@ -21,7 +25,8 @@ export const WRITING_GUIDES: WritingGuide[] = [
       "Learn what a headcanon is, how it differs from official canon, and how fans use small character ideas in fiction, roleplay, discussion, and scene writing.",
     intro:
       "A headcanon is a personal idea a fan accepts about a character or fictional world even though the source never confirms it. It might explain a habit, fill a quiet gap in the story, or suggest how two characters behave when the plot is not watching.",
-    reviewed: "October 24, 2026",
+    published: "2026-07-30",
+    updated: "2026-10-24",
     sections: [
       {
         title: "Headcanon in plain language",
@@ -29,11 +34,16 @@ export const WRITING_GUIDES: WritingGuide[] = [
           "Canon is what the original work establishes. A headcanon sits outside that record. It can be compatible with canon, but it remains a fan interpretation unless the creator later confirms it.",
           "The scale can be tiny. A character always orders the same drink. Two teammates have a routine before difficult missions. Someone keeps a broken object because replacing it would feel like admitting a chapter of their life is over. None of these details needs to rewrite the plot.",
         ],
+        reference: {
+          label: "Dictionary.com: headcanon",
+          href: "https://www.dictionary.com/culture/slang/headcanon",
+          note: "This slang explainer describes headcanon as a fan's personal interpretation outside the official account. The examples and writing exercises here are our own.",
+        },
       },
       {
         title: "Why fans make headcanons",
         paragraphs: [
-          "Stories leave blank spaces. Sometimes that is deliberate, and sometimes a series simply has no reason to show what a character does on an ordinary afternoon. Headcanons give fans a way to explore those spaces.",
+          "Fans use headcanons to explore moments a story leaves open. Sometimes that is deliberate, and sometimes a series simply has no reason to show what a character does on an ordinary afternoon.",
           "They also make useful writing prompts. A small private habit can create a scene faster than a broad trait such as brave, shy, or mysterious because it gives another character something specific to notice.",
         ],
         items: [
@@ -79,20 +89,26 @@ export const WRITING_GUIDES: WritingGuide[] = [
       "Compare headcanon and canon, see where fanon and canon divergence fit, and label character ideas clearly when writing fanfiction or discussing a fandom.",
     intro:
       "Canon describes information established by the original work or an authorized source. Headcanon describes a fan's personal interpretation. The difference is not about whether an idea is good. It is about where the idea comes from and how confidently it can be treated as part of the source.",
-    reviewed: "July 30, 2026",
+    published: "2026-07-30",
+    updated: "2026-10-24",
     sections: [
       {
         title: "A quick comparison",
         paragraphs: [
-          "If a novel states that a character hates rain, that detail is canon. If a reader imagines the character keeps an umbrella by every door because of that dislike, the umbrella habit is a headcanon. It follows the source, but the source never says it happens.",
+          "Canon comes from the source; a headcanon comes from a fan's interpretation. Fanon is an unofficial idea that spreads through a fan community. The invented examples below show how the labels differ.",
           "A headcanon can be well supported. It may explain body language, repeated choices, or a gap between two episodes. Evidence makes an interpretation persuasive, but it does not change its status.",
         ],
-        items: [
-          "Canon: stated or clearly shown in the authorized work",
-          "Headcanon: a personal idea that fills or interprets a gap",
-          "Fanon: a fan idea repeated so widely that it feels familiar across the community",
-          "Canon divergence: a story that deliberately changes an established event",
+        comparison: [
+          { term: "Canon", meaning: "A detail established by the source being discussed.", example: "A novel states that a character hates rain." },
+          { term: "Headcanon", meaning: "A fan's personal interpretation that the source does not confirm.", example: "You imagine that character keeps an umbrella by every door." },
+          { term: "Fanon", meaning: "An unofficial idea shared widely within a fan community.", example: "Other fans adopt the umbrella habit in their own stories." },
+          { term: "Canon divergence", meaning: "A fan story deliberately changes an established event.", example: "You rewrite a storm scene so the character stays instead of leaving." },
         ],
+        reference: {
+          label: "Merriam-Webster: Words We're Watching: Headcanon",
+          href: "https://www.merriam-webster.com/wordplay/words-were-watching-headcanon-fanon",
+          note: "Merriam-Webster discusses canon, headcanon, and fanon in fandom usage. The umbrella comparison is an original illustration, not a quotation from that article.",
+        },
       },
       {
         title: "Why the labels matter",
@@ -104,7 +120,7 @@ export const WRITING_GUIDES: WritingGuide[] = [
       {
         title: "When sources disagree",
         paragraphs: [
-          "Long-running series may have novels, games, films, translations, and adaptations that do not line up perfectly. Name the version you mean. An idea can be canon in one adaptation and unsupported in another.",
+          "Name the version you mean when sources disagree. Long-running series may have novels, games, films, translations, and adaptations that do not line up perfectly. An idea can be canon in one adaptation and unsupported in another.",
           "When you are unsure, describe what you observed instead of making a broad claim. That leaves room for another source without forcing the discussion into a winner and loser.",
         ],
       },
@@ -131,9 +147,20 @@ export const WRITING_GUIDES: WritingGuide[] = [
     description:
       "Write a character headcanon by starting with canon behavior, choosing one concrete detail, and testing how it changes a short scene between characters.",
     intro:
-      "A convincing character headcanon usually adds less than you expect. It takes one behavior the audience already recognizes and follows it into a moment the source did not show.",
-    reviewed: "July 30, 2026",
+      "To write a character headcanon, start with an action the source shows, add one unconfirmed detail, and test it in a short scene. Keep the invented part clear. A useful idea does not need to explain the character's whole life.",
+    published: "2026-07-30",
+    updated: "2026-10-24",
     sections: [
+      {
+        title: "A short writing process",
+        paragraphs: ["Use these steps as a starting exercise, not a test your interpretation has to pass."],
+        steps: [
+          "Write down one action the character takes in the source, including the scene or episode if you know it.",
+          "Add one habit, object, or motive the source leaves open. Label it as your interpretation.",
+          "Let another character notice or interrupt that detail in a short scene.",
+          "Keep what fits the character and rewrite the reaction if it feels wrong.",
+        ],
+      },
       {
         title: "Start with an observable pattern",
         paragraphs: [
@@ -184,8 +211,9 @@ export const WRITING_GUIDES: WritingGuide[] = [
     description:
       "Develop relationship headcanon ideas with shared routines, uneven knowledge, small conflicts, and scene prompts for ships, friendships, and rivalries.",
     intro:
-      "A relationship headcanon becomes useful when it shows what two people do to each other. Give the pair a routine, a disagreement, or a piece of knowledge that belongs only to them.",
-    reviewed: "October 24, 2026",
+      "Build a relationship headcanon around a shared routine, a small disagreement, or something only one person notices about the other. Then interrupt it. The same exercise works for friends, rivals, family, and romantic pairs.",
+    published: "2026-07-30",
+    updated: "2026-10-24",
     sections: [
       {
         title: "Give the relationship a repeated action",
@@ -197,7 +225,7 @@ export const WRITING_GUIDES: WritingGuide[] = [
       {
         title: "Use uneven knowledge",
         paragraphs: [
-          "Relationships feel distinct when each person knows a different version of the other. A rival may notice a weakness that friends overlook. A sibling may remember an old fear the character has learned to hide.",
+          "Give one person knowledge the other relationships do not reveal. A rival may notice a weakness that friends overlook. A sibling may remember an old fear the character has learned to hide.",
           "Choose one fact that only this relationship makes visible. Then decide whether the knowledge feels safe, irritating, embarrassing, or dangerous to the person being read so closely.",
         ],
         items: [
@@ -237,8 +265,9 @@ export const WRITING_GUIDES: WritingGuide[] = [
     description:
       "Build an original character headcanon from one choice, habit, or contradiction, then expand it into a focused profile, scene, or roleplay setup for writing.",
     intro:
-      "An original character does not need a finished biography before the first scene. One specific choice can reveal enough tension to start writing and leave the rest open for discovery.",
-    reviewed: "July 30, 2026",
+      "Start an OC headcanon with one choice: what the character does, why they might do it, and what could change their mind. Try it in a scene before building a full profile. The detail can change as you learn more about the character.",
+    published: "2026-07-30",
+    updated: "2026-10-24",
     sections: [
       {
         title: "Begin with a choice, not a trait",
@@ -266,6 +295,11 @@ export const WRITING_GUIDES: WritingGuide[] = [
           "Use the headcanon in a short interaction before deciding on every date, relative, or formative event. The scene will tell you which background details are actually needed.",
           "Afterward, record only what became useful: the choice, the reason you currently believe it happens, and one condition that could change it. This gives the character room to surprise you later.",
         ],
+        steps: [
+          "Record the choice the character made in the scene.",
+          "Note the motive you are testing, without treating it as a settled fact.",
+          "Add one situation in which they might act differently.",
+        ],
       },
     ],
     faqs: [
@@ -288,4 +322,10 @@ export const WRITING_GUIDES: WritingGuide[] = [
 
 export function findWritingGuide(slug: string) {
   return WRITING_GUIDES.find((guide) => guide.slug === slug);
+}
+
+export function formatGuideDate(isoDate: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+  }).format(new Date(`${isoDate}T00:00:00Z`));
 }

@@ -16,12 +16,12 @@ export default function AboutPage() {
     <InfoPage
       title="About Headcanon Generator"
       intro="Headcanon Generator is a writing tool for small character details, scene starters, and fanfiction notes."
-      updated="July 30, 2026"
+      updated="October 24, 2026"
       sections={[
         {
           title: "What you can do here",
           paragraphs: [
-            "Enter a character and, if useful, the fandom they come from. The generator returns a short idea that you can keep, rewrite, or use as a starting point for a scene.",
+            "Enter a character and, if useful, the fandom they come from. One purchased credit returns five short ideas. You can keep a detail, rewrite it, or use it to start a scene. The worksheet, OC question bank, and trope randomizer are free and do not call an AI model.",
             "The site also includes a small set of fixed examples. Each example has extra prompts, scene ideas, writer notes, and questions that help turn one detail into a usable piece of writing.",
           ],
         },
@@ -32,9 +32,12 @@ export default function AboutPage() {
           ],
         },
         {
+          id: "content-review",
           title: "How content is written and reviewed",
           paragraphs: [
+            "The writing guides are published under the Headcanon Generator name. The byline identifies the site responsible for the page, not an outside expert or an endorsement by a fandom's creators.",
             "Some generator output and early copy drafts are AI-assisted. Fixed character examples, fandom pages, and writing guides are edited before publication. The review checks whether the writing is clear, specific, useful in a scene, and honest about the difference between fan interpretation and canon.",
+            "References sit beside the terminology they explain. Writing exercises and invented examples are identified separately. Published dates keep the original publication record; updated dates change when the page content is revised, not whenever the site is built.",
             "Generated results are not checked against every episode, chapter, game update, or translation in real time. When a canon detail matters, use the original work or an official source and revise the prompt to fit your version of the character.",
           ],
         },

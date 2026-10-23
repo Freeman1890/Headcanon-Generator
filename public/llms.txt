@@ -1,0 +1,37 @@
+# Headcanon Generator
+
+> A fan-writing site for character details, relationship ideas, original characters, and short scene starters.
+
+Headcanon Generator is an independent writing tool. Its examples and generated ideas are fan interpretations, not official canon or statements from a work's creators. AI-generated output can be inaccurate or out of character. Consult the original work when a source fact matters.
+
+New AI generations use purchased credits. The headcanon worksheet, OC question bank, and trope randomizer are free and do not use an AI model. Current purchase terms are shown on the homepage. There is no subscription.
+
+## Tools
+
+- [Headcanon Generator](https://headcanongenerator.run/): Character, relationship, and original-character ideas; current credit terms.
+- [Relationship Headcanon Generator](https://headcanongenerator.run/relationship-headcanon-generator): Pair dynamics for friends, rivals, and romantic relationships.
+- [OC Headcanon Generator](https://headcanongenerator.run/oc-headcanon-generator): Original-character habits and choices.
+- [Headcanon Template](https://headcanongenerator.run/headcanon-template): A free worksheet that separates source facts from invented details.
+- [OC Questions Generator](https://headcanongenerator.run/oc-questions-generator): Free questions drawn from a curated collection.
+- [Random Trope Generator](https://headcanongenerator.run/random-trope-generator): Free selections from an original trope collection.
+- [Scenario Headcanon Generator](https://headcanongenerator.run/scenario-headcanon-generator): AI scene premises with a place, interruption, and unresolved choice.
+- [Incorrect Quotes Generator](https://headcanongenerator.run/incorrect-quotes-generator): Invented dialogue, not authentic quotations from a source.
+- [Fanfiction Plot Generator](https://headcanongenerator.run/fanfiction-plot-generator): AI plot ideas to develop in your own writing.
+
+## Writing guides
+
+- [What Is a Headcanon?](https://headcanongenerator.run/guides/what-is-a-headcanon): Meaning, examples, and terminology references.
+- [Headcanon vs. Canon](https://headcanongenerator.run/guides/headcanon-vs-canon): Canon, headcanon, fanon, and invented comparison examples.
+- [How to Write a Character Headcanon](https://headcanongenerator.run/guides/how-to-write-a-character-headcanon): A short process for developing a concrete detail.
+- [Relationship Headcanon Ideas](https://headcanongenerator.run/guides/relationship-headcanon-ideas): Routines and interruptions for pairs.
+- [How to Create an OC Headcanon](https://headcanongenerator.run/guides/how-to-create-an-oc-headcanon): Testing a choice before completing a character profile.
+
+## Site information
+
+- [About and content review](https://headcanongenerator.run/about#content-review): Site responsibility, AI assistance, and editorial boundaries.
+- [Contact](https://headcanongenerator.run/contact): Feedback and contact information.
+- [Privacy](https://headcanongenerator.run/privacy): Account, browser storage, and analytics practices.
+- [Terms](https://headcanongenerator.run/terms): Use and purchase terms.
+- [Sitemap](https://headcanongenerator.run/sitemap.xml): Indexable public pages.
+
+This file is a reading guide, not a replacement for robots.txt, the sitemap, or the terms on the linked pages.

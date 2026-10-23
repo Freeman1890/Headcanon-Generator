@@ -56,7 +56,7 @@ const LONG_FORM_CONTENT = [
   {
     title: "Using the generator for fanfiction",
     body: [
-      "Start with the generated idea, then make it more specific. If the result says a character keeps something private, decide what the object is, who notices it, and what changes after that.",
+      "Turn a generated idea into a scene by choosing an object, a witness, and a change. If a character keeps something private, decide what it is, who notices it, and what happens next.",
       "You can also use a headcanon as a quiet scene between larger plot moments. Those small scenes often make action or romance feel less generic.",
     ],
   },
@@ -97,7 +97,7 @@ export function SeoSection() {
 
         <section id="writing-tools" className="mb-16 scroll-mt-24 border-y border-slate-200 py-10 dark:border-slate-800">
           <h2 className="text-2xl font-semibold">Writing tools and templates</h2>
-          <div className="mt-5 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">{WRITING_TOOLS.map(tool => <div key={tool.id} className="min-w-0 border-b border-slate-200 py-4 dark:border-slate-800"><Link href={tool.path} className="inline-flex min-h-11 items-center gap-2 font-medium text-indigo-600 hover:underline dark:text-indigo-400">{tool.title}<ArrowRight className="h-4 w-4 shrink-0" /></Link><p className="mt-1 text-sm text-slate-500">{tool.free ? 'Free, no account needed' : '1 credit for 5 results'}</p></div>)}</div>
+          <ul className="mt-5 grid list-none gap-x-8 sm:grid-cols-2 lg:grid-cols-3">{WRITING_TOOLS.map(tool => <li key={tool.id} className="min-w-0 border-b border-slate-200 py-4 dark:border-slate-800"><Link href={tool.path} className="inline-flex min-h-11 items-center gap-2 font-medium text-indigo-600 hover:underline dark:text-indigo-400">{tool.title}<ArrowRight className="h-4 w-4 shrink-0" /></Link><p className="mt-1 text-sm text-slate-500">{tool.free ? 'Free, no account needed' : '1 credit for 5 results'}</p></li>)}</ul>
         </section>
 
         <article className="prose prose-slate dark:prose-invert mx-auto max-w-3xl">
