@@ -12,7 +12,7 @@ export function Analytics() {
   const [consent, setConsent] = useState<"accepted" | "declined" | null>(null);
 
   useEffect(() => {
-    let savedConsent: "accepted" | "declined" = "declined";
+    let savedConsent: "accepted" | "declined" | null = null;
 
     try {
       const saved = window.localStorage.getItem(CONSENT_KEY);
@@ -20,7 +20,7 @@ export function Analytics() {
         savedConsent = saved;
       }
     } catch {
-      savedConsent = "declined";
+      savedConsent = null;
     }
 
     const timer = window.setTimeout(() => setConsent(savedConsent), 0);
