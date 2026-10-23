@@ -31,13 +31,13 @@ export default function RelationshipHeadcanonGeneratorPage() {
         title: "Relationship Headcanon Generator",
         eyebrow: "Character dynamics for couples, ships, and friendships",
         intro:
-          "Need a small detail for a couple, ship, or complicated dynamic? Put both names in Character name, add the fandom if it helps, and use the result to start a scene between them.",
+          "Need a small detail for a couple, ship, or complicated dynamic? Choose Relationship, enter both names in their own fields, and add the fandom if it helps. One credit gives you five ideas to write from.",
         note:
           "A ship can be romantic, friendly, tense, or hard to name. Enter the two characters and let the result suggest one moment between them.",
         inputHint: "Enter both characters or a ship",
         purpose: [
           "A relationship headcanon gives two characters something to share. It could be a routine they never discuss, a point they keep arguing about, or a way one of them shows care without saying it directly.",
-          "Enter the pair as one text input and use the fandom field for context. This keeps the current generator simple while giving the result both names to work with.",
+          "Enter each name in its own field and use the fandom field for context. The generator writes five small interactions involving both characters.",
           "Use the idea to test the dynamic in a scene. You can make it romantic, platonic, competitive, awkward, or something that changes from chapter to chapter.",
         ],
         steps: [

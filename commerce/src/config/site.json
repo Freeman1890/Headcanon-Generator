@@ -1,0 +1,22 @@
+{
+  "brand": "Headcanon Generator",
+  "slug": "headcanon",
+  "origin": "https://headcanongenerator.run",
+  "supportEmail": "ljt463015573@gmail.com",
+  "operatorName": "an individual",
+  "logo": {
+    "src": "/favicon.svg",
+    "alt": "Headcanon Generator"
+  },
+  "locale": "en",
+  "keyword": "headcanon generator",
+  "keywords": [
+    "headcanon generator",
+    "relationship headcanon generator",
+    "oc headcanon generator"
+  ],
+  "analyticsId": "",
+  "watermark": "",
+  "noindex": true,
+  "uploadMaxMb": 10
+}

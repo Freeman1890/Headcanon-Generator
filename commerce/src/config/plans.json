@@ -1,0 +1,57 @@
+{
+  "products": {
+    "pack": {
+      "name": "Credit pack",
+      "price": 990,
+      "credits": 100,
+      "slots": 0,
+      "interval": "one-time"
+    },
+    "creator-monthly": {
+      "name": "Creator",
+      "price": 2400,
+      "credits": 100,
+      "slots": 10,
+      "interval": "monthly"
+    },
+    "creator-yearly": {
+      "name": "Creator",
+      "price": 26400,
+      "credits": 100,
+      "slots": 10,
+      "interval": "yearly"
+    },
+    "studio-monthly": {
+      "name": "Studio",
+      "price": 4900,
+      "credits": 300,
+      "slots": 50,
+      "interval": "monthly"
+    },
+    "studio-yearly": {
+      "name": "Studio",
+      "price": 52800,
+      "credits": 300,
+      "slots": 50,
+      "interval": "yearly"
+    }
+  },
+  "entitlements": {
+    "free": {
+      "credits": 0,
+      "slots": 0,
+      "parallel": 1,
+      "days": 30
+    },
+    "pack": {
+      "parallel": 1,
+      "slotDays": 90
+    },
+    "creator": {
+      "parallel": 2
+    },
+    "studio": {
+      "parallel": 4
+    }
+  }
+}

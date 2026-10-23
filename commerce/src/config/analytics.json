@@ -1,0 +1,5 @@
+{
+  "attributionEnabled": false,
+  "publicPaths": ["/", "/pricing", "/help", "/models", "/privacy", "/terms", "/refunds", "/acceptable-use"],
+  "ignoredReferrers": ["waffo.ai", "stripe.com", "paypal.com", "checkout.com", "adyen.com", "paddle.com"]
+}

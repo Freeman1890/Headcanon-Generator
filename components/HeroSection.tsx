@@ -3,6 +3,7 @@
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import type { GenerationMode } from "@/lib/commerce";
 
 interface HeroSectionProps {
   onGenerate?: (characterName: string, workName: string) => void;
@@ -11,6 +12,14 @@ interface HeroSectionProps {
   onCharacterNameChange: (value: string) => void;
   workName: string;
   onWorkNameChange: (value: string) => void;
+  mode: GenerationMode;
+  onModeChange: (value: GenerationMode) => void;
+  secondCharacter: string;
+  onSecondCharacterChange: (value: string) => void;
+  error?: string;
+  balance?: number;
+  needsCredits?: boolean;
+  onBuy?: () => void;
 }
 
 export function HeroSection({
@@ -20,6 +29,7 @@ export function HeroSection({
   onCharacterNameChange,
   workName,
   onWorkNameChange,
+  mode, onModeChange, secondCharacter, onSecondCharacterChange, error, balance, needsCredits, onBuy,
 }: HeroSectionProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,10 +40,6 @@ export function HeroSection({
       onGenerate(trimmedCharacterName, fandomName);
     }
 
-    document.getElementById("showcase")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   return (
@@ -55,7 +61,7 @@ export function HeroSection({
               Headcanon Generator
             </h1>
             <p className="max-w-lg text-base text-slate-600 dark:text-slate-400">
-              Enter a character and fandom. Get a short headcanon you can build from.
+              Give us a character. Get five small details worth writing a scene around.
             </p>
           </div>
 
@@ -64,22 +70,36 @@ export function HeroSection({
             onSubmit={handleSubmit}
             className="flex w-full flex-col gap-4 sm:gap-6"
           >
+            <div role="group" aria-label="Headcanon type" className="grid grid-cols-3 border-b border-slate-200 dark:border-slate-700">
+              {([['character', 'Character'], ['relationship', 'Relationship'], ['oc', 'Original character']] as const).map(([value, label]) => <button key={value} type="button" aria-pressed={mode === value} onClick={() => onModeChange(value)} className={`min-h-11 border-b-2 px-2 py-2 text-sm ${mode === value ? 'border-indigo-600 font-semibold text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-600 dark:text-slate-400'}`}>{label}</button>)}
+            </div>
             <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
+              <label className="min-w-0 flex-1"><span className="mb-2 block text-sm font-medium">{mode === 'relationship' ? 'First character' : mode === 'oc' ? 'Your character' : 'Character name'}</span>
               <Input
                 type="text"
+                required
+                maxLength={80}
                 placeholder="Character name"
                 value={characterName}
                 onChange={(event) => onCharacterNameChange(event.target.value)}
                 className="h-14 rounded-xl border-2 border-slate-200 bg-white/80 px-5 text-base backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80 sm:flex-1"
               />
+              </label>
+              {mode === 'relationship' && <label className="min-w-0 flex-1"><span className="mb-2 block text-sm font-medium">Second character</span><Input value={secondCharacter} onChange={event => onSecondCharacterChange(event.target.value)} required maxLength={80} placeholder="Second character" className="h-14 rounded-xl border-2 border-slate-200 bg-white/80 px-5 text-base dark:border-slate-700 dark:bg-slate-900/80" /></label>}
+              </div>
+              <label><span className="mb-2 block text-sm font-medium">{mode === 'oc' ? 'Setting (optional)' : 'Fandom (optional)'}</span>
               <Input
                 type="text"
+                maxLength={80}
                 placeholder="Fandom (optional)"
                 value={workName}
                 onChange={(event) => onWorkNameChange(event.target.value)}
                 className="h-14 rounded-xl border-2 border-slate-200 bg-white/80 px-5 text-base backdrop-blur-sm dark:border-slate-700 dark:bg-slate-900/80 sm:flex-1"
               />
-            </div>
+              </label>
+            <p className="text-sm text-slate-600 dark:text-slate-400">1 credit for 5 ideas. 100 credits for $9.90, no subscription.{balance !== undefined ? ` Balance: ${balance}.` : ''}</p>
+            {error && <p role="alert" className="text-sm text-red-700 dark:text-red-300">{error}</p>}
+            {needsCredits && <Button type="button" variant="secondary" className="min-h-11" onClick={onBuy}>Buy 100 credits · $9.90</Button>}
             <Button
               type="submit"
               size="lg"
@@ -93,7 +113,7 @@ export function HeroSection({
                   Generating...
                 </>
               ) : (
-                "Generate"
+                "Generate 5 ideas · 1 credit"
               )}
             </Button>
           </form>

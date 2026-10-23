@@ -49,6 +49,7 @@ export function KeywordLandingPage({
 }: {
   config: KeywordLandingPageConfig;
 }) {
+  const generatorHref = config.path.includes('relationship') || config.path.includes('multiple-character') ? '/?mode=relationship#generator' : config.path.includes('oc-headcanon') ? '/?mode=oc#generator' : '/#generator';
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -96,7 +97,7 @@ export function KeywordLandingPage({
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <Button asChild size="lg" variant="primary">
-                  <Link href="/#generator">
+                  <Link href={generatorHref}>
                     Try the generator
                     <ArrowRight className="h-4 w-4" />
                   </Link>

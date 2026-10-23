@@ -73,7 +73,7 @@ export default function MultipleCharacterHeadcanonGeneratorPage() {
           },
           {
             q: "Does this create a complete relationship profile?",
-            a: "No. It creates one short headcanon detail. Use that detail as a starting point for a relationship, group scene, or character outline.",
+            a: "No. One credit generates five short ideas. Use them as starting points for a relationship, scene, or character outline.",
           },
           {
             q: "Can I use it for a group of original characters?",

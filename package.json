@@ -5,14 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "cf:build": "npx --yes --legacy-peer-deps @cloudflare/next-on-pages@1",
+    "cf:build": "node scripts/build-pages.mjs",
     "cf:deploy": "npx wrangler pages deploy .vercel/output/static --project-name=headcanon-generator",
     "cf:dry-run": "npm run cf:build && npx wrangler deploy --config wrangler.dry-run.toml --dry-run --outdir .wrangler/dry-run",
-    "prelaunch": "npm run test && npm run lint && npm run typecheck",
-    "predeploy": "npm run prelaunch && npm run cf:dry-run",
+    "prelaunch": "npm run test && npm run lint && npm run typecheck && npm --prefix commerce run types && npm --prefix commerce run typecheck && npm --prefix commerce run build && npm --prefix commerce test",
+    "predeploy": "npm run prelaunch && npm --prefix commerce run cf:dry-run && npm run cf:dry-run",
     "deploy": "npm run cf:deploy",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint app components lib scripts *.mjs *.ts",
     "test": "node --test tests/*.test.mjs",
     "typecheck": "tsc --noEmit"
   },
@@ -24,19 +24,22 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",
-    "next": "16.1.6",
+    "next": "16.4.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "1.13.16",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "16.4.3",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vercel": "65.2.0",
+    "wrangler": "4.152.0"
   }
 }

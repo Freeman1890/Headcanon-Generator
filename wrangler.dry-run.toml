@@ -8,3 +8,7 @@ no_bundle = true
 type = "ESModule"
 globs = ["**/*.js"]
 fallthrough = true
+
+[[services]]
+binding = "HEADCANON_COMMERCE"
+service = "headcanon-commerce"

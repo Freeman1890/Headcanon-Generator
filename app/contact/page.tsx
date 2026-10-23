@@ -15,9 +15,15 @@ export default function ContactPage() {
   return (
     <InfoPage
       title="Contact"
-      intro="Use the project page to report a bug, ask a question, or raise a privacy or content concern."
-      updated="July 19, 2026"
+      intro="Questions about credits, a payment, or something the tool generated? Get in touch below."
+      updated="October 24, 2026"
       sections={[
+        {
+          title: "Billing and private requests",
+          paragraphs: [
+            <span key="billing">Email <a href="mailto:ljt463015573@gmail.com" className="text-indigo-600 underline dark:text-indigo-400">ljt463015573@gmail.com</a> from your sign-in address. For a payment issue, include the order reference and approximate purchase date. Never send your password, sign-in code, or full card details.</span>,
+          ],
+        },
         {
           title: "General questions",
           paragraphs: [
@@ -38,7 +44,7 @@ export default function ContactPage() {
         {
           title: "Privacy and content requests",
           paragraphs: [
-            "Do not put personal information, private prompts, or confidential material in a public issue. For a privacy or content removal request, describe only the type of request and ask the repository owner for a private channel before sharing details.",
+            "Send privacy or content removal requests by email. Include the relevant page URL and what you want reviewed. Do not put private prompts, payment information, or personal details in a public GitHub issue.",
           ],
         },
         {

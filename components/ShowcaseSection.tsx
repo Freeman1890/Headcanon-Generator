@@ -31,6 +31,7 @@ interface HeadcanonResult {
   characterName: string;
   workName?: string;
   content: string;
+  headcanons?: string[];
   shareUrl?: string;
 }
 
@@ -48,7 +49,7 @@ export function ShowcaseSection({
   const [copied, setCopied] = useState(false);
 
   const displayResults = result
-    ? [result, ...staticExamples.slice(0, 2)]
+    ? (result.headcanons || [result.content]).map((content, index) => ({ ...result, id: `${result.id}-${index}`, content, shareUrl: `/share/${encodeURIComponent(result.characterName)}#${new URLSearchParams({ headcanon: content, ...(result.workName ? { work: result.workName } : {}) })}` }))
     : staticExamples;
 
   const handleCopyAsImage = async (cardRef: HTMLDivElement | null) => {
@@ -95,11 +96,11 @@ export function ShowcaseSection({
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {displayResults.length > 0 ? (
-            displayResults.map((item, i) => (
+            displayResults.map((item) => (
               <ShowcaseCard
                 key={item.id}
                 item={item}
-                isFeatured={i === 0 && !!result}
+                isFeatured={!!result}
                 onCopyAsImage={handleCopyAsImage}
                 onShareUrl={handleShareUrl}
                 copied={copied}

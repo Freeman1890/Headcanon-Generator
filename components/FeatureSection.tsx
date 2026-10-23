@@ -9,8 +9,8 @@ const STEPS = [
   },
   {
     icon: Sparkles,
-    title: "Generate Idea",
-    description: "Get a short headcanon with a concrete detail you can use in a scene.",
+    title: "Generate Five Ideas",
+    description: "Sign in and use one purchased credit for five short headcanons. A 100-credit pack costs $9.90, with no subscription.",
   },
   {
     icon: Lightbulb,

@@ -1,0 +1,179 @@
+{
+  "description": "Selective Headcanon adaptation; no source secrets, production data, media, or deployment configuration copied.",
+  "source": "website-template",
+  "files": [
+    {
+      "source": "src/server/billing.ts",
+      "target": "src/server/billing.ts",
+      "sha256": "77da68a331266198b0212198a4b68a780f92ed7b76ebf92667dd8124b56282ae"
+    },
+    {
+      "source": "src/config/storage.json",
+      "target": "src/config/storage.json",
+      "sha256": "a4454ee50759ba5154daa11205a16004d47d275ad1abdbd54a48ed6bb353fe15"
+    },
+    {
+      "source": "src/config/plans.json",
+      "target": "src/config/plans.json",
+      "sha256": "79a53cca56a5b4d434a56bf3f06fbffbddbefcbb44176921c04cc6d683505159"
+    },
+    {
+      "source": "src/server/order-attribution.ts",
+      "target": "src/server/order-attribution.ts",
+      "sha256": "3806cc6d6186a75209a0d6ce3329bf85e6823b8bc4478c5f68cdb2368a262701"
+    },
+    {
+      "source": "src/lib/attribution-input.ts",
+      "target": "src/lib/attribution-input.ts",
+      "sha256": "ebbdf51c34d11cf317d0ed52af0ec9af22f4935fcba529ba187683d454df385d"
+    },
+    {
+      "source": "src/config/site.json",
+      "target": "src/config/site.json",
+      "sha256": "dc824b87eed72d9dd0e7b5df8be14c9c1dde1a23e44cd5e9e0c94d97cfb26c5a"
+    },
+    {
+      "source": "src/config/analytics.json",
+      "target": "src/config/analytics.json",
+      "sha256": "ca9776cd0580026d44718b761c5885df2e5d326cfc44bc6e9d8be6f6dd4db648"
+    },
+    {
+      "source": "src/lib/order-source-report-types.ts",
+      "target": "src/lib/order-source-report-types.ts",
+      "sha256": "c24b9f8a44bd4b90cedaacf1eb3c64514fcdeff695650533a5a3be3862140ef0"
+    },
+    {
+      "source": "src/server/db-types.ts",
+      "target": "src/server/db-types.ts",
+      "sha256": "cd22b68c465f3c5c480070c9985398d5f2a648d45d8cf0d6bbccdc01867f0ca2"
+    },
+    {
+      "source": "src/server/waffo.ts",
+      "target": "src/server/waffo.ts",
+      "sha256": "d040a27aebc0d8bc8c1c1e0a355b2df04dbd2739b4eabe37a0b8d3f835fd40d4"
+    },
+    {
+      "source": "src/lib/catalog.ts",
+      "target": "src/lib/catalog.ts",
+      "sha256": "932cb5c08d64149909208cb43c7b5e57d2d37791bbc99b4e2e59876ac8636d3e"
+    },
+    {
+      "source": "src/business/character/catalog.ts",
+      "target": "src/business/character/catalog.ts",
+      "sha256": "e019f9cc658ee8b63dfb80321c9bd1b6a8d864ffe04fc6c9fe726141811917cc"
+    },
+    {
+      "source": "src/lib/types.ts",
+      "target": "src/lib/types.ts",
+      "sha256": "4e451857fabc4703fc9d4aa13b72af974e8b9784d78a001c834dd1f553894f40"
+    },
+    {
+      "source": "src/server/attribution-schema.ts",
+      "target": "src/server/attribution-schema.ts",
+      "sha256": "92ea0baee4d9ec2fe07228432444b3266b553d65b3ce4dff4842b53ddb649b27"
+    },
+    {
+      "source": "src/server/db.ts",
+      "target": "src/server/db.ts",
+      "sha256": "2db0825fc6a0228cde04379c33bd0caafb8060f255c5659941bf01c12440a68a"
+    },
+    {
+      "source": "src/server/db-schema.ts",
+      "target": "src/server/db-schema.ts",
+      "sha256": "99a1d4a653a351820f6b617d592d831ff139b865b9eea40215d2fedefbc654ef"
+    },
+    {
+      "source": "src/server/execution-context.ts",
+      "target": "src/server/execution-context.ts",
+      "sha256": "c42324096d48a8cc89e5c7ef60fbed8e49345c237ce3fe0f401150d972d9cfeb"
+    },
+    {
+      "source": "src/server/acceptance-access.ts",
+      "target": "src/server/acceptance-access.ts",
+      "sha256": "cd921f00a710ce323c1d60f10b579fb64879606124711d606273df13ddae957b"
+    },
+    {
+      "source": "src/server/billing-recovery.ts",
+      "target": "src/server/billing-recovery.ts",
+      "sha256": "45789190e592d47d82a9910ad81f0009651d8a90af437db64ee66d192ff1ebb9"
+    },
+    {
+      "source": "src/server/billing-canonical.ts",
+      "target": "src/server/billing-canonical.ts",
+      "sha256": "3c2beb5cb99bbdfa265f5d00cdcfe988ceb732302931d1888797f621704b2ce2"
+    },
+    {
+      "source": "src/server/billing-period-evidence.ts",
+      "target": "src/server/billing-period-evidence.ts",
+      "sha256": "2b6d1a7da5c22adf372da358dfeb948901b94a774d33add9a91a9f0843405e38"
+    },
+    {
+      "source": "src/server/db.cloud.ts",
+      "target": "src/server/db.cloud.ts",
+      "sha256": "7574d2841db896fbda45e62058b093f5a635e4cfbe47d56691ac611c323e6998"
+    },
+    {
+      "source": "src/server/admin-account.ts",
+      "target": "src/server/admin-account.ts",
+      "sha256": "0e97771c8b43edd3e2ed67c57e3e97654b0bf95b66ebb834b69a4e59ba1489e0"
+    },
+    {
+      "source": "src/cloudflare/routing.ts",
+      "target": "src/cloudflare/routing.ts",
+      "sha256": "77f565f499bf10f33aacfd6596adfdc62a55ccfe5e45f8052adc7841cb3c5de4"
+    },
+    {
+      "source": "src/cloudflare/user-directory.ts",
+      "target": "src/cloudflare/user-directory.ts",
+      "sha256": "ce6c2167a7a487d1e95aa78117c208a665e47e0f82def531110e7b8358093249"
+    },
+    {
+      "source": "src/lib/admin-types.ts",
+      "target": "src/lib/admin-types.ts",
+      "sha256": "260d65a11293131114f277aac48ece895f6bf6ca69d99f73661762622f916303"
+    },
+    {
+      "source": "src/server/api.ts",
+      "target": "src/server/auth.ts",
+      "extraction": [
+        "Row",
+        "Session",
+        "SESSION_COOKIE",
+        "previewSessionSecret",
+        "HttpError",
+        "appMode",
+        "now",
+        "iso",
+        "addDays",
+        "getOrigin",
+        "sessionSecret",
+        "hash",
+        "sign",
+        "constantTimeEqual",
+        "id",
+        "json",
+        "withCookie",
+        "sessionCookie",
+        "clearSessionCookie",
+        "readCookie",
+        "csrfTokenForSession",
+        "getSession",
+        "requireSession",
+        "requireOrigin",
+        "requireMutation",
+        "userRow",
+        "publicUser",
+        "authenticatedEmail",
+        "normalizeEmail",
+        "bodyJson",
+        "createSession",
+        "requestEmailCode",
+        "verifyEmailCode",
+        "logout",
+        "reserveChildCredits",
+        "reservedAmount"
+      ],
+      "sha256": "6d69022042bf9b9e249f238c2cbb97ca9962c193806354ae04274d366e0d1384"
+    }
+  ]
+}

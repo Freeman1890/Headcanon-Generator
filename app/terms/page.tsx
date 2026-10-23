@@ -16,8 +16,16 @@ export default function TermsPage() {
     <InfoPage
       title="Terms of use"
       intro="These terms explain what Headcanon Generator provides and what you are responsible for when you use it."
-      updated="July 19, 2026"
+      updated="October 24, 2026"
       sections={[
+        {
+          title: "Credits and purchases",
+          paragraphs: [
+            "A one-time US$9.90 purchase provides 100 credits. Applicable taxes, if any, are shown at checkout. There is no subscription or automatic renewal. Purchased credits do not expire and cannot be transferred or redeemed for cash.",
+            "One credit pays for one successful batch of five headcanon ideas. Failed or interrupted requests do not consume a credit. Checking or copying a completed result does not consume another credit. Requesting a new batch does.",
+            "For a payment problem, duplicate purchase, or refund request, contact ljt463015573@gmail.com with your order reference and account email. Do not send card details. Requests are reviewed against the payment record and credit usage; applicable consumer rights are not excluded. A confirmed refund removes the associated unused credits.",
+          ],
+        },
         {
           title: "Using the site",
           paragraphs: [

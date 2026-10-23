@@ -1,0 +1,29 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "headcanon-commerce",
+  "main": "dist/worker.mjs",
+  "compatibility_date": "2026-09-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": true },
+  "secrets": { "required": ["SESSION_SECRET", "ACCOUNT_ROUTING_SECRET", "KIE_API_KEY", "RESEND_API_KEY", "WAFFO_PRIVATE_KEY"] },
+  "ratelimits": [{ "name": "AUTH_LIMITER", "namespace_id": "1011", "simple": { "limit": 10, "period": 60 } }],
+  "durable_objects": { "bindings": [
+    { "name": "ACCOUNTS", "class_name": "AccountState" },
+    { "name": "USER_DIRECTORY", "class_name": "UserDirectory" }
+  ] },
+  "migrations": [{ "tag": "headcanon-v1", "new_sqlite_classes": ["AccountState", "UserDirectory"] }],
+  "vars": {
+    "APP_MODE": "live", "APP_ORIGIN": "https://headcanongenerator.run",
+    "AUTH_ENABLED": "true", "GENERATION_ENABLED": "true", "PAYMENTS_ENABLED": "true",
+    "WAFFO_ENVIRONMENT": "prod", "WAFFO_STORE_ID": "STO_2WFRlSLuzKThTvph3hIscL",
+    "WAFFO_PRICE_PACK": "990", "WAFFO_CURRENCY": "USD", "WAFFO_TAX_CATEGORY": "digital_goods",
+    "WAFFO_RETURN_URL": "https://headcanongenerator.run/?payment=return#generator",
+    "ADMIN_BACKFILL_IDS": "[]",
+    "KIE_MODEL": "gemini-3-8-flash", "EMAIL_FROM": "Headcanon Generator <noreply@auth.choicervoicer.shop>", "ADMIN_EMAIL": "ljt463015573@gmail.com",
+    "WAFFO_MERCHANT_ID": "MER_72FY9vx5wkw3vYDSJhnM1b", "WAFFO_PRODUCT_PACK": "PROD_6b3e87XeNx71Ex5COA7lVx",
+    // Public signature-verification key from the official @waffo/pancake-ts 0.24.0 package.
+    "WAFFO_WEBHOOK_PROD_PUBLIC_KEY": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+xApdTIb4ua+DgZKQ54\niBsD82ybyhGCLRETONW4Jgbb3A8DUM1LqBk6r/CmTOCHqLalTQHNigvP3R5zkDNX\niRJz6gA4MJ/+8K0+mnEE2RISQzN+Qu65TNd6svb+INm/kMaftY4uIXr6y6kchtTJ\ndwnQhcKdAL2v7h7IFnkVelQsKxDdb2PqX8xX/qwd01iXvMcpCCaXovUwZsxH2QN5\nZKBTseJivbhUeyJCco4fdUyxOMHe2ybCVhyvim2uxAl1nkvL5L8RCWMCAV55LLo0\n9OhmLahz/DYNu13YLVP6dvIT09ZFBYU6Owj1NxdinTynlJCFS9VYwBgmftosSE1U\ndwIDAQAB\n-----END PUBLIC KEY-----"
+  }
+}

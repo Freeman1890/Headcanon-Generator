@@ -16,7 +16,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How does Headcanon Generator work?",
-    a: "Enter a character name and, optionally, the fandom. The tool returns a short headcanon you can keep, rewrite, or use as a scene prompt.",
+    a: "Sign in with an email code, choose a character, relationship, or OC, and enter the names. Each generation uses one credit and returns five short ideas. A 100-credit pack costs $9.90 once; credits do not expire, and there is no subscription.",
   },
   {
     q: "Can I use generated headcanons commercially?",

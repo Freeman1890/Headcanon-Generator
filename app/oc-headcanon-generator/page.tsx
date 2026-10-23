@@ -73,7 +73,7 @@ export default function OcHeadcanonGeneratorPage() {
           },
           {
             q: "Does it create a full OC profile?",
-            a: "No. It creates one short character detail. Use it as a prompt for a longer profile, a scene, or a roleplay introduction.",
+            a: "No. One credit generates five short character details, not a full biography. Use them to start a profile, scene, or roleplay introduction.",
           },
           {
             q: "Can I use the generated idea in my own story?",

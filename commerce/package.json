@@ -1,0 +1,23 @@
+{
+  "name": "headcanon-commerce",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "types": "wrangler types --env-interface Env --strict-vars=false",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "dev": "npm run build && wrangler dev --port 8791",
+    "cf:deploy": "node scripts/deploy.mjs",
+    "cf:dry-run": "npm run build && wrangler deploy --dry-run --outdir .wrangler/dry-run"
+  },
+  "dependencies": { "@waffo/pancake-ts": "0.24.0" },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.28.2",
+    "miniflare": "^5.20260921.0-alpha",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.136.2"
+  }
+}

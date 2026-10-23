@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { AccountMenu } from "@/components/AccountProvider";
 
 const navLinks = [
   { href: "/#features", label: "Features" },
@@ -21,13 +22,13 @@ export function Navigation() {
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-50"
+          className="max-w-[10rem] text-base font-semibold text-slate-900 dark:text-slate-50 sm:max-w-none sm:text-lg"
         >
           Headcanon Generator
         </Link>
 
         {/* Desktop */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-5 lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -39,21 +40,24 @@ export function Navigation() {
           ))}
         </div>
 
+        <div className="ml-auto flex items-center gap-1 lg:ml-0">
+        <AccountMenu />
         {/* Mobile toggle */}
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center rounded-lg md:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-lg lg:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
       <div
         className={cn(
-          "overflow-hidden transition-all duration-200 md:hidden",
+          "overflow-hidden transition-all duration-200 lg:hidden",
           mobileOpen ? "max-h-72 opacity-100" : "max-h-0 opacity-0"
         )}
       >

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "site": { "domain": "https://headcanongenerator.run", "canonical_host": "headcanongenerator.run", "www_policy": "redirect-to-canonical", "type": "tool", "brand_name": "Headcanon Generator", "locales": ["en"] },
+  "deployment": { "platform": "cloudflare-pages", "production_branch": "main", "build_command": "npm run cf:build", "deploy_command": "npm run cf:deploy" },
+  "routes": [
+    { "path": "/", "indexable": true, "primary_keyword": "headcanon generator" },
+    { "path": "/relationship-headcanon-generator", "indexable": true, "primary_keyword": "relationship headcanon generator" },
+    { "path": "/oc-headcanon-generator", "indexable": true, "primary_keyword": "oc headcanon generator" },
+    { "path": "/multiple-character-headcanon-generator", "indexable": true },
+    { "path": "/random-character-generator", "indexable": true },
+    { "path": "/writing-prompt-generator", "indexable": true },
+    { "path": "/guides", "indexable": true },
+    { "path": "/guides/[slug]", "indexable": true },
+    { "path": "/fandom/[fandom-slug]", "indexable": true },
+    { "path": "/fandom/[fandom-slug]/[character-slug]", "indexable": true },
+    { "path": "/share/[character-slug]", "indexable": false },
+    { "path": "/about", "indexable": true },
+    { "path": "/contact", "indexable": true },
+    { "path": "/privacy", "indexable": true },
+    { "path": "/terms", "indexable": true }
+  ],
+  "analytics": [{ "provider": "ga4", "measurement_id": "G-L1SQ5EQQ4Q" }]
+}

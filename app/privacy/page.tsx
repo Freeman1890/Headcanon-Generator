@@ -17,19 +17,19 @@ export default function PrivacyPage() {
     <InfoPage
       title="Privacy policy"
       intro="This policy explains what Headcanon Generator handles when you visit the site or use the generator."
-      updated="July 19, 2026"
+      updated="October 24, 2026"
       sections={[
         {
           title: "What the site does",
           paragraphs: [
-            "Headcanon Generator is a small creative tool. You can enter a character name and an optional fandom name to get a short writing prompt. You do not need an account to use it.",
+            "Headcanon Generator is a creative writing tool. Public guides and examples can be read without an account. Generating new ideas requires email sign-in and purchased credits.",
           ],
         },
         {
           title: "Information you provide",
           paragraphs: [
             "When generation is enabled, the character name and fandom name you submit are sent to the service that produces the result. Please do not enter your name, email address, private messages, or other personal information into the generator.",
-            "The site does not create user accounts or keep a saved results database. A generated result can still pass through temporary technical logs held by the services that deliver and protect the site.",
+            "We store your email address, account sessions, orders, credit transactions, and generation requests and results so we can deliver purchases and recover interrupted requests. Results are private unless you choose to share a link. Please keep a copy of results you want to retain; this service does not include a personal results library.",
           ],
         },
         {
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
               .
             </span>,
             <span key="generation">
-              When the generation service is enabled, Google Gemini processes the submitted names to return a result. Google&apos;s{" "}
+              Kie receives the names and setting you submit and routes the request to Google Gemini. Google&apos;s{" "}
               <a
                 href="https://policies.google.com/privacy"
                 target="_blank"
@@ -71,12 +71,13 @@ export default function PrivacyPage() {
               </a>{" "}
               explains how Google handles information across its services.
             </span>,
+            <span key="payments">Waffo processes purchases and payment records. Card details are entered on its hosted checkout, not stored by this site. Resend delivers sign-in codes to your email address.</span>,
           ],
         },
         {
           title: "Cookies and advertising",
           paragraphs: [
-            "The site does not load Google Analytics until you choose Allow analytics. If you decline, the analytics scripts are not loaded in your browser. You can change this choice by clearing the site data for this domain.",
+            "An essential session cookie keeps you signed in. Session storage remembers the names and setting you entered, including when you return from checkout, and an unfinished request so checking it does not create another charge. This data stays in the current browser session. These are separate from optional analytics. The site does not load Google Analytics until you choose Allow analytics. If you decline, the analytics scripts are not loaded in your browser. You can change this choice by clearing the site data for this domain.",
             <span key="ads">
               If Google AdSense is added, Google may use cookies, web beacons, IP addresses, and similar identifiers to deliver ads, measure performance, and prevent fraud. Before ads are served where consent is required, the site will use the required Google consent message and identify the relevant ad partners. Google also explains its advertising cookies in its{" "}
               <a
