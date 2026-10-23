@@ -24,8 +24,11 @@ export function GeneratePage() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setCharacterName(params.get("character") ?? "");
-    setWorkName(params.get("fandom") ?? "");
+    const timer = window.setTimeout(() => {
+      setCharacterName(params.get("character") ?? "");
+      setWorkName(params.get("fandom") ?? "");
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleGenerate = async (characterName: string, workName: string) => {
