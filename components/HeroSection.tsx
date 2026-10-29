@@ -20,6 +20,7 @@ interface HeroSectionProps {
   error?: string;
   balance?: number;
   needsCredits?: boolean;
+  paymentsEnabled?: boolean;
   onBuy?: () => void;
   options: GenerationOptions;
   onOptionsChange: (value: GenerationOptions) => void;
@@ -32,7 +33,7 @@ export function HeroSection({
   onCharacterNameChange,
   workName,
   onWorkNameChange,
-  mode, onModeChange, secondCharacter, onSecondCharacterChange, error, balance, needsCredits, onBuy,
+  mode, onModeChange, secondCharacter, onSecondCharacterChange, error, balance, needsCredits, paymentsEnabled, onBuy,
   options, onOptionsChange,
 }: HeroSectionProps) {
   const handleSubmit = (e: React.FormEvent) => {
@@ -111,7 +112,8 @@ export function HeroSection({
             </details>
             <p className="text-sm text-slate-600 dark:text-slate-400">1 credit for 5 ideas. 100 credits for $9.90, no subscription.{balance !== undefined ? ` Balance: ${balance}.` : ''}</p>
             {error && <p role="alert" className="text-sm text-red-700 dark:text-red-300">{error}</p>}
-            {needsCredits && <Button type="button" variant="secondary" className="min-h-11" onClick={onBuy}>Buy 100 credits · $9.90</Button>}
+            {paymentsEnabled === false && <p role="status" className="text-sm text-slate-600 dark:text-slate-400">Credit purchases are temporarily paused. Existing credits can still be used.</p>}
+            {needsCredits && paymentsEnabled === true && <Button type="button" variant="secondary" className="min-h-11" onClick={onBuy}>Buy 100 credits · $9.90</Button>}
             <Button
               type="submit"
               size="lg"

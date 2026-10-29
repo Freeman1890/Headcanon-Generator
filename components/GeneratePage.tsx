@@ -82,7 +82,7 @@ export function GeneratePage() {
     try {
       const current = await refresh();
       if (!current.user) { openLogin(); return; }
-      if (!key && current.balance < 1) { setError('Buy credits to generate your five ideas.'); return; }
+      if (!key && current.balance < 1) { setError(current.capabilities.payments ? 'Buy credits to generate your five ideas.' : 'You need 1 credit to generate. Credit purchases are temporarily paused.'); return; }
       setIsLoading(true);
       if (key) {
         const data = await waitForResult(key); setResult(data); window.sessionStorage.removeItem('headcanon-pending-request'); return;
@@ -138,6 +138,7 @@ export function GeneratePage() {
         options={options} onOptionsChange={setOptions}
         error={error} balance={account?.user ? account.balance : undefined}
         needsCredits={Boolean(account?.user && account.balance < 1)}
+        paymentsEnabled={account?.capabilities.payments}
         onBuy={() => { saveDraft(); void buy().catch(cause => setError(cause instanceof Error ? cause.message : 'Checkout is unavailable.')); }}
       />
       <ShowcaseSection

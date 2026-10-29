@@ -107,6 +107,16 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     assert.match(order.checkoutUrl, /^https:\/\/pancake\.waffo\.ai\//);
     const stateBefore = await (await request('/api/state', undefined, auth)).json() as { balance: number };
     assert.equal(stateBefore.balance, 0, 'Opening checkout does not grant credits.');
+    bindings.PAYMENTS_ENABLED = 'false';
+    await worker.dispose(); worker = await start();
+    const pausedState = await (await request('/api/state', undefined, auth)).json() as { capabilities: { payments: boolean; generation: boolean; email: boolean } };
+    assert.deepEqual(pausedState.capabilities, { email: true, generation: true, payments: false });
+    const guestState = await (await request('/api/state')).json() as { capabilities: { payments: boolean } };
+    assert.equal(guestState.capabilities.payments, false);
+    for (const idempotencyKey of ['checkout_key_00001', 'paused_new_checkout_0001']) {
+      assert.equal((await request('/api/checkout', { product: 'pack', idempotencyKey }, auth)).status, 503);
+    }
+    assert.equal(checkoutCalls, 1, 'Pausing purchases blocks both new and replayed checkout requests before provider calls.');
     const paidBody = JSON.stringify({ id: 'delivery-paid', eventId: 'event-paid', eventType: 'order.completed', timestamp: new Date().toISOString(), storeId: store, mode: 'test',
       data: { orderId: 'ORD_headcanon', orderMerchantExternalId: order.localOrderId, merchantProvidedBuyerIdentity: state.user.id,
         currency: 'USD', chargedAmount: '9.90', paymentId: 'PAY_headcanon', paymentStatus: 'succeeded', orderStatus: 'completed',
@@ -117,7 +127,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     assert.notEqual((await webhook(paidBody.replace('9.90', '99.90'))).status, 200);
     const paid = await webhook();
     assert.equal(paid.status, 200, await paid.clone().text());
-    assert.equal((await paid.json() as { status: string }).status, 'processed');
+    assert.equal((await paid.json() as { status: string }).status, 'processed', 'An existing order can still be fulfilled while new purchases are paused.');
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 100);
     assert.equal((await (await webhook()).json() as { status: string }).status, 'duplicate');
     const invalidOptions = await request('/api/generate', { characterName: 'Mira', tone: 'unsupported' }, { ...auth, 'idempotency-key': 'invalid_options_key_001' });

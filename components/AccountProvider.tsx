@@ -57,8 +57,8 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const openLogin = useCallback(() => { setError(""); setOpen(true); }, []);
   const buy = useCallback(async () => {
     const current = await refresh();
-    if (!current.user) { openLogin(); return; }
     if (!current.capabilities.payments) throw new Error("Purchases are temporarily unavailable. Please try again later.");
+    if (!current.user) { openLogin(); return; }
     const idempotencyKey = checkoutKey.current ??= crypto.randomUUID();
     const result = await commerceRequest<{ checkoutUrl: string | null }>("/api/checkout", {
       method: "POST", headers: { "Content-Type": "application/json", "x-csrf-token": current.csrfToken || "" },
@@ -110,7 +110,7 @@ export function AccountMenu() {
   return <div className="relative flex shrink-0 items-center gap-2">
     {account?.user ? <>
       <span className="inline-flex items-center gap-1 text-sm tabular-nums" title={`${account.balance} credits available`}><Coins className="h-4 w-4 text-indigo-600" />{account.balance}</span>
-      <button type="button" onClick={purchase} disabled={busy} className="min-h-11 rounded-md px-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 disabled:opacity-50 dark:text-indigo-400 dark:hover:bg-indigo-950">{busy ? "Opening..." : "$9.90 / 100"}</button>
+      {account.capabilities.payments && <button type="button" onClick={purchase} disabled={busy} className="min-h-11 rounded-md px-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 disabled:opacity-50 dark:text-indigo-400 dark:hover:bg-indigo-950">{busy ? "Opening..." : "$9.90 / 100"}</button>}
       <button type="button" onClick={signOut} aria-label="Sign out" title="Sign out" className="flex h-11 w-11 items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"><LogOut className="h-4 w-4" /></button>
     </> : <button type="button" onClick={openLogin} className="inline-flex min-h-11 items-center gap-2 rounded-md px-2 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800"><LogIn className="h-4 w-4" /><span>Sign in</span></button>}
     {error && <p role="alert" className="absolute right-0 top-full z-50 mt-2 w-64 rounded-md border border-red-200 bg-white p-3 text-sm text-red-700 shadow dark:bg-slate-950">{error}</p>}

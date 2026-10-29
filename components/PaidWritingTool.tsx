@@ -73,7 +73,7 @@ export function PaidWritingTool({ kind }: { kind: Kind }) {
       if (!current.user) { openLogin(); return; }
       const previous = pending || stored(pendingKey);
       if (previous) { await poll(previous); return; }
-      if (current.balance < 1) throw new Error('You need one purchased credit for five results.');
+      if (current.balance < 1) throw new Error(current.capabilities.payments ? 'You need one purchased credit for five results.' : 'You need 1 credit to generate. Credit purchases are temporarily paused.');
       const key = crypto.randomUUID(); setPending(key); save(pendingKey, key);
       const response = await fetch('/api/generate', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-csrf-token': current.csrfToken || '', 'idempotency-key': key }, body: JSON.stringify({ kind, characterName: name, secondCharacter: mode === 'relationship' ? second : '', workName: fandom, mode, relationshipKind: mode === 'relationship' ? dynamic : 'any', tone, scenario: brief }) });
       const data = await response.json() as HeadcanonResult;
@@ -94,8 +94,9 @@ export function PaidWritingTool({ kind }: { kind: Kind }) {
       </fieldset>
       <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">1 credit for 5 {labels[kind]}. 100 credits for $9.90, no subscription.{account?.user ? ` Balance: ${account.balance}.` : ' Sign-in required.'}</p>
       {pending && <p role="status" className="text-sm text-slate-600 dark:text-slate-400">A previous request needs checking. The button checks that request, without another charge.</p>}
+      {account?.capabilities.payments === false && <p role="status" className="text-sm text-slate-600 dark:text-slate-400">Credit purchases are temporarily paused. Existing credits can still be used.</p>}
       {error && <p role="alert" className="text-sm text-red-700 dark:text-red-300">{error}</p>}
-      {account?.user && account.balance < 1 && !pending && <Button type="button" variant="secondary" disabled={busy} className="min-h-11 w-full whitespace-normal" onClick={() => { setBusy(true); void buy().catch(cause => setError(cause instanceof Error ? cause.message : 'Checkout unavailable.')).finally(() => setBusy(false)); }}>Buy 100 credits · $9.90</Button>}
+      {account?.user && account.capabilities.payments && account.balance < 1 && !pending && <Button type="button" variant="secondary" disabled={busy} className="min-h-11 w-full whitespace-normal" onClick={() => { setBusy(true); void buy().catch(cause => setError(cause instanceof Error ? cause.message : 'Checkout unavailable.')).finally(() => setBusy(false)); }}>Buy 100 credits · $9.90</Button>}
       <Button type="submit" variant="primary" disabled={busy || !ready} className="min-h-11 w-full whitespace-normal py-3">{busy ? <Loader2 className="h-4 w-4 shrink-0 animate-spin" /> : <Sparkles className="h-4 w-4 shrink-0" />}{busy ? 'Checking your request...' : pending ? 'Check previous request' : `Generate 5 ${labels[kind]} · 1 credit`}</Button>
     </form>
     <section aria-label="Generated results" aria-busy={busy} className="min-w-0 border-t border-slate-200 pt-6 dark:border-slate-700 lg:pt-0 lg:border-t-0">
