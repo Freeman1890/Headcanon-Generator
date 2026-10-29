@@ -16,12 +16,12 @@ export default function ContactPage() {
     <InfoPage
       title="Contact"
       intro="Questions about credits, a payment, or something the tool generated? Get in touch below."
-      updated="October 24, 2026"
+      updated="October 29, 2026"
       sections={[
         {
           title: "Billing and private requests",
           paragraphs: [
-            <span key="billing">Email <a href="mailto:ljt463015573@gmail.com" className="text-indigo-600 underline dark:text-indigo-400">ljt463015573@gmail.com</a> from your sign-in address. For a payment issue, include the order reference and approximate purchase date. Never send your password, sign-in code, or full card details.</span>,
+            <span key="billing">Email <a href="mailto:ljt463015573+headcanon@gmail.com" className="text-indigo-600 underline dark:text-indigo-400">ljt463015573+headcanon@gmail.com</a> from your sign-in address. For a payment issue, include the order reference and approximate purchase date. Never send your password, sign-in code, or full card details.</span>,
           ],
         },
         {

@@ -16,14 +16,14 @@ export default function TermsPage() {
     <InfoPage
       title="Terms of use"
       intro="These terms explain what Headcanon Generator provides and what you are responsible for when you use it."
-      updated="October 24, 2026"
+      updated="October 29, 2026"
       sections={[
         {
           title: "Credits and purchases",
           paragraphs: [
             "A one-time US$9.90 purchase provides 100 credits. Applicable taxes, if any, are shown at checkout. There is no subscription or automatic renewal. Purchased credits do not expire and cannot be transferred or redeemed for cash.",
             "One credit pays for one successful batch of five results from the selected AI tool: headcanon ideas, scene premises, fictional dialogue snippets, or compact plot outlines. Failed or interrupted requests do not consume a credit. Checking or copying a completed result does not consume another credit. Requesting a new batch does. The browser worksheet, curated OC questions, and trope randomizer are free and do not use credits.",
-            "For a payment problem, duplicate purchase, or refund request, contact ljt463015573@gmail.com with your order reference and account email. Do not send card details. Requests are reviewed against the payment record and credit usage; applicable consumer rights are not excluded. A confirmed refund removes the associated unused credits.",
+            "For a payment problem, duplicate purchase, or refund request, contact ljt463015573+headcanon@gmail.com with your order reference and account email. Do not send card details. Requests are reviewed against the payment record and credit usage; applicable consumer rights are not excluded. A confirmed refund removes the associated unused credits.",
           ],
         },
         {
@@ -51,6 +51,12 @@ export default function TermsPage() {
             "Do not use the service to request explicit sexual content, sexual exploitation of minors, threats, targeted harassment, hate content, or instructions for illegal activity.",
             "Do not use the service to collect personal information, distribute malware, probe the site, or bypass usage limits.",
             "Do not present generated text as an official statement from a creator, publisher, studio, or rights holder.",
+          ],
+        },
+        {
+          title: "Account restrictions",
+          paragraphs: [
+            "We may restrict accounts that misuse the service, bypass payment or usage limits, or put other people at risk. If you believe a restriction is mistaken, contact support with your account email. A restriction does not remove any refund or consumer rights that apply to you.",
           ],
         },
         {

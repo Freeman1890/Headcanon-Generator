@@ -73,6 +73,12 @@ export async function Footer() {
                 About
               </Link>
               <Link
+                href="/pricing"
+                className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
+              >
+                Pricing
+              </Link>
+              <Link
                 href="/contact"
                 className="text-slate-500 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50"
               >

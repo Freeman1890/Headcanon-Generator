@@ -47,6 +47,22 @@ const sitemap = load("app/sitemap.ts").default;
 const render = async (slug) => renderToStaticMarkup(await guidePage.default({ params: Promise.resolve({ slug }) }));
 const articleSchema = (html) => JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]).find((item) => item["@type"] === "Article");
 
+test("pricing explains the approved one-time pack without reopening paused checkout", () => {
+  const page = load("app/pricing/page.tsx");
+  const html = renderToStaticMarkup(React.createElement(page.default));
+  assert.ok(html.includes("100 credits for US$9.90"));
+  assert.ok(html.includes("No subscription, automatic renewal, or expiry date"));
+  assert.ok(html.includes("temporarily paused"));
+  assert.ok(html.includes("100 successful batches, or 500 individual results"));
+  assert.ok(!html.includes("Buy 100 credits"));
+  assert.equal(page.metadata.alternates.canonical, "https://headcanongenerator.run/pricing");
+  assert.ok(sitemap().some(item => item.url === page.metadata.alternates.canonical));
+  for (const route of ["pricing", "contact", "terms"]) {
+    assert.ok(renderToStaticMarkup(React.createElement(load(`app/${route}/page.tsx`).default)).includes("ljt463015573+headcanon@gmail.com"));
+  }
+  assert.ok(!renderToStaticMarkup(React.createElement(load("app/privacy/page.tsx").default)).includes("Google Gemini"));
+});
+
 test("guide dates are explicit, valid, and stable across sitemap generation", () => {
   assert.equal(WRITING_GUIDES.length, 5);
   for (const guide of WRITING_GUIDES) {

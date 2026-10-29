@@ -17,7 +17,7 @@ export default function PrivacyPage() {
     <InfoPage
       title="Privacy policy"
       intro="This policy explains what Headcanon Generator handles when you visit the site or use the generator."
-      updated="October 24, 2026"
+      updated="October 29, 2026"
       sections={[
         {
           title: "What the site does",
@@ -67,16 +67,16 @@ export default function PrivacyPage() {
               .
             </span>,
             <span key="generation">
-              Kie receives the names and setting you submit and routes the request to Google Gemini. Google&apos;s{" "}
+              Kie receives the names, setting, and writing instructions you submit and routes requests to the configured text model, currently DeepSeek. See the model provider&apos;s{" "}
               <a
-                href="https://policies.google.com/privacy"
+                href="https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-indigo-600 underline dark:text-indigo-400"
               >
                 privacy policy
               </a>{" "}
-              explains how Google handles information across its services.
+              for its data practices. Model availability may change; prompts are processed by Kie and the provider used for that request.
             </span>,
             <span key="payments">Waffo processes purchases and payment records. Card details are entered on its hosted checkout, not stored by this site. Resend delivers sign-in codes to your email address.</span>,
           ],
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
               <Link href="/contact" className="text-indigo-600 underline dark:text-indigo-400">
                 Contact page
               </Link>
-              . Do not post personal information in a public issue.
+              . You can request access to, correction of, or deletion of your account information. We may retain records needed for payments, fraud prevention, disputes, and legal obligations. Do not post personal information in a public issue.
             </span>,
           ],
         },

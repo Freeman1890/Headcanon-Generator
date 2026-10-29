@@ -25,6 +25,7 @@
     { "path": "/share/[character-slug]", "indexable": false },
     { "path": "/about", "indexable": true },
     { "path": "/contact", "indexable": true },
+    { "path": "/pricing", "indexable": true },
     { "path": "/privacy", "indexable": true },
     { "path": "/terms", "indexable": true }
   ],

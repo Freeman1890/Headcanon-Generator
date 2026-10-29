@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const trustPages: MetadataRoute.Sitemap = [
     "/about",
     "/contact",
+    "/pricing",
     "/privacy",
     "/terms",
   ].map((path) => ({
