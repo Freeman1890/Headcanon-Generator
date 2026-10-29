@@ -49,8 +49,16 @@ export default function TermsPage() {
           title: "Prohibited use",
           items: [
             "Do not use the service to request explicit sexual content, sexual exploitation of minors, threats, targeted harassment, hate content, or instructions for illegal activity.",
+            "Do not request graphic violence or gore, content that endangers children, deepfakes, or material that impersonates a real person. Do not use the service to infringe copyright or trademarks, reproduce protected scripts or books, or pass off another brand's work as your own.",
             "Do not use the service to collect personal information, distribute malware, probe the site, or bypass usage limits.",
             "Do not present generated text as an official statement from a creator, publisher, studio, or rights holder.",
+          ],
+        },
+        {
+          title: "Content checks and reports",
+          paragraphs: [
+            "We check generation requests with Waffo Prompt Sift before sending them to the AI provider, and check generated text before displaying it. A request may be blocked or held for further review. If a check cannot complete, we do not release the result and return any reserved credit. Screening reduces risk but cannot guarantee that every result is appropriate or accurate.",
+            "To report unsafe or infringing content, email ljt463015573+headcanon@gmail.com with the relevant page or request reference and a short explanation. Do not include sensitive personal information. We review reports, restrict misuse where warranted, and consider appeals sent to the same address.",
           ],
         },
         {

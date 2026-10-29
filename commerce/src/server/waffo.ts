@@ -79,7 +79,7 @@ export type WaffoHeaders = Headers | {get(name: string): string | null} | Record
 export interface WaffoCheckoutClient {
   checkout: {
     authenticated: {
-      create(params: Record<string, unknown>): Promise<Record<string, unknown>>;
+      create(params: Record<string, unknown>, options?: {idempotencyKey: string}): Promise<Record<string, unknown>>;
       createPlanChange?(params: Record<string, unknown>): Promise<Record<string, unknown>>;
     };
   };
@@ -151,6 +151,14 @@ const PRODUCT_ENV_NAMES: Record<Product, {id: string; price: string}> = {
   'studio-yearly': {id: 'WAFFO_PRODUCT_STUDIO_YEARLY', price: 'WAFFO_PRICE_STUDIO_YEARLY'},
 };
 const TAX_CATEGORIES = new Set(['digital_goods', 'saas', 'software', 'ebook', 'online_course', 'consulting', 'professional_service']);
+
+function environmentForStore(env: NodeJS.ProcessEnv, storeId: string): NodeJS.ProcessEnv {
+  if (storeId === env.WAFFO_STORE_ID) return env;
+  if (storeId && storeId === env.WAFFO_LEGACY_STORE_ID && env.WAFFO_LEGACY_PRODUCT_PACK) {
+    return {...env, WAFFO_STORE_ID: storeId, WAFFO_PRODUCT_PACK: env.WAFFO_LEGACY_PRODUCT_PACK};
+  }
+  throw new WaffoWebhookError('Webhook store does not match this site.');
+}
 
 function objectRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
@@ -410,7 +418,7 @@ export function verifyWebhookEnvelope(rawBody: string, headers: WaffoHeaders, op
   const storeId = requireEventString(event.storeId, 'event.storeId');
   const mode = requireEventString(event.mode, 'event.mode');
   if (mode !== config.environment) throw new WaffoWebhookError('Webhook environment does not match the configured Waffo environment.');
-  if (storeId !== config.storeId) throw new WaffoWebhookError('Webhook store does not match the configured Waffo store.');
+  environmentForStore(options.env || process.env, storeId);
   return {
     id,
     timestamp,
@@ -470,7 +478,7 @@ export function parsePersistedWebhookEnvelope(
 
 /** Canonicalize an envelope after its signature has already been verified. */
 export function canonicalizeWebhookEvent(envelope: VerifiedWaffoEnvelope, options: WaffoAdapterOptions = {}): CanonicalWaffoEvent {
-  const config = loadWaffoConfig(options.env || process.env, {requireMappings: true});
+  const config = loadWaffoConfig(environmentForStore(options.env || process.env, envelope.storeId), {requireMappings: true});
   return canonicalizeEvent(envelope as unknown as Record<string, unknown>, config, options);
 }
 
@@ -517,7 +525,7 @@ export async function createCheckout(input: CreateCheckoutInput, options: WaffoA
     orderMerchantExternalId: input.orderId,
     metadata: {siteProduct: input.product, siteUserId: input.userId, siteOrderId: input.orderId},
     priceSnapshot: {amount: (price / 100).toFixed(2), taxCategory: config.taxCategory},
-  });
+  }, {idempotencyKey: `headcanon_checkout_${createHash('sha256').update(JSON.stringify([config.environment, config.storeId, input.orderId])).digest('hex')}`});
   const result = unwrapResult(rawResult);
   const providerOrderId = stringValue(result.providerOrderId) || stringValue(result.orderId) || stringValue(result.sessionId);
   if (!providerOrderId) throw new WaffoUnavailableError('Waffo checkout did not return a provider session or order ID.');
@@ -718,7 +726,7 @@ export async function queryOrderStateById(orderId: string, options: WaffoAdapter
 export async function resolveWebhookProduct(envelope: VerifiedWaffoEnvelope, options: WaffoAdapterOptions = {}): Promise<WaffoProductResolution> {
   const orderId = stringValue(envelope.data.orderId);
   if (!orderId) throw new WaffoWebhookError('Webhook field data.orderId is missing.', 422, 'WAFFO_WEBHOOK_INCOMPLETE');
-  const config = loadWaffoConfig(options.env || process.env, {requireCredentials: true, requireMappings: true});
+  const config = loadWaffoConfig(environmentForStore(options.env || process.env, envelope.storeId), {requireCredentials: true, requireMappings: true});
   const lookup = await queryOrderProductById(orderId, options);
   if (!lookup.found) throw new WaffoUnavailableError('The provider order was not found while resolving its current product.');
   if (!lookup.productId || !lookup.kind) throw new WaffoUnavailableError('The provider order exists but its current product is missing.');

@@ -78,7 +78,7 @@ export default function PrivacyPage() {
               </a>{" "}
               for its data practices. Model availability may change; prompts are processed by Kie and the provider used for that request.
             </span>,
-            <span key="payments">Waffo processes purchases and payment records. Card details are entered on its hosted checkout, not stored by this site. Resend delivers sign-in codes to your email address.</span>,
+            <span key="payments">Waffo processes purchases and payment records. Card details are entered on its hosted checkout, not stored by this site. We also send submitted writing inputs and generated text to Waffo Prompt Sift for safety checks. We retain check identifiers, decisions, categories, and timestamps to handle failures and appeals; these records do not duplicate the text of your prompt. Resend delivers sign-in codes to your email address.</span>,
           ],
         },
         {

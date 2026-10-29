@@ -2,6 +2,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import { getDb, transaction } from './db';
 import { HttpError, bodyJson, requireSession, requireMutation, reserveChildCredits } from './auth';
 import { RELATIONSHIP_KINDS, GENERATION_TONES, GENERATION_KINDS, type GenerationKind, type RelationshipKind, type GenerationTone } from '../config/generation-options';
+import { CONTENT_SAFETY_SCHEMA, ContentSafetyError, checkWritingContent, hasRestrictedWriting } from './content-safety';
 
 export const TEXT_SCHEMA = `CREATE TABLE IF NOT EXISTS text_generations (
   id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), request_key TEXT NOT NULL,
@@ -9,7 +10,7 @@ export const TEXT_SCHEMA = `CREATE TABLE IF NOT EXISTS text_generations (
   result_json TEXT, error TEXT, created_at INTEGER NOT NULL, updated_at INTEGER NOT NULL,
   input_tokens INTEGER, output_tokens INTEGER, provider_credits REAL,
   UNIQUE(user_id, request_key)
-); CREATE INDEX IF NOT EXISTS text_generations_pending ON text_generations(status,updated_at);`;
+); CREATE INDEX IF NOT EXISTS text_generations_pending ON text_generations(status,updated_at);${CONTENT_SAFETY_SCHEMA}`;
 
 type Input = { characterName: string; workName: string; secondCharacter: string; mode: 'character' | 'relationship' | 'oc'; kind?: GenerationKind; relationshipKind?: RelationshipKind; tone?: GenerationTone; scenario?: string };
 type Row = Record<string, unknown>;
@@ -38,7 +39,7 @@ export function normalizeInput(body: Record<string, unknown>): Input {
     ...(kind !== 'headcanon' ? { kind: kind as GenerationKind } : {}),
     ...(relationshipKind !== 'any' ? { relationshipKind: relationshipKind as RelationshipKind } : {}),
     ...(tone !== 'any' ? { tone: tone as GenerationTone } : {}), ...(scenario ? { scenario } : {}) };
-  if (/\b(?:porn(?:ography)?|explicit sex|sexual assault|rape|incest|child sexual|self[- ]harm|suicide instructions|how to make (?:a )?(?:bomb|explosive)|drug recipe|hate speech)\b/i.test(JSON.stringify(input))) {
+  if (hasRestrictedWriting(JSON.stringify(input))) {
     throw new HttpError(400, 'Please keep requests suitable for a general audience.');
   }
   return input;
@@ -212,8 +213,10 @@ export async function generateText(request: Request, schedule: () => Promise<voi
     reserveChildCredits(db, session.userId, generationId, generationId, 1);
   });
   try {
+    await checkWritingContent(JSON.stringify(input), generationId, 'input');
     const generated = await callKie(input);
     const content = generated.headcanons.map((text, index) => `${index + 1}. ${text}`).join('\n\n');
+    await checkWritingContent(content, generationId, 'output');
     const fragment = new URLSearchParams({ headcanon: content, ...(input.workName ? { work: input.workName } : {}) });
     const result = { characterName: input.characterName, workName: input.workName || undefined, content,
       headcanons: generated.headcanons, ...(input.kind ? { kind: input.kind } : { shareUrl: `/share/${encodeURIComponent(input.characterName)}#${fragment}` }) };
@@ -231,9 +234,10 @@ export async function generateText(request: Request, schedule: () => Promise<voi
       db.prepare("UPDATE text_generations SET status='succeeded',result_json=?,input_tokens=?,output_tokens=?,provider_credits=?,updated_at=? WHERE id=?").run(JSON.stringify(result), generated.inputTokens, generated.outputTokens, generated.providerCredits, Date.now(), generationId);
     });
     return Response.json({ id: generationId, status: 'succeeded', ...result });
-  } catch {
-    releaseGeneration(generationId, 'Generation could not finish. Your credit was returned.');
-    return Response.json({ id: generationId, status: 'failed', error: 'Generation could not finish. No credit was charged.' }, { status: 502 });
+  } catch (error) {
+    const message = error instanceof ContentSafetyError ? error.message : 'Generation could not finish. No credit was charged.';
+    releaseGeneration(generationId, message);
+    return Response.json({ id: generationId, status: 'failed', error: message }, { status: error instanceof ContentSafetyError ? error.status : 502 });
   }
 }
 

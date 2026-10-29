@@ -21,6 +21,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     WAFFO_PRIVATE_KEY: keys.privateKey.export({ type: 'pkcs8', format: 'pem' }).toString(),
     WAFFO_WEBHOOK_TEST_PUBLIC_KEY: keys.publicKey.export({ type: 'spki', format: 'pem' }).toString(),
     WAFFO_RETURN_URL: 'https://site.test/?payment=return',
+    WAFFO_LEGACY_STORE_ID: '', WAFFO_LEGACY_PRODUCT_PACK: '', WAFFO_LEGACY_CHECKOUT_BEFORE: '',
   };
   let code = '';
   let generationCalls = 0;
@@ -28,6 +29,8 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
   let providerFailure = false;
   let providerBusyResponses = 0;
   let lastGenerationPrompt = '';
+  let safetyCalls = 0;
+  const safetyActions: string[] = [];
   const egressErrors: string[] = [];
   const five = Array.from({ length: 5 }, (_, index) => `Mira keeps notebook number ${index + 1} by the door. She writes down one small thing before leaving each morning.`);
   const outboundService = async (request: Request) => {
@@ -63,11 +66,21 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
       verifier.update(`POST\n${url.pathname}\n${request.headers.get('X-Timestamp')}\n${createHash('sha256').update(raw).digest('base64')}`);
       assert.equal(verifier.verify(keys.publicKey, request.headers.get('X-Signature')!, 'base64'), true);
       const body = JSON.parse(raw);
+      if (url.pathname === '/v1/actions/verification/scan-prompt') {
+        safetyCalls++;
+        assert.equal(body.semantic, 'enforce');
+        assert.equal(body.locale, 'en');
+        assert.ok(body.prompt.length > 0 && body.prompt.length <= 10_000);
+        const action = safetyActions.shift() || 'allow';
+        if (action === 'error') return Response.json({ errors: [{ message: 'Local safety unavailable', layer: 'verification' }] }, { status: 503 });
+        return Response.json({ data: { action, reasonCode: action === 'allow' ? 'allowed' : 'review_required', matchedCategories: [], requestId: `safety-${safetyCalls}`, semanticStatus: 'scored' } });
+      }
       if (url.pathname === '/v1/graphql') return Response.json({ data: { onetimeOrder: { id: 'ORD_headcanon', store: { id: store }, testMode: true, onetimeProduct: { id: product } }, subscriptionOrder: null } });
       if (url.pathname === '/v1/actions/auth/issue-session-token') return Response.json({ data: { token: 'local-buyer-token' } });
       assert.equal(url.pathname, '/v1/actions/checkout/create-session');
       assert.equal(body.priceSnapshot.amount, '9.90');
       assert.equal(body.productId, product);
+      assert.match(request.headers.get('X-Idempotency-Key') || '', /^headcanon_checkout_[a-f0-9]{64}$/);
       checkoutCalls++;
       return Response.json({ data: { sessionId: 'local-session', checkoutUrl: 'https://pancake.waffo.ai/local-checkout' } });
     } catch (error) { egressErrors.push(error instanceof Error ? error.message : String(error)); throw error; }
@@ -108,6 +121,11 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     const stateBefore = await (await request('/api/state', undefined, auth)).json() as { balance: number };
     assert.equal(stateBefore.balance, 0, 'Opening checkout does not grant credits.');
     bindings.PAYMENTS_ENABLED = 'false';
+    bindings.WAFFO_LEGACY_STORE_ID = store;
+    bindings.WAFFO_LEGACY_PRODUCT_PACK = product;
+    bindings.WAFFO_LEGACY_CHECKOUT_BEFORE = new Date(Date.now() + 1000).toISOString();
+    bindings.WAFFO_STORE_ID = 'STO_NEW00000000000000000000';
+    bindings.WAFFO_PRODUCT_PACK = 'PROD_NEW0000000000000000000';
     await worker.dispose(); worker = await start();
     const pausedState = await (await request('/api/state', undefined, auth)).json() as { capabilities: { payments: boolean; generation: boolean; email: boolean } };
     assert.deepEqual(pausedState.capabilities, { email: true, generation: true, payments: false });
@@ -140,6 +158,7 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     assert.equal((await generated.json() as { headcanons: string[] }).headcanons.length, 5);
     assert.equal((await request('/api/generate', input, { ...auth, 'idempotency-key': firstKey })).status, 200);
     assert.equal(generationCalls, 1);
+    assert.equal(safetyCalls, 2, 'Input and output are scanned once; a replay does not rescan.');
     assert.match(lastGenerationPrompt, /strictly platonic/);
     assert.match(lastGenerationPrompt, /warm, low-stakes fluff tone/);
     assert.match(lastGenerationPrompt, /Waiting out the rain after training/);
@@ -212,6 +231,22 @@ test('real Worker: email login, paid pack, five results, replay, failure, isolat
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 94, 'Repeated provider failure returns the reserved credit.');
     assert.equal((await request('/api/generate', retryInput, busyHeaders)).status, 502);
     assert.equal(generationCalls, 10, 'A failed generation replay must not spend more provider requests.');
+    providerBusyResponses = 0;
+    for (const [index, action] of ['block', 'review', 'error'].entries()) {
+      safetyActions.push(action);
+      const blocked = await request('/api/generate', input, { ...auth, 'idempotency-key': `safety_input_failure_${index}_001` });
+      assert.equal(blocked.status, action === 'block' ? 422 : 503);
+      assert.equal(generationCalls, 10, 'A blocked, pending, or unavailable safety verdict must not call Kie.');
+      const unchanged = await (await request('/api/state', undefined, auth)).json() as { balance: number; reserved: number };
+      assert.equal(unchanged.balance, 94); assert.equal(unchanged.reserved, 0);
+    }
+    safetyActions.push('allow', 'block');
+    const unsafeOutput = await request('/api/generate', input, { ...auth, 'idempotency-key': 'safety_output_failure_001' });
+    assert.equal(unsafeOutput.status, 422);
+    const unsafeBody = await unsafeOutput.json() as { headcanons?: string[]; shareUrl?: string };
+    assert.equal(unsafeBody.headcanons, undefined); assert.equal(unsafeBody.shareUrl, undefined);
+    assert.equal(generationCalls, 11);
+    assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 94, 'A blocked output returns its credit and never displays generated content.');
     const refunded = await signedEvent('refund.succeeded', 'refund-succeeded', { refundStatus: 'succeeded', refundedAmount: '9.90' });
     assert.equal(refunded.status, 200, await refunded.clone().text());
     assert.equal((await (await request('/api/state', undefined, auth)).json() as { balance: number }).balance, 0);

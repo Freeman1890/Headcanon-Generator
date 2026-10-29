@@ -675,6 +675,14 @@ function processCanonical(db: DatabaseSync, event: CanonicalWaffoEvent, rawBody:
   if (duplicate) return existingEventResult(duplicate, event);
   const order = localOrder(db, event);
   const user = db.prepare('SELECT id FROM users WHERE id=?').get(event.userId) as Row | undefined;
+  if (event.store === process.env.WAFFO_LEGACY_STORE_ID) {
+    const cutoff = Date.parse(process.env.WAFFO_LEGACY_CHECKOUT_BEFORE || '');
+    const created = Date.parse(String(order?.created_at || ''));
+    if (!order || !Number.isFinite(cutoff) || !Number.isFinite(created) || created > cutoff) {
+      markEvent(db, event.id, 'ignored', 'Legacy store receipts are only accepted for existing pre-migration local orders.');
+      return {status: 'ignored', eventId: event.id, eventType: event.eventType, reason: 'No eligible legacy checkout.', event};
+    }
+  }
   if (!order || String(order.user_id) !== event.userId || !user) {
     markEvent(db, event.id, 'pending_reconciliation', 'Local order or user does not match orderMerchantExternalId and signed buyer identity.');
     return {status: 'pending_reconciliation', eventId: event.id, eventType: event.eventType, ...(paymentKey ? {paymentKey} : {}), reason: 'Local order/user link is missing or mismatched.', event};
