@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { WaffoPancake } from '@waffo/pancake-ts';
+import { WaffoPancake, ScanSemanticMode } from '@waffo/pancake-ts';
 import { getDb } from './db';
 import { loadWaffoConfig } from './waffo';
 
@@ -33,7 +33,7 @@ export async function checkWritingContent(text: string, generationId: string, ph
       merchantId: config.merchantId!, privateKey: config.privateKey!, baseUrl: config.endpoint, environment: config.environment,
       fetch: (input, init) => fetch(input, { ...init, signal: AbortSignal.timeout(10_000) }),
     });
-    const verdict = await client.contentSafety.scanPrompt({ prompt: text, locale: 'en', semantic: 'enforce' });
+    const verdict = await client.contentSafety.scanPrompt({ prompt: text, locale: 'en', semantic: ScanSemanticMode.Enforce });
     record(verdict.action, verdict.reasonCode, verdict.requestId, verdict.matchedCategories);
     if (verdict.action === 'block') throw new ContentSafetyError(422, 'This content does not meet our general-audience writing policy. No credit was charged.');
     if (verdict.action !== 'allow') throw new ContentSafetyError(503, 'The safety check needs another review. Please try again later. No credit was charged.');

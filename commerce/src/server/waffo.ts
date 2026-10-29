@@ -105,7 +105,7 @@ export interface WaffoGraphqlResult<T> {
 
 export interface WaffoAdapterOptions {
   /** Server environment values. Defaults to process.env. */
-  env?: NodeJS.ProcessEnv;
+  env?: Partial<NodeJS.ProcessEnv>;
   /** Inject the official client or a test double. No client is created until checkout/query is needed. */
   client?: WaffoCheckoutClient;
   /** Clock returning epoch milliseconds. Used by local replay-protection tests. */
@@ -152,7 +152,7 @@ const PRODUCT_ENV_NAMES: Record<Product, {id: string; price: string}> = {
 };
 const TAX_CATEGORIES = new Set(['digital_goods', 'saas', 'software', 'ebook', 'online_course', 'consulting', 'professional_service']);
 
-function environmentForStore(env: NodeJS.ProcessEnv, storeId: string): NodeJS.ProcessEnv {
+function environmentForStore(env: Partial<NodeJS.ProcessEnv>, storeId: string): Partial<NodeJS.ProcessEnv> {
   if (storeId === env.WAFFO_STORE_ID) return env;
   if (storeId && storeId === env.WAFFO_LEGACY_STORE_ID && env.WAFFO_LEGACY_PRODUCT_PACK) {
     return {...env, WAFFO_STORE_ID: storeId, WAFFO_PRODUCT_PACK: env.WAFFO_LEGACY_PRODUCT_PACK};
@@ -174,7 +174,7 @@ function requireString(value: unknown, name: string): string {
   return result;
 }
 
-function readEnvironment(env: NodeJS.ProcessEnv): WaffoEnvironment {
+function readEnvironment(env: Partial<NodeJS.ProcessEnv>): WaffoEnvironment {
   const value = env.WAFFO_ENVIRONMENT;
   if (value !== 'test' && value !== 'prod') throw new WaffoUnavailableError('WAFFO_ENVIRONMENT must be explicitly set to test or prod.');
   return value;
@@ -198,11 +198,11 @@ function parsePrice(value: string, product: Product): number {
   return cents;
 }
 
-function configuredPublicKey(env: NodeJS.ProcessEnv, environment: WaffoEnvironment): string | undefined {
+function configuredPublicKey(env: Partial<NodeJS.ProcessEnv>, environment: WaffoEnvironment): string | undefined {
   return stringValue(environment === 'test' ? env.WAFFO_WEBHOOK_TEST_PUBLIC_KEY : env.WAFFO_WEBHOOK_PROD_PUBLIC_KEY) || stringValue(env.WAFFO_WEBHOOK_PUBLIC_KEY);
 }
 
-export function loadWaffoConfig(env: NodeJS.ProcessEnv = process.env, options: {requireCredentials?: boolean; requireWebhookKey?: boolean; requireMappings?: boolean} = {}): WaffoConfig {
+export function loadWaffoConfig(env: Partial<NodeJS.ProcessEnv> = process.env, options: {requireCredentials?: boolean; requireWebhookKey?: boolean; requireMappings?: boolean} = {}): WaffoConfig {
   const environment = readEnvironment(env);
   const storeId = requireString(env.WAFFO_STORE_ID, 'WAFFO_STORE_ID');
   const endpoint = validateUrl(env.WAFFO_ENDPOINT || env.WAFFO_BASE_URL || 'https://api.waffo.ai', 'WAFFO_ENDPOINT', environment, environment === 'test');
