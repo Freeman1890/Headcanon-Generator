@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/JsonLd";
 import { Navigation } from "@/components/Navigation";
 import { findWritingGuide, formatGuideDate } from "@/lib/guides";
 import { SITE_URL } from "@/lib/site";
+import { GuideDetails } from "@/components/GuideDetails";
 
 export const runtime = "edge";
 export const revalidate = 3600;
@@ -90,7 +91,7 @@ export default async function GuidePage({ params }: PageProps) {
             <Link href="/guides" className="hover:text-indigo-600 hover:underline">Guides</Link>
           </nav>
           <header className="mt-7 border-b border-slate-200 pb-10 dark:border-slate-800">
-            <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-50 sm:text-5xl">
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-50 sm:text-4xl">
               {guide.title}
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-slate-600 dark:text-slate-400">{guide.intro}</p>
@@ -103,10 +104,14 @@ export default async function GuidePage({ params }: PageProps) {
             </p>
           </header>
 
+          <nav aria-label="On this page" className="mt-8 border-b border-slate-200 pb-8 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">On this page</h2>
+            <ol className="mt-3 space-y-1 text-sm">{guide.sections.map((section, i) => <li key={section.title}><a className="inline-flex min-h-9 items-center text-indigo-600 hover:underline dark:text-indigo-400" href={`#section-${i + 1}`}>{section.title}</a></li>)}</ol>
+          </nav>
           <div className="mt-12 space-y-12">
-            {guide.sections.map((section) => (
-              <section key={section.title}>
-                <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-50">
+            {guide.sections.map((section, i) => (
+              <section key={section.title} id={`section-${i + 1}`} className="scroll-mt-24">
+                <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
                   {section.title}
                 </h2>
                 <div className="mt-5 space-y-4 text-base leading-relaxed text-slate-700 dark:text-slate-300">
@@ -151,12 +156,13 @@ export default async function GuidePage({ params }: PageProps) {
                     {". "}{section.reference.note}
                   </p>
                 )}
+                <GuideDetails section={section} />
               </section>
             ))}
           </div>
 
           <p className="mt-10 text-sm leading-relaxed text-slate-500">
-            Writing exercises and invented examples are suggestions from Headcanon Generator, not quotations or official story material.
+            Original writing examples by Headcanon Generator.
             {" "}<Link href="/about#content-review" className="text-indigo-600 hover:underline dark:text-indigo-400">How content is reviewed</Link>.
           </p>
 

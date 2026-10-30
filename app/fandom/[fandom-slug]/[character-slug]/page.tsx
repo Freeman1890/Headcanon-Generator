@@ -5,6 +5,8 @@ import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { STATIC_HEADCANON_EXAMPLES } from "@/lib/static-examples";
 import { SITE_URL } from "@/lib/site";
+import { GojoStudy } from "@/components/GojoStudy";
+import { GOJO_STUDY } from "@/lib/gojo-study";
 import {
   Card,
   CardContent,
@@ -51,6 +53,7 @@ export async function generateMetadata({
       url,
       siteName: "Headcanon Generator",
       type: "article",
+      ...(match.id === "gojo-jjk" ? { modifiedTime: GOJO_STUDY.updated } : {}),
     },
   };
 }
@@ -74,6 +77,7 @@ export default async function FandomCharacterPage({ params }: PageProps) {
       headline: match.metaTitle,
       description: match.metaDescription,
       url: pageUrl,
+      ...(match.id === "gojo-jjk" ? { dateModified: GOJO_STUDY.updated, citation: GOJO_STUDY.sources.map(source => source.href) } : {}),
       author: { "@type": "Organization", name: "Headcanon Generator", url: SITE_URL },
       publisher: { "@type": "Organization", name: "Headcanon Generator", url: SITE_URL },
     },
@@ -96,6 +100,8 @@ export default async function FandomCharacterPage({ params }: PageProps) {
       })),
     },
   ];
+
+  if (match.id === "gojo-jjk") return <GojoStudy schemas={schemas} />;
 
   return (
     <>

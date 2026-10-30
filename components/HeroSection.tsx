@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { GenerationMode } from "@/lib/commerce";
@@ -108,6 +109,7 @@ export function HeroSection({
                 {mode === 'relationship' && <label className="min-w-0"><span className="mb-2 block font-medium">Relationship type</span><select value={options.relationshipKind} onChange={event => onOptionsChange({ ...options, relationshipKind: event.target.value as GenerationOptions['relationshipKind'] })} className="min-h-11 w-full rounded-md border border-slate-300 bg-white px-3 dark:border-slate-600 dark:bg-slate-900"><option value="any">Any dynamic</option><option value="friendship">Friendship (no romance)</option><option value="romance">Romance / ship</option><option value="rivals">Rivals</option></select></label>}
                 <label className="min-w-0"><span className="mb-2 block font-medium">Tone</span><select value={options.tone} onChange={event => onOptionsChange({ ...options, tone: event.target.value as GenerationOptions['tone'] })} className="min-h-11 w-full rounded-md border border-slate-300 bg-white px-3 dark:border-slate-600 dark:bg-slate-900"><option value="any">Any tone</option><option value="fluff">Fluff / warm everyday moments</option></select></label>
                 <label className="min-w-0 sm:col-span-2"><span className="mb-2 block font-medium">Scene (optional)</span><Input value={options.scenario} onChange={event => onOptionsChange({ ...options, scenario: event.target.value })} maxLength={240} placeholder="Waiting for the rain to stop after training" className="min-h-11 rounded-md bg-white dark:bg-slate-900" /></label>
+                <Link href="/guides/headcanon-generator-prompts" className="inline-flex min-h-11 items-center text-indigo-600 underline underline-offset-4 dark:text-indigo-400 sm:col-span-2">Browse 10 input examples</Link>
               </div>
             </details>
             <p className="text-sm text-slate-600 dark:text-slate-400">1 credit for 5 ideas. 100 credits for $9.90, no subscription.{balance !== undefined ? ` Balance: ${balance}.` : ''}</p>

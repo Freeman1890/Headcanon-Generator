@@ -4,7 +4,7 @@ import { AccountProvider } from "@/components/AccountProvider";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const reviewName = process.env.GEO_REVIEW === "2" ? "内容质量优化预览2" : process.env.GEO_REVIEW === "1" ? "内容质量优化预览1" : process.env.CONTENT_REVIEW === "1" ? "关键词内页预览2" : process.env.KEYWORD_REVIEW === "1" ? "关键词内页预览1" : process.env.PAID_REVIEW === "1" ? "付费接入预览1" : null;
+const reviewName = process.env.DEEP_CONTENT_REVIEW === "1" ? "深度内容预览1" : process.env.GEO_REVIEW === "2" ? "内容质量优化预览2" : process.env.GEO_REVIEW === "1" ? "内容质量优化预览1" : process.env.CONTENT_REVIEW === "1" ? "关键词内页预览2" : process.env.KEYWORD_REVIEW === "1" ? "关键词内页预览1" : process.env.PAID_REVIEW === "1" ? "付费接入预览1" : null;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

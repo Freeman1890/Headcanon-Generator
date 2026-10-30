@@ -15,6 +15,7 @@ node_modules/
 
 # next.js
 /.next/
+/.next-deep-preview/
 /out/
 
 # production
@@ -26,6 +27,7 @@ node_modules/
 
 # debug
 npm-debug.log*
+.next-preview.*.log
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*

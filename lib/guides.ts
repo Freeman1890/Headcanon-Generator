@@ -1,3 +1,5 @@
+import { DEEP_WRITING_GUIDES, type InputRecipe } from "./deep-guides";
+
 export interface WritingGuide {
   slug: string;
   title: string;
@@ -10,6 +12,10 @@ export interface WritingGuide {
     paragraphs: string[];
     items?: string[];
     steps?: string[];
+    example?: { input: string; draft: string; problem: string; revised: string; scene: string[]; reason: string };
+    table?: { caption: string; columns: string[]; rows: string[][]; downloadFilename?: string };
+    recipes?: InputRecipe[];
+    links?: { href: string; label: string }[];
     comparison?: { term: string; meaning: string; example: string }[];
     reference?: { label: string; href: string; note: string };
   }[];
@@ -141,183 +147,7 @@ export const WRITING_GUIDES: WritingGuide[] = [
       { href: "/#generator", label: "Generate an idea" },
     ],
   },
-  {
-    slug: "how-to-write-a-character-headcanon",
-    title: "How to Write a Character Headcanon That Feels Specific",
-    description:
-      "Write a character headcanon by starting with canon behavior, choosing one concrete detail, and testing how it changes a short scene between characters.",
-    intro:
-      "To write a character headcanon, start with an action the source shows, add one unconfirmed detail, and test it in a short scene. Keep the invented part clear. A useful idea does not need to explain the character's whole life.",
-    published: "2026-07-30",
-    updated: "2026-10-24",
-    sections: [
-      {
-        title: "A short writing process",
-        paragraphs: ["Use these steps as a starting exercise, not a test your interpretation has to pass."],
-        steps: [
-          "Write down one action the character takes in the source, including the scene or episode if you know it.",
-          "Add one habit, object, or motive the source leaves open. Label it as your interpretation.",
-          "Let another character notice or interrupt that detail in a short scene.",
-          "Keep what fits the character and rewrite the reaction if it feels wrong.",
-        ],
-      },
-      {
-        title: "Start with an observable pattern",
-        paragraphs: [
-          "Choose something the character repeatedly does under pressure, around friends, or when they think nobody is watching. Stay close to actions before you explain motives. The same action can support more than one reading.",
-          "For example, a character who always arrives early might be anxious, considerate, controlling, or simply bad at estimating travel time. Pick the explanation that creates the most useful scene, then leave room for uncertainty.",
-        ],
-      },
-      {
-        title: "Add one physical detail",
-        paragraphs: [
-          "A prop or repeated action gives the headcanon a place to live. Use a cracked phone case, a half-finished cup of tea, a carefully folded receipt, or a chair nobody else sits in.",
-          "Concrete details also keep the idea from becoming a diagnosis or a personality summary. Readers can watch the character do something and decide what it means.",
-        ],
-        items: [
-          "What object does the character keep longer than necessary?",
-          "What ordinary task do they make unusually difficult?",
-          "Who is allowed to notice the habit?",
-          "What changes when the routine is interrupted?",
-        ],
-      },
-      {
-        title: "Test it in a scene",
-        paragraphs: [
-          "Write six to ten lines in which another character encounters the detail. Do not explain it in narration yet. Let the first character hide it, defend it, joke about it, or act as if nothing unusual happened.",
-          "If the scene only works after a paragraph of background information, make the detail smaller. A headcanon should open a question before it answers one.",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: "How long should a character headcanon be?",
-        a: "One or two sentences can be enough. Add more only when you are turning it into a scene, a list, or a longer character study.",
-      },
-      {
-        q: "What should I do if the generated idea feels out of character?",
-        a: "Keep the useful object or situation and change the reaction. The character's response matters more than preserving the generated sentence.",
-      },
-    ],
-    relatedLinks: [
-      { href: "/random-character-generator", label: "Random Character Generator" },
-      { href: "/writing-prompt-generator", label: "Writing Prompt Generator" },
-      { href: "/#generator", label: "Try the headcanon generator" },
-    ],
-  },
-  {
-    slug: "relationship-headcanon-ideas",
-    title: "Relationship Headcanon Ideas for Ships, Friends, and Rivals",
-    description:
-      "Develop relationship headcanon ideas with shared routines, uneven knowledge, small conflicts, and scene prompts for ships, friendships, and rivalries.",
-    intro:
-      "Build a relationship headcanon around a shared routine, a small disagreement, or something only one person notices about the other. Then interrupt it. The same exercise works for friends, rivals, family, and romantic pairs.",
-    published: "2026-07-30",
-    updated: "2026-10-24",
-    sections: [
-      {
-        title: "Give the relationship a repeated action",
-        paragraphs: [
-          "One person fixes the other's collar before formal events. They compete over who pays for coffee. They send each other photos of badly designed signs. A repeated action creates history without requiring a flashback.",
-          "The routine should allow for variation. On a difficult day, the collar goes unfixed or the message receives no reply. The change tells the reader something has shifted before either character says it.",
-        ],
-      },
-      {
-        title: "Use uneven knowledge",
-        paragraphs: [
-          "Give one person knowledge the other relationships do not reveal. A rival may notice a weakness that friends overlook. A sibling may remember an old fear the character has learned to hide.",
-          "Choose one fact that only this relationship makes visible. Then decide whether the knowledge feels safe, irritating, embarrassing, or dangerous to the person being read so closely.",
-        ],
-        items: [
-          "A preference one person orders without asking",
-          "A warning sign only the other person recognizes",
-          "An argument they have never fully settled",
-          "A favor that became a habit without discussion",
-        ],
-      },
-      {
-        title: "Write the interruption",
-        paragraphs: [
-          "Put the routine in front of a third person, change the setting, or make one character refuse their usual role. Interruption turns a list item into a scene.",
-          "For romance, let intimacy appear through attention rather than a speech. For friendship or rivalry, use the same approach. Recognition can be affectionate, competitive, or both.",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: "Do relationship headcanons have to be romantic?",
-        a: "No. The same methods work for friends, rivals, family members, teammates, mentors, and relationships that do not fit one label.",
-      },
-      {
-        q: "How do I enter a pair in the generator?",
-        a: "Choose Relationship, put one name in First character and the other in Second character, then add the fandom if useful. More options lets you choose Friendship, Romance / ship, or Rivals and add a scene.",
-      },
-    ],
-    relatedLinks: [
-      { href: "/relationship-headcanon-generator", label: "Relationship Headcanon Generator" },
-      { href: "/multiple-character-headcanon-generator", label: "Multiple Character Headcanon Generator" },
-      { href: "/guides/how-to-write-a-character-headcanon", label: "Character headcanon guide" },
-    ],
-  },
-  {
-    slug: "how-to-create-an-oc-headcanon",
-    title: "How to Create an OC Headcanon Without Writing a Full Profile",
-    description:
-      "Build an original character headcanon from one choice, habit, or contradiction, then expand it into a focused profile, scene, or roleplay setup for writing.",
-    intro:
-      "Start an OC headcanon with one choice: what the character does, why they might do it, and what could change their mind. Try it in a scene before building a full profile. The detail can change as you learn more about the character.",
-    published: "2026-07-30",
-    updated: "2026-10-24",
-    sections: [
-      {
-        title: "Begin with a choice, not a trait",
-        paragraphs: [
-          "Instead of writing that an OC is generous, decide what they give away and what they refuse to share. Instead of calling them cautious, show what they check twice before leaving home.",
-          "Choices have context. A character can be patient with children and impatient with authority, brave in public and hesitant when asking for help. That variation keeps a profile from feeling like a list of fixed settings.",
-        ],
-      },
-      {
-        title: "Add a useful contradiction",
-        paragraphs: [
-          "A contradiction is not two random traits placed together. It is a point where the character's values compete. Someone may want to be dependable but hate being needed. Another person may value honesty and still hide anything that makes them look uncertain.",
-          "Give the contradiction a cost small enough to show in a scene. They miss a train because they went back to check a lock, or they agree to help and quietly resent the interruption.",
-        ],
-        items: [
-          "What do they want others to assume about them?",
-          "Which ordinary task exposes the opposite?",
-          "Who gets the most honest version of the character?",
-          "What would make them abandon a familiar routine?",
-        ],
-      },
-      {
-        title: "Let the profile follow the scene",
-        paragraphs: [
-          "Use the headcanon in a short interaction before deciding on every date, relative, or formative event. The scene will tell you which background details are actually needed.",
-          "Afterward, record only what became useful: the choice, the reason you currently believe it happens, and one condition that could change it. This gives the character room to surprise you later.",
-        ],
-        steps: [
-          "Record the choice the character made in the scene.",
-          "Note the motive you are testing, without treating it as a settled fact.",
-          "Add one situation in which they might act differently.",
-        ],
-      },
-    ],
-    faqs: [
-      {
-        q: "Can I use the OC generator without choosing a fandom?",
-        a: "Yes. Enter a name or temporary label and leave the fandom blank for an original setting.",
-      },
-      {
-        q: "Should an OC headcanon become part of the final profile?",
-        a: "Only if it helps. Treat the idea as a test. Keep it when it creates better choices or scenes, and discard it when it narrows the character too early.",
-      },
-    ],
-    relatedLinks: [
-      { href: "/oc-headcanon-generator", label: "OC Headcanon Generator" },
-      { href: "/random-character-generator", label: "Random Character Generator" },
-      { href: "/writing-prompt-generator", label: "Writing Prompt Generator" },
-    ],
-  },
+  ...DEEP_WRITING_GUIDES,
 ];
 
 export function findWritingGuide(slug: string) {

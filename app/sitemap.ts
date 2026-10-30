@@ -4,6 +4,7 @@ import { FANDOM_HUBS } from "@/lib/fandom-hubs";
 import { WRITING_GUIDES } from "@/lib/guides";
 import { STATIC_HEADCANON_EXAMPLES } from "@/lib/static-examples";
 import { WRITING_TOOLS } from "@/lib/writing-tools";
+import { GOJO_STUDY } from "@/lib/gojo-study";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
@@ -36,6 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/oc-headcanon-generator",
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
+    ...(path === "/relationship-headcanon-generator" ? { lastModified: "2026-10-30" } : {}),
     changeFrequency: "monthly" as const,
     priority: 0.8,
   }));
@@ -43,6 +45,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const fandomPages: MetadataRoute.Sitemap = STATIC_HEADCANON_EXAMPLES.map(
     (item) => ({
       url: `${SITE_URL}${item.shareUrl}`,
+      ...(item.id === "gojo-jjk" ? { lastModified: GOJO_STUDY.updated } : {}),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })

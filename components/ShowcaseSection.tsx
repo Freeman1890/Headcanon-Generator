@@ -187,7 +187,7 @@ function ShowcaseCard({
             titleContent
           )}
         </CardTitle>
-        <CardDescription>AI-generated Headcanon</CardDescription>
+        <CardDescription>{staticExampleUrl ? "Sample headcanon" : "AI-generated Headcanon"}</CardDescription>
       </CardHeader>
       <CardContent>
         <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700 dark:text-slate-300">

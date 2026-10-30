@@ -22,7 +22,7 @@ function load(relative) {
     compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true },
   }).outputText;
   vm.runInNewContext(code, {
-    module, exports: module.exports, process: { env: {} }, URL, Intl, Date,
+    module, exports: module.exports, process: { env: {} }, URL, URLSearchParams, Intl, Date,
     require(name) {
       if (["@/components/Footer", "@/components/Navigation"].includes(name)) {
         return { Footer: () => null, Navigation: () => null };
@@ -66,7 +66,7 @@ test("pricing explains the approved one-time pack and how to purchase", () => {
 });
 
 test("guide dates are explicit, valid, and stable across sitemap generation", () => {
-  assert.equal(WRITING_GUIDES.length, 5);
+  assert.equal(WRITING_GUIDES.length, 6);
   for (const guide of WRITING_GUIDES) {
     for (const value of [guide.published, guide.updated]) {
       assert.match(value, /^\d{4}-\d{2}-\d{2}$/);
@@ -128,7 +128,7 @@ test("citations point to the references visible on the same page", async () => {
       assert.ok(["www.dictionary.com", "www.merriam-webster.com"].includes(new URL(reference.href).hostname));
       assert.ok(html.includes(`href="${reference.href}"`));
     }
-    assert.ok(html.includes("not quotations or official story material"));
+    assert.ok(html.includes("Original writing examples by Headcanon Generator."));
   }
 });
 
@@ -152,6 +152,74 @@ test("about page exposes the byline destination without claiming outside credent
   const html = renderToStaticMarkup(React.createElement(About));
   assert.ok(html.includes('id="content-review"'));
   assert.ok(html.includes("not an outside expert"));
+});
+
+test("deep guides include complete revisions, nine relationship cases, and an actual six-field worksheet", async () => {
+  const writing = WRITING_GUIDES.find(guide => guide.slug === "how-to-write-a-character-headcanon");
+  const examples = writing.sections.filter(section => section.example);
+  assert.equal(examples.length, 3);
+  for (const { example } of examples) {
+    for (const field of ["input", "draft", "problem", "revised", "reason"]) assert.ok(example[field].length > 30);
+    assert.ok(example.scene.length >= 4);
+    assert.notEqual(example.draft, example.revised);
+  }
+  const relationship = WRITING_GUIDES.find(guide => guide.slug === "relationship-headcanon-ideas");
+  const tables = relationship.sections.filter(section => section.table);
+  assert.equal(tables.length, 3);
+  assert.equal(tables.flatMap(section => section.table.rows).length, 9);
+  for (const { table } of tables) assert.equal(table.rows.map(row => row[0]).join(","), "Friendship,Romance,Rivals");
+  const oc = await render("how-to-create-an-oc-headcanon");
+  for (const field of ["Character / setting", "What they want", "One habit or contradiction", "What gets in their way", "What I have not decided", "A scene that would test it"]) assert.ok(oc.includes(field));
+  assert.ok(oc.includes('aria-label="Download text"'));
+  const paragraphs = WRITING_GUIDES.slice(2).flatMap(guide => guide.sections.flatMap(section => section.paragraphs));
+  assert.equal(new Set(paragraphs).size, paragraphs.length);
+  assert.ok(!/[\u2013\u2014]/.test(JSON.stringify(WRITING_GUIDES.slice(2))));
+  assert.ok(!/not a test|not official|rather than separate near-identical|without flattening|not quotations/.test(JSON.stringify(WRITING_GUIDES.slice(2))));
+});
+
+test("ten input recipes round-trip through the real draft parser and respect every field limit", async () => {
+  const { INPUT_RECIPES, recipeHref, recipeText } = load("lib/deep-guides.ts");
+  const { readGeneratorDraft } = load("lib/generator-draft.ts");
+  assert.equal(INPUT_RECIPES.length, 10);
+  for (const recipe of INPUT_RECIPES) {
+    const url = new URL(recipeHref(recipe), "https://headcanongenerator.run");
+    const draft = readGeneratorDraft(url.search, { characterName: "Old name", secondCharacter: "Old pair", workName: "Old fandom", tone: "fluff" });
+    assert.equal(draft.characterName, recipe.character);
+    assert.equal(draft.secondCharacter, recipe.secondCharacter ?? "");
+    assert.equal(draft.workName, recipe.fandom ?? "");
+    assert.equal(draft.mode, recipe.mode);
+    assert.equal(draft.relationshipKind, recipe.relationshipKind ?? "any");
+    assert.equal(draft.tone, recipe.tone ?? "any");
+    assert.equal(draft.scenario, recipe.scenario);
+    assert.ok(recipe.scenario.length <= 240);
+    assert.ok(recipe.character.length <= 80);
+    assert.ok((recipe.secondCharacter?.length ?? 0) <= 80);
+    assert.ok(recipeText(recipe).includes(`Scene: ${recipe.scenario}`));
+  }
+  const html = await render("headcanon-generator-prompts");
+  assert.equal((html.match(/>Load input<\/a>/g) ?? []).length, 10);
+  const metadata = await guidePage.generateMetadata({ params: Promise.resolve({ slug: "headcanon-generator-prompts" }) });
+  assert.equal(metadata.alternates.canonical, "https://headcanongenerator.run/guides/headcanon-generator-prompts");
+  assert.ok(sitemap().some(item => item.url === metadata.alternates.canonical));
+});
+
+test("Gojo study separates official sources, interpretation, and original fiction", async () => {
+  const { GOJO_STUDY, GOJO_EXAMPLE } = load("lib/gojo-study.ts");
+  const page = load("app/fandom/[fandom-slug]/[character-slug]/page.tsx");
+  const params = Promise.resolve({ "fandom-slug": "jujutsu-kaisen", "character-slug": "gojo-satoru" });
+  const html = renderToStaticMarkup(await page.default({ params }));
+  const schema = articleSchema(html);
+  assert.equal(schema.dateModified, GOJO_STUDY.updated);
+  assert.equal(JSON.stringify(schema.citation), JSON.stringify(GOJO_STUDY.sources.map(source => source.href)));
+  for (const source of GOJO_STUDY.sources) {
+    assert.equal(new URL(source.href).hostname, "jujutsukaisen.jp");
+    assert.ok(html.includes(source.href));
+  }
+  for (const label of ["Two source anchors", "A reading to build on", "Original fan-writing example", "season 1 episode 7"]) assert.ok(html.includes(label));
+  assert.equal(GOJO_EXAMPLE.moreIdeas.length, 4);
+  assert.equal(sitemap().find(item => item.url.endsWith(GOJO_EXAMPLE.shareUrl)).lastModified, GOJO_STUDY.updated);
+  assert.equal(sitemap().find(item => item.url.endsWith("/relationship-headcanon-generator")).lastModified, "2026-10-30");
+  assert.ok(!/afraid of being alone|blindfold helps him control|loneliness themes/.test(html));
 });
 
 const renderHomeArticle = () => {

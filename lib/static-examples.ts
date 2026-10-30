@@ -1,3 +1,5 @@
+import { GOJO_EXAMPLE } from "./gojo-study";
+
 export const STATIC_HEADCANON_EXAMPLES = [
   {
     id: "raiden-genshin",
@@ -62,69 +64,7 @@ export const STATIC_HEADCANON_EXAMPLES = [
     ],
     shareUrl: "/fandom/genshin-impact/raiden-shogun",
   },
-  {
-    id: "gojo-jjk",
-    characterName: "Gojo Satoru",
-    workName: "Jujutsu Kaisen",
-    metaTitle: "Gojo Satoru headcanon ideas for Jujutsu Kaisen fans",
-    metaDescription:
-      "Read Gojo Satoru headcanon ideas for Jujutsu Kaisen, with loneliness themes, blindfold details, scene prompts, fanfiction notes, and fic hooks for writers.",
-    summary:
-      "Gojo jokes first and lets very few people see what is underneath. These headcanons use that contrast without flattening him into a sad version of himself.",
-    content:
-      "Gojo is afraid of being alone, though he would never say it plainly. During his time at Jujutsu High, he got used to keeping someone nearby. The blindfold helps him control more than cursed energy. It also keeps people from seeing when his face gets too honest.",
-    whyItFits: [
-      "It explains his loud confidence without removing the confidence.",
-      "His attachment to students feels less random when it comes from habit and loss.",
-      "The blindfold becomes practical and emotional at the same time.",
-    ],
-    moreIdeas: [
-      "He leaves lights on in empty rooms and claims it is because the building looks better that way.",
-      "He buys too many snacks for students because he dislikes the feeling of a quiet staff room.",
-      "He remembers small preferences, then pretends he guessed because being openly considerate feels too exposed.",
-      "He has a habit of showing up early and acting like he arrived late on purpose.",
-      "He keeps old photos badly organized because putting them in order would make the past feel too final.",
-      "He makes jokes during tense pauses because silence gives everyone too much room to think.",
-      "He can handle physical danger easily but avoids conversations where someone asks if he is okay.",
-      "He sometimes removes the blindfold only when he is alone, then puts it back on before anyone can knock.",
-      "A Gojo Satoru headcanon can make his loud entrance feel like a way of checking whether anyone waited for him.",
-      "Another Gojo Satoru headcanon is that he saves casual messages longer than he admits because they prove someone reached out first.",
-      "For a quiet Gojo Satoru headcanon, let him remember the exact seat someone used to take and still avoid looking at it.",
-      "A lighter Gojo Satoru headcanon can turn his snack habit into a clumsy attempt to make a room feel occupied.",
-    ],
-    sceneIdeas: [
-      "Use this Gojo Satoru headcanon in a late classroom scene. Let him act casual while the empty desks make the room feel louder than it should.",
-      "A student can notice that Gojo always brings enough snacks for people who are not there. The scene does not need to explain everything. The habit says enough.",
-      "For a heavier story, make the blindfold the object that marks a shift. If he takes it off, the moment should feel private rather than flashy.",
-      "For humor, let another character call out the obvious loneliness and watch Gojo dodge the point with a terrible joke.",
-    ],
-    writerNotes: [
-      "Keep his confidence real. The headcanon works because confidence and loneliness can exist at the same time.",
-      "Do not make every joke a mask. Some jokes can simply be jokes, which makes the serious moments land better.",
-      "Use small repeated actions instead of long confessions. Gojo often reads stronger when he avoids the direct line.",
-    ],
-    prompts: [
-      "Write Gojo staying late after class because the empty room feels wrong.",
-      "Use the blindfold as a small tell in a scene where he almost drops the act.",
-      "Write a scene where someone notices he bought a snack for a person who is no longer there.",
-      "Write a Gojo Satoru headcanon scene where one joke lands too late and the silence says more than he planned.",
-    ],
-    faqs: [
-      {
-        q: "Is this Gojo Satoru headcanon too sad?",
-        a: "It can be sad, but it does not have to be. The best version keeps his humor and confidence alive.",
-      },
-      {
-        q: "What kind of fanfiction fits this idea?",
-        a: "It fits teacher-student bonding, friendship, grief recovery, and quiet character studies.",
-      },
-      {
-        q: "How do I avoid making Gojo out of character?",
-        a: "Let him resist emotional honesty. Show the feeling through behavior before dialogue.",
-      },
-    ],
-    shareUrl: "/fandom/jujutsu-kaisen/gojo-satoru",
-  },
+  GOJO_EXAMPLE,
   {
     id: "anya-spy",
     characterName: "Anya Forger",

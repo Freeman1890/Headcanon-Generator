@@ -4,6 +4,7 @@
     { "name": "关键词内页预览1", "url": "http://127.0.0.1:3010", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-keyword-pages", "changes": "三组作品专题、已有关键词页与内链优化、可选友情/恋爱/温馨及情境约束；仅本地审核。" },
     { "name": "关键词内页预览2", "url": "http://127.0.0.1:3012", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-content-pages", "changes": "保留预览1的三个作品专题；优化第一类既有页面，新增第二类六个可用写作资源与工具；第三四类排除。" },
     { "name": "内容质量优化预览1", "url": "http://127.0.0.1:3014", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-geo-review", "changes": "日期数据统一、五篇指南直接答案与组织署名、术语对照表和编号步骤、核实来源、语义化列表与 llms.txt；不改交互，仅本地审核。" },
-    { "name": "内容质量优化预览2", "url": "http://127.0.0.1:3016/#headcanon-basics", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-home-review", "changes": "首页正文补充直接定义、核实的词典引文、三种模式语义对照表和真实积分数据列表；保留首屏、生成器与支付交互，仅本地审核。" }
+    { "name": "内容质量优化预览2", "url": "http://127.0.0.1:3016/#headcanon-basics", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-home-review", "changes": "首页正文补充直接定义、核实的词典引文、三种模式语义对照表和真实积分数据列表；保留首屏、生成器与支付交互，仅本地审核。" },
+    { "name": "深度内容预览1", "url": "http://127.0.0.1:3018/guides/headcanon-generator-prompts", "directory": "C:/Users/Freeman/Documents/New project/output/headcanon-deep-content-review", "changes": "深化三篇指南与关系工具页；Gojo 示范加入官方来源、版本范围和改稿过程；新增十组可载入表单的输入示例；去重并精简防御性说明。仅本地审核，不部署。" }
   ]
 }

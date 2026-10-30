@@ -51,3 +51,19 @@ marketing hero. Add no logo, theme, decorative illustration or pricing tier.
 Use original curated questions/tropes and an editable worksheet; label them
 free and finite. AI scenario/dialogue/plot tools reuse existing Kie billing,
 but display distinct results and honest limits. No production release here.
+
+## 深度内容预览1
+
+Local review only, 2026-10-30. Re-read the Notion DESIGN.md reference from
+awesome-design-md on this date. Retain the current system font, slate text,
+white reading surfaces and indigo links. Adopt flat reading sections, thin
+dividers, explicit table headers and 44px action targets. Reject the reference's
+brand assets, marketing composition, negative tracking and nested cards.
+
+Worked examples use definition lists and short scene excerpts. Comparison
+tables carry captions and row headers. Input recipes reuse the existing
+copy control and query-prefill parser; loading an example never generates
+or purchases anything. Preserve all preceding preview directories.
+DEEP_CONTENT_REVIEW=1 supplies the title, version bar, noindex and isolated
+development cache. Production metadata remains unchanged unless the page's
+actual content has changed. No payment or model configuration is modified.
