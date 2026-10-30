@@ -16,7 +16,7 @@
   "migrations": [{ "tag": "headcanon-v1", "new_sqlite_classes": ["AccountState", "UserDirectory"] }],
   "vars": {
     "APP_MODE": "live", "APP_ORIGIN": "https://headcanongenerator.run",
-    "AUTH_ENABLED": "true", "GENERATION_ENABLED": "true", "PAYMENTS_ENABLED": "false",
+    "AUTH_ENABLED": "true", "GENERATION_ENABLED": "true", "PAYMENTS_ENABLED": "true",
     "WAFFO_ENVIRONMENT": "prod", "WAFFO_STORE_ID": "STO_5RCWMHU8zKcYvsxyV20RFi",
     "WAFFO_LEGACY_STORE_ID": "STO_2WFRlSLuzKThTvph3hIscL", "WAFFO_LEGACY_PRODUCT_PACK": "PROD_6b3e87XeNx71Ex5COA7lVx",
     "WAFFO_LEGACY_CHECKOUT_BEFORE": "2026-10-29T12:29:40Z",

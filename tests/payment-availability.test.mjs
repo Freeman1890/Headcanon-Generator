@@ -44,9 +44,13 @@ const hero = (paymentsEnabled) => render(HeroSection, {
   options: { relationshipKind: "any", tone: "any", scenario: "" }, paymentsEnabled,
 });
 
-test("production pauses purchases without disabling authentication or generation", () => {
+test("production enables the approved independent store without disabling authentication or generation", () => {
   const config = ts.parseConfigFileTextToJson("wrangler.jsonc", fs.readFileSync(path.join(root, "commerce/wrangler.jsonc"), "utf8")).config;
-  assert.equal(config.vars.PAYMENTS_ENABLED, "false");
+  assert.equal(config.vars.PAYMENTS_ENABLED, "true");
+  assert.equal(config.vars.WAFFO_ENVIRONMENT, "prod");
+  assert.equal(config.vars.WAFFO_STORE_ID, "STO_5RCWMHU8zKcYvsxyV20RFi");
+  assert.equal(config.vars.WAFFO_PRODUCT_PACK, "PROD_1V8B29BgCx694uhxyDYJd3");
+  assert.equal(config.vars.WAFFO_PRICE_PACK, "990");
   assert.equal(config.vars.AUTH_ENABLED, "true");
   assert.equal(config.vars.GENERATION_ENABLED, "true");
 });

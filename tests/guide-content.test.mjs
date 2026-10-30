@@ -47,14 +47,16 @@ const sitemap = load("app/sitemap.ts").default;
 const render = async (slug) => renderToStaticMarkup(await guidePage.default({ params: Promise.resolve({ slug }) }));
 const articleSchema = (html) => JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]).find((item) => item["@type"] === "Article");
 
-test("pricing explains the approved one-time pack without reopening paused checkout", () => {
+test("pricing explains the approved one-time pack and how to purchase", () => {
   const page = load("app/pricing/page.tsx");
   const html = renderToStaticMarkup(React.createElement(page.default));
   assert.ok(html.includes("100 credits for US$9.90"));
   assert.ok(html.includes("No subscription, automatic renewal, or expiry date"));
-  assert.ok(html.includes("temporarily paused"));
+  assert.ok(!html.includes("temporarily paused"));
+  assert.ok(html.includes("Waffo hosts checkout"));
+  assert.ok(html.includes("Credits are added after payment is confirmed"));
   assert.ok(html.includes("100 successful batches, or 500 individual results"));
-  assert.ok(!html.includes("Buy 100 credits"));
+  assert.ok(html.includes("Buy 100 credits"));
   assert.equal(page.metadata.alternates.canonical, "https://headcanongenerator.run/pricing");
   assert.ok(sitemap().some(item => item.url === page.metadata.alternates.canonical));
   for (const route of ["pricing", "contact", "terms"]) {
